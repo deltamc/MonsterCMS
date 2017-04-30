@@ -1,0 +1,1 @@
+<h1 style="background:#193c5a"><?=$head?> (sut)</h1>

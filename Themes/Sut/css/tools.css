@@ -1,0 +1,18 @@
+.alert {
+  margin-bottom: 6px; }
+
+.btn {
+  outline: none; }
+  .btn:hover, .btn:hover:active, .btn:focus, .btn:active, .btn.active {
+    outline: none; }
+
+.messages_line {
+  max-height: 500px;
+  overflow: hidden;
+  overflow-y: auto; }
+
+kbd {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.row.auth {
+  padding-top: 100px; }
