@@ -1,4 +1,4 @@
-<? namespace  Monstercms\Lib;
+<?php namespace  Monstercms\Lib;
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
