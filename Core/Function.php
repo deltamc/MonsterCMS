@@ -1,16 +1,8 @@
-<?
+<?php
 /*@TODO перенести в класс MCMS*/
 
 
-//@TODO перенести в класс users
-function is_admin()
-{
-    global $USER_IS;
-
-    if($USER_IS) return true;
-                 return false;
-}
-
+/*
 
 function admin_tools($ADMIN_BUTTONS)
 {
@@ -71,11 +63,10 @@ function admin_tools_modules()
         }
     }
 }
+*/
 
 /*сокращенный вариант htmlspecialchars */
 function hc($text)
 {
     return htmlspecialchars($text);
 }
-
-?>
