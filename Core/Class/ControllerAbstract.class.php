@@ -28,14 +28,14 @@ abstract class ControllerAbstract
 
         $this->view = new Lib\View(array(
             THEMES_DIR . DS . THEME . DS . $this->moduleName,
-            MODULE_DIR . DS . $this->moduleName . DS . 'views'
+            MODULE_DIR . DS . $this->moduleName . DS . 'Views'
         ));
 
         $this->db = Mcms::DB();
 
         $this->modulePath =  MODULE_DIR . DS . $this->moduleName . DS;
 
-        $conf_file = $this->modulePath . 'config.php';
+        $conf_file = $this->modulePath . 'Config.php';
 
         if (is_file($conf_file)) {
             $this->config = include($conf_file);

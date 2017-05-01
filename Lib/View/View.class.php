@@ -122,9 +122,13 @@ class View
     protected function getPath($file) {
         $inc = null;
 
+
+
         foreach($this->includePath as $path) {
 
             $path = trim($path, DIRECTORY_SEPARATOR);
+
+            print $path . DIRECTORY_SEPARATOR . $file.'<br />';
 
             if (is_file($path . DIRECTORY_SEPARATOR . $file )) {
                 $inc = $path . DIRECTORY_SEPARATOR . $file;

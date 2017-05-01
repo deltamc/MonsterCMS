@@ -55,8 +55,9 @@ class Controller extends Core\ControllerAbstract
                 'WINDOW_SIZE' =>  $item['window_size']
 
             );
+            $type = ucfirst($item['type']);
 
-            $out .= $this->view->get("Buttons/". $item['type'].'.php', $tags);
+            $out .= $this->view->get("Buttons" . DS . $type . '.php', $tags);
         }
 
 
