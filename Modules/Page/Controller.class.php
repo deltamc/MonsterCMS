@@ -50,7 +50,7 @@ class Controller extends Core\ControllerAbstract
      *
      * @return null|array - элементы формы
      */
-    public function eventMenuItemEditForm($moduleName, $itemType, $id)
+    public function eventMenuItemEditForm($moduleName, $itemType,  $objectId)
     {
 
         if($moduleName != $this->moduleName) return null;

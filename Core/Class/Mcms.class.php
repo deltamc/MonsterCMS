@@ -120,6 +120,9 @@ class Mcms
             } else {
                 if (isset($it['type']) && $it['type'] == 'event') {
 
+                    if(!is_array($params)) {
+                        $params = array();
+                    }
                     array_unshift($params, $moduleName);
 
                     $items = Events::cell($it['event'], 'array_merge', $params);
