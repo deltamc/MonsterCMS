@@ -2,8 +2,8 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use Monstercms\Lib\View;
-use Monstercms\Lib\javascript;
-use Monstercms\Lib\css;
+use Monstercms\Lib\JavaScript;
+use Monstercms\Lib\Css;
 use Monstercms\Core;
 
 
