@@ -1,4 +1,4 @@
-<? namespace  Monstercms\Lib;
+<?php namespace  Monstercms\Lib;
 
 class JavaScript
 {
@@ -53,4 +53,3 @@ class JavaScript
         return $out;
     }
 }
-?>
