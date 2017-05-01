@@ -44,11 +44,14 @@ $objectId         = $menuItemInfo->object_id;
 $itemType         = $menuItemInfo->item_type;
 
 
+//Получаем конфигурации модуля
+$config = Module::get($moduleName)->config;
+
 //Проверяем тип пункта меню (должен быть прописан в насторйках модуля "menu_items")
 if(empty($config['menu_items'][$itemType]))
     throw new \Exception("Item type error");
-//Получаем конфигурации модуля
-$config = Module::get($moduleName)->config;
+
+
 $moduleAddConfig = $config['menu_items'][$itemType];
 
 //Прификс для событий формы
