@@ -67,7 +67,7 @@ class Lang {
      * @param  array   $replace
      * @return string
      */
-    protected function makeReplacements($line, $replace)
+    protected static function makeReplacements($line, $replace)
     {
         if (empty($replace) || !is_array($replace)) return $line;
 
