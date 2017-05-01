@@ -15,6 +15,9 @@ if (!Core\Users::isAdmin()) {
 //Назначаем базовый шаблон
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
 
+//Заголовок формы
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Site.headingAdd'));
+
 //Имя модуля добавляемого пункта меню
 $moduleName = $this->getParam('item_module');
 //Тип пункта меню

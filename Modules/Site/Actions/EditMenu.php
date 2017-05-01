@@ -22,7 +22,8 @@ $id = $this->getObjectId();
 
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
 
-$this->view->add('TITLE', Core\Lang::get('Site.editMenuTitle'));
+//Заголовок формы
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Site.editMenuTitle'));
 
 $formItems = include($this->modulePath . 'Forms' . DS . 'Menu.php');
 

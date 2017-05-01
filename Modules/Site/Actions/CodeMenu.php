@@ -44,6 +44,7 @@ $menu = $this->model('Menu')->menuInfo($id);
 
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
 
+
 $vars = array('form'=>$html, 'menu_name' => $menu->name);
 
 $this->view->inc('BODY', 'CodeMenu.php', $vars);

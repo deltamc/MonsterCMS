@@ -15,7 +15,8 @@ if (!Core\Users::isAdmin()) {
 
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
 
-$this->view->add('TITLE', Core\Lang::get('Site.addMenuTitle'));
+//Заголовок формы
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Site.addMenuTitle'));
 
 $form_items = include($this->modulePath . 'Forms' . DS . 'Menu.php');
 

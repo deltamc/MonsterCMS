@@ -24,8 +24,9 @@ if (!Core\Users::isAdmin()) {
 
 //Назначаем базовый шаблон
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+
 //Заголовок формы
-$this->view->replace('TITLE', Core\Lang::get('Site.headingEdit'));
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Site.headingEdit'));
 
 //Ид объекта (пункта меню)
 $menuItemId = $this->getObjectId();

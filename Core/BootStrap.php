@@ -4,6 +4,7 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 use Monstercms\Lib\View;
 use Monstercms\Lib\javascript;
 use Monstercms\Lib\css;
+use Monstercms\Core;
 
 
 //Устанавливаем кодировку utf-8

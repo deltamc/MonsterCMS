@@ -11,8 +11,8 @@
 
 </head>
 <body>
-<?if(!empty($TITLE)):?>
-    <h1><?=$TITLE?></h1>
+<?if(!empty($DIALOG_HEAD)):?>
+    <h1><?=$DIALOG_HEAD?></h1>
 <?endif?>
 <?=$BODY?>
 
