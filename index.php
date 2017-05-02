@@ -63,7 +63,7 @@ catch (\Exception $e)
 Module::get('MenuAdmin')->view();
 
 
-View::add('THEME_PATH',  'themes' . DS . THEME . DS);
+View::add('THEME_PATH',  THEMES_DIR . DS . THEME . DS);
 View::add('BASE',        SITE_URL. '/' . THEMES_DIR .  '/' . THEME . '/');
 View::add('HEAD',        '');
 View::add('CSS',         Lib\Css::get());
