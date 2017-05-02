@@ -37,6 +37,6 @@ View::setBasicTemplate(THEMES_DIR . DS . THEME . DS . 'Base.php');
 View::add('BODY',  '');
 
 
-JavaScript::add('/JavaScript/jquery.min.js');
-JavaScript::add('/JavaScript/mcms.windows.jquery.js');
-Css::add('/' . THEMES_DIR . '/' . THEMES_ADMIN . '/css/ui.css');
+JavaScript::add(SITE_URL . '/JavaScript/jquery.min.js');
+JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');
+Css::add(SITE_URL . '/' . THEMES_DIR . '/' . THEMES_ADMIN . '/css/ui.css');

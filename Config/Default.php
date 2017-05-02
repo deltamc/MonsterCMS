@@ -26,6 +26,9 @@ define('DB_USER', 'root');
  */
 define('DB_PASSWORD', '');
 
+/*URL сайта*/
+define("SITE_URL",   "//" . HOST);
+
 
 /**
  * Префикс таблиц БД

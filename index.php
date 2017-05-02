@@ -10,7 +10,7 @@ define('HOST',        $_SERVER["HTTP_HOST"]);
 define('DS',          DIRECTORY_SEPARATOR);
 define('MCMS_ACCESS', true);
 define('ROOT',        rtrim(dirname(__FILE__), '\\/'));
-define("SITE_URL",   "//" . HOST);
+
 define('CONFIG_DIR', 'Config');
 
 

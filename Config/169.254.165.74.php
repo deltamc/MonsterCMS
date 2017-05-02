@@ -32,6 +32,8 @@ define('DB_PASSWORD', 'simsim');
  */
 define('DB_PREFIX', 'mcms_');
 
+/*URL сайта*/
+define("SITE_URL",   "//" . HOST . '/cms');
 
 /**
  * Имя таблицы с URL
