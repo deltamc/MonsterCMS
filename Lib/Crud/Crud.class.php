@@ -1,4 +1,4 @@
-<? namespace  Monstercms\Lib;
+<?php namespace  Monstercms\Lib;
 
 use Monstercms\Core\MCMS;
 

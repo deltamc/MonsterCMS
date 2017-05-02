@@ -1,10 +1,9 @@
 <?php defined('MCMS_ACCESS') or die('No direct script access.');?>
 
-<a href="<?=$ACTION?>" class="but <?if($TARGET == "dialog"){?> win <?}?><?if($ALIGN  == "right") {?> right<?}?>"
-    <?if($TARGET != "_top" && $TARGET != "dialog") {?> target="<?=$TARGET?>" <?}?>
-    <?if($TARGET == "dialog"){?> data-size="<?=$WINDOW_SIZE?>" <?}?>
+<a href="<?=$ACTION?>" class="but <?php if($TARGET == "dialog"){?> win <?php }?><?php if($ALIGN  == "right") {?> right<?php }?>"
+    <?php if($TARGET != "_top" && $TARGET != "dialog") {?> target="<?=$TARGET?>" <?php }?>
+    <?php if($TARGET == "dialog"){?> data-size="<?=$WINDOW_SIZE?>" <?php }?>
     >
-<?if(!empty($ICO)) {?> <i class="fa <?=$ICO?>"></i> <?}?>
+<?php if(!empty($ICO)) {?> <i class="fa <?=$ICO?>"></i> <?php }?>
 <?=$TEXT?>
 </a>
-
