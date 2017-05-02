@@ -1,4 +1,4 @@
-<?php namespace Monstercms\Modules\site;
+<?php namespace Monstercms\Modules\Site;
 
 use \Monstercms\Core;
 use \Monstercms\Lib;
@@ -12,8 +12,8 @@ class Controller extends Core\ControllerAbstract
 
         parent::__construct($moduleName);
 
-        $this->structureUrl = '/' . $this->moduleName .
-            '/structure';
+        $this->structureUrl = SITE_URL . '/' . $this->moduleName .
+            '/Structure';
     }
 
 
