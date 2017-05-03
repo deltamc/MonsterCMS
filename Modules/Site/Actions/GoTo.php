@@ -26,4 +26,4 @@ if ($menu_item->url_id === 0 && !empty($menu_item->link_url)) {
     $url = '/'.$menu_item->sematic_url . URL_SEMANTIC_END;
 }
 
-Lib\header::location($url, 'top');
+Lib\Header::location($url, 'top');

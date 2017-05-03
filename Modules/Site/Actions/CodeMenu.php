@@ -23,14 +23,14 @@ if ($this->getObjectId() === 0) {
 $id = $this->getObjectId();
 
 
-$form = new Lib\form();
+$form = new Lib\Form();
 
 $items_form = array(
     array
     (
         'name' => "",
         'type' => 'textarea',
-        'label' => Lang::get('site.codeMenu'),
+        'label' => Lang::get('Site.codeMenu'),
         'value' => "<?=Monstercms\Core\Module::get('Site')->menu(" . $id . ");?>"
 
     ),

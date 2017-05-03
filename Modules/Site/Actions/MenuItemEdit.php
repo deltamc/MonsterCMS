@@ -159,9 +159,9 @@ if (!$form->is_submit()) {
             $url = '/'.$url.URL_SEMANTIC_END;
         }
 
-        Lib\header::location($url, 'top');
+        Lib\Header::location($url, 'top');
     } else {
-        Lib\header::location($this->structureUrl);
+        Lib\Header::location($this->structureUrl);
     }
 
 } else {

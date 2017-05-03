@@ -27,19 +27,21 @@ if(empty($tile)) {
     $title = $page_info->name . ' - ' . SITE_NAME;
     $pageHead->setTitle($title);
 }
-
-$edit = ($this->user_is) ? true : false;
+$edit = false;
+//$edit = (Core\Users::isAdmin()) ? true : false;
 
 $this->config['medit']['widgets']['images']['path'] =
     $this->config['image_path'] . '/' . $id;
 
-$mEdit = new Lib\medit($id, $this->config['medit'], $edit);
+$mEdit = new Lib\Medit($id, $this->config['medit'], $edit);
 
-$this->tag->BODY .= Core\Events::cell(
+$body = Core\Events::cell(
     $this->moduleName . '.top',
     'string',
     array($page_info)
 );
+
+$this->view->add('BODY', $body);
 /*
 $this->tag->BODY .= $this->view->get('top.php');
 $this->tag->BODY .= $mEdit->html;
@@ -50,8 +52,10 @@ $this->view->inc('BODY', 'Top.php');
 $this->view->add('BODY', $mEdit->html);
 $this->view->inc('BODY', 'Bottom.php');
 
-$this->tag->BODY .= Core\Events::cell(
+$body = Core\Events::cell(
     $this->moduleName . '.bottom',
     'string',
     array($page_info)
 );
+
+$this->view->add('BODY', $body);
