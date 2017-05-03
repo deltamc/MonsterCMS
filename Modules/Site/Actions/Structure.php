@@ -21,7 +21,7 @@ View::setBasicTemplate(THEMES_DIALOG_PATH);
 $this->view->add('TITLE', Lang::get('Site.structure'));
 $this->view->inc('BODY', 'StructureTools.php');
 
-$menuList = $this->model('menu')->menuList();
+$menuList = $this->model('Menu')->menuList();
 
 $vars = array
 (

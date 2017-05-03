@@ -6,9 +6,9 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 
-use \Monstercms\Core as Core;
+use \Monstercms\Core;
 use \Monstercms\Core\Lang;
-use \Monstercms\Lib as Lib;
+use \Monstercms\Lib;
 
 if ($this->getObjectId() === 0){
     throw new Core\HttpErrorException(404);
@@ -52,7 +52,7 @@ foreach ($list as $item)
            (
                'icoClass' => "fa fa-external-link-square",
                'name'     => Lang::get('Site.goTo'),
-               'url'      => "/site/GoTo/id/" . $item['id'],
+               'url'      => "/Site/GoTo/id/" . $item['id'],
                'role'     => 'link',
                'attr'     =>''
 
@@ -61,7 +61,7 @@ foreach ($list as $item)
             (
                 'icoClass' => "fa fa-cog",
                 'name'     => Lang::get('Site.config'),
-                'url'      => "/site/MenuItemEdit/id/" . $item['id'],
+                'url'      => "/Site/MenuItemEdit/id/" . $item['id'],
                'role'      => 'link',
                'attr'      => ''
 
@@ -70,7 +70,7 @@ foreach ($list as $item)
            (
                'icoClass' => "fa fa-trash-o",
                'name'     => Lang::get('Site.delete'),
-               'url'      => "/site/MenuItemDelete/id/" .
+               'url'      => "/Site/MenuItemDelete/id/" .
                             $item['id'].'/menu_id/'. $menuId,
                'role'     => 'menu-item-delete',
                'attr'     => 'data-confirm-text="'.Lang::get('Site.confirmDelete').'"'
@@ -106,7 +106,7 @@ foreach ($list as $item)
         (
             'icoClass' => "fa fa-home",
             'name'     => Lang::get('Site.makeIndex'),
-            'url'      => "/site/MakeIndex/id/" . $item['id'],
+            'url'      => "/Site/MakeIndex/id/" . $item['id'],
             'role'    => 'set-index',
             'attr'   =>''
         );

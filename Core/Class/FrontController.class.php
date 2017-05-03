@@ -210,6 +210,7 @@ class FrontController
         Module::initAll();
 
         if (Module::isModule($this->getModule())) {
+
             $module = Module::set($this->getModule());
 
             $module->setParams($this->getParams());

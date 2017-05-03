@@ -138,7 +138,7 @@ abstract class ControllerAbstract
 
         $method = preg_replace('/action$/i', '', $method);
 
-        $file = $this->modulePath . 'actions' . DS . $method.'.php';
+        $file = $this->modulePath . 'Actions' . DS . $method.'.php';
 
         if (!file_exists($file)) {
             throw new HttpErrorException(404);
