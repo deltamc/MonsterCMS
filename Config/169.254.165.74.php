@@ -26,14 +26,15 @@ define('DB_USER', 'root');
  */
 define('DB_PASSWORD', 'simsim');
 
+/*URL сайта*/
+define("SITE_URL",   "//" . HOST );
 
 /**
  * Префикс таблиц БД
  */
 define('DB_PREFIX', 'mcms_');
 
-/*URL сайта*/
-define("SITE_URL",   "//" . HOST . '/cms');
+
 
 /**
  * Имя таблицы с URL

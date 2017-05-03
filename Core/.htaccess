@@ -1,5 +1,5 @@
 php_flag engine off
-<FilesMatch "\.(php|php3|php4|php5|php6|phtml|phps)$|^$">
+<FilesMatch "\.(php|php3|php4|php5|php6|php7|phtml|phps)$|^$">
 Order allow,deny
 Deny from all
 </FilesMatch>
