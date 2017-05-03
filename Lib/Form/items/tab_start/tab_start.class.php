@@ -52,6 +52,3 @@ class tab_start extends  form_item
     }
 }
 
-
-
-?>

@@ -7,4 +7,3 @@ class email extends form_item
         return array('email');
     }
 }
-?>

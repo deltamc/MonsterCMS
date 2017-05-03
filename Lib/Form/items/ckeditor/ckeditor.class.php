@@ -74,4 +74,3 @@ class ckeditor extends form_item
 
 
 }
-?>

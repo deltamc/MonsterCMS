@@ -48,4 +48,3 @@ class date extends form_item
     }
 */
 }
-?>

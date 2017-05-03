@@ -29,8 +29,8 @@ $vars = array
     'moduleName' => $this->moduleName
 );
 
-JavaScript::add('/javascript/jquery.ztree.all.min.js');
-JavaScript::add('/modules/site/javascript/site_tree.js');
+JavaScript::add(SITE_URL . '/JavaScript/jquery.ztree.all.min.js');
+JavaScript::add(SITE_URL . '/Modules/Site/JavaScript/site_tree.js');
 
 foreach ($menuList as $menu) {
     JavaScript::add('site_tree_init(' . $menu['id'] . ');');

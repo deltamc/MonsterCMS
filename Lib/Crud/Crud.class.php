@@ -1,6 +1,6 @@
 <?php namespace  Monstercms\Lib;
 
-use Monstercms\Core\MCMS;
+use Monstercms\Core\Mcms;
 
 class Crud
 {
@@ -24,7 +24,7 @@ class Crud
 
     public function add($form_items)//, $location = '')
     {
-        $form = new form($this->form_conf);
+        $form = new Form($this->form_conf);
         $form->add_items($form_items);
         $html = '';
 
@@ -126,7 +126,7 @@ class Crud
         
         $form_items_value =  $this->_fullFormItem($form_items, $row);
 
-        $form = new form($this->form_conf);
+        $form = new Form($this->form_conf);
 
         $form->add_items($form_items_value);
 
@@ -287,5 +287,3 @@ class Crud
 
 
 }
-
-?>

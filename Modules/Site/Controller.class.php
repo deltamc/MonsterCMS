@@ -35,7 +35,7 @@ class Controller extends Core\ControllerAbstract
 
     public function goToStructureUrl()
     {
-        Lib\header::location($this->structureUrl);
+        Lib\Header::location($this->structureUrl);
     }
 
 

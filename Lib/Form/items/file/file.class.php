@@ -56,4 +56,3 @@ class file extends form_item
         return array();
     }
 }
-?>

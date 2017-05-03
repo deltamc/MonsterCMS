@@ -79,4 +79,3 @@ class checkbox extends form_item
 
 
 }
-?>

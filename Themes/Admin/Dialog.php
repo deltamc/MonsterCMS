@@ -11,14 +11,14 @@
 
 </head>
 <body>
-<?if(!empty($DIALOG_HEAD)):?>
+<?php if(!empty($DIALOG_HEAD)):?>
     <h1><?=$DIALOG_HEAD?></h1>
-<?endif?>
+<?php endif?>
 <?=$BODY?>
 
 <?=$JS;?>
 
-<script src="/javascript/bootstrap.min.js"></script>
+<script src="<?=$SITE_URL?>/JavaScript/bootstrap.min.js"></script>
 <script>
     $(function (){
         $('.tip').tooltip({html:false});

@@ -66,6 +66,7 @@ Module::get('MenuAdmin')->view();
 View::add('THEME_PATH',  THEMES_DIR . DS . THEME . DS);
 View::add('BASE',        SITE_URL. '/' . THEMES_DIR .  '/' . THEME . '/');
 View::add('HEAD',        '');
+View::add('SITE_URL',        SITE_URL);
 View::add('CSS',         Lib\Css::get());
 View::add('JS',          Lib\JavaScript::get());
 //View::add('ADMIN_TOOLS', '');

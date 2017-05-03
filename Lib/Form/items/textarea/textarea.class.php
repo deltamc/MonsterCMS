@@ -37,4 +37,3 @@ class textarea extends form_item
 
 
 }
-?>

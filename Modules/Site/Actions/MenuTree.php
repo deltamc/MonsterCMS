@@ -26,16 +26,13 @@ $out = array();
 
 $out['menuId'] = $menuId;
 
-if (!is_array($list))
-{
+if (!is_array($list)) {
     print  json_encode($out);
-
     exit();
 }
 
 $s = 0;
-foreach ($list as $item)
-{
+foreach ($list as $item) {
 
     $out['items'][$s] = array
     (
@@ -87,7 +84,7 @@ foreach ($list as $item)
         $out['items'][$s]['url']   = $item['link_url'];
         $out['items'][$s]['icons'] = array
         (
-            array('class'=>'fa fa-link','title' => Lang::get('site.link'))
+            array('class'=>'fa fa-link','title' => Lang::get('Site.link'))
         );
     }
     /*if index*/
@@ -96,7 +93,7 @@ foreach ($list as $item)
         $out['items'][$s]['url'] = '/';
         $out['items'][$s]['icons'] = array
         (
-            array('class'=>'fa fa-home','title'=>Lang::get('site.index'))
+            array('class'=>'fa fa-home','title'=>Lang::get('Site.index'))
         );
     }
     /*if not index and not link*/

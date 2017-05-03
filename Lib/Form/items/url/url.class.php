@@ -7,4 +7,3 @@ class url extends form_item
         return array('url');
     }
 }
-?>

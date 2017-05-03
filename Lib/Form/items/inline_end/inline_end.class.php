@@ -12,4 +12,3 @@ class inline_end extends form_item
 
 
 }
-?>
