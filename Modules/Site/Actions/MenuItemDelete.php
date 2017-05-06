@@ -1,4 +1,5 @@
 <?php namespace Monstercms\Modules\site;
+
 /**
  * @var $this Core\ControllerAbstract
  */

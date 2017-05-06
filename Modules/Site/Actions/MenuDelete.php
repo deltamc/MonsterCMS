@@ -12,6 +12,7 @@ if (!Core\Users::isAdmin()) {
 if ($this->getObjectId() === 0) {
     throw new Core\HttpErrorException(404);
 }
+
 $id = (int) $this->getObjectId();
 
 $out = array(
@@ -24,8 +25,9 @@ if (!$this->model('MenuItems')->isChilds($id)) {
     $this->model('Menu')->menuDelete($id);
     $out['delete'] = true;
 } else {
-    $out['message'] = Core\Lang::get('site.errorDeleteMenu');
+    $out['message'] = Core\Lang::get('Site.errorDeleteMenu');
 }
+
 
 print json_encode($out);
 exit();
