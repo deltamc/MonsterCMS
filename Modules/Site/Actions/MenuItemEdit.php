@@ -87,7 +87,7 @@ $form_items1_full = array
 
 );
 //Получаем данные формы с других модулей
-$formItems = Mcms::eventsForm($formItems, $moduleName, array($itemType, $objectId));
+$formItems = Mcms::eventsForm($formItems, array($moduleName, $itemType, $objectId));
 
 //Добавляем элементы формы
 $form->add_items($formItems);

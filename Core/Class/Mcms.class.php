@@ -109,13 +109,13 @@ class Mcms
      * @param array $params - параметры для передачи в методы которые подписаны на событие
      * @return array
      */
-    public static function eventsForm(array $formItems, $moduleName, $params = array())
+    public static function eventsForm(array $formItems, $params = array())
     {
         $out = array();
 
         foreach ($formItems as $it) {
             if (isset($it['items']) && is_array($it['items'])) {
-                $it['items'] = self::eventsForm($it['items'], $moduleName, $params);
+                $it['items'] = self::eventsForm($it['items'], $params);
                 $out[] = $it;
             } else {
                 if (isset($it['type']) && $it['type'] == 'event') {
@@ -123,7 +123,6 @@ class Mcms
                     if(!is_array($params)) {
                         $params = array();
                     }
-                    array_unshift($params, $moduleName);
 
                     $items = Events::cell($it['event'], 'array_merge', $params);
 
