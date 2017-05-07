@@ -4,168 +4,168 @@ use Monstercms\Core\Mcms;
 
 class Crud
 {
-    protected  $db_table  = 'test';
-    protected  $db_row_id = 'id';
-    private $js;
+    protected  $dbTable  = 'test';
+    protected  $dbColId = 'id';
+    protected  $js;
     protected  $db;
-    public $form_conf = array('action'=>'');
+    public $formConf = array('action'=>'');
 
 
 
-    function __construct($db_table, $db_row_id = 'id')
+    function __construct($dbTable, $dbColId = 'id')
     {
 
         $this->db        = Mcms::DB();
-        $this->db_table  = $db_table;
-        $this->db_row_id = $db_row_id;
+        $this->dbTable  = $dbTable;
+        $this->dbColId = $dbColId;
     }
 
-    //функция отображает форму добавления данных в бд
 
-    public function add($form_items)//, $location = '')
+    /** Метод генерирует форму и добавляет данные из формы в бд
+     * @param $form_items - данные формы
+     * @param null $location - на какую страницу перенаправить после сохранения данных
+     * @param null $full - массив (ключ->значение) с данными
+     * для заполнения полей формы (перекрывают данные из БД)
+     * @return string - html код формы
+     */
+    public function add($form_items, $location = null, $full = null)
     {
-        $form = new Form($this->form_conf);
+
+        $form = new Form($this->formConf);
         $form->add_items($form_items);
+
+        //Если был передан параметр $full
+        if (!empty($full) && is_array($full)) {
+            $form->full($full);
+        }
+
         $html = '';
 
         //если форма не была заполнена, выводим ее
-        if(!$form->is_submit())
-        {
-            //if(empty($location)) $location = $_SERVER['HTTP_REFERER'];
-
-            //@session_start();
-
-            //$_SESSION['coree']['locations'] =   $location;
-
-            $html  = $form->render();
+        if(!$form->is_submit()) {
+            $html     = $form->render();
             $this->js = $form->js();
-        }
-        else if(!$form->is_valid())
-        {
-            $html = $form->error();
-            $this->js = $form->js();
-        }
 
-        else
-        {
+        } else if(!$form->is_valid()) {
+
+            $html     = $form->error();
+            $this->js = $form->js();
+
+        } else {
             //если форма была заполнена без ошибок
             //1 создаем массив для записи в бд
-            $fields =  $this->db->listFields($this->db_table);
-
+            $fields =  $this->db->listFields($this->dbTable);
             $list = '';
 
-
-            foreach($form_items as $item)
-            {
-                if(!empty($item['items'])) $form_items = array_merge($form_items, $item['items']);
+            foreach ($form_items as $item) {
+                if (!empty($item['items'])) {
+                    $form_items = array_merge($form_items, $item['items']);
+                }
             }
 
-            foreach($form_items as $item)
-            {
-
-                if(!empty($item['name']) && in_array($item['name'], $fields))
-                {
+            foreach ($form_items as $item) {
+                if (!empty($item['name']) && in_array($item['name'], $fields)) {
                     $list[$item['name']] = $form->data($item['name']);
                 }
             }
 
-
             //2 Записываем в бд
-            $this->db->insert($list, $this->db_table);
+            $this->db->insert($list, $this->dbTable);
             $this->eventAdd($this->db->lastInsertId(), $form);
-/*
-            if(!empty($_SESSION['coree']['locations']))
-            {
-                session_start();
-                Header("Location: ".$_SESSION['coree']['locations']);
+
+            //редирект
+            if (!empty($location)) {
+                Header("Location: ".$location);
                 exit();
             }
-*/
         }
-
-
 
         return $html;
     }
 
-    //удаление из бд
-    public function delete($id, $form_items = array())//,  $location = '')
+    /**
+     * Метод удаляет запись из бд
+     * @param $id - первичный ключ
+     * @param array $form_items - данные формы
+     * @throws \Exception
+     */
+    public function delete($id, $form_items = array(),  $location = null)
     {
         $id     = intval($id);
-
-        $where  = '`'.$this->db_row_id.'` = '.$id;
+        $where  = '`'.$this->dbColId.'` = '.$id;
 
         //$sql = 'DELETE FROM `'.$this->db_table.'` WHERE '.$where;
         //$this->db->query($sql, $this->db_table);
-        $this->db->delete($this->db_table, $where);
+        $this->db->delete($this->dbTable, $where);
 
         $this->eventDelete($id, $form_items);
-/*
-        if(empty($location)) $location = $_SERVER['HTTP_REFERER'];
 
-        if(!empty($location)) {
-            Header("Location: " . $location);
+        //редирект
+        if (!empty($location)) {
+            Header("Location: ".$location);
             exit();
         }
-*/
 
     }
 
-    //форма редактирования данных из бд
-    public function edit($id, $form_items)//, $location = '')
+
+    /**
+     * Метод генерирует форму и пересохраняет данные в БД
+     *
+     * @param $id - первичный ключ записи
+     * @param $form_items - данные формы
+     * @param null $location - на какую страницу перенаправить после сохранения данных
+     * @param null $full - массив (ключ->значение) с данными
+     * для заполнения полей формы (перекрывают данные из БД)
+     * @return string - html код формы
+     * @throws \Exception
+     */
+    public function edit($id, $form_items, $location = null, $full = null)
     {
         $id     = intval($id);
-        $where  = '`'.$this->db_row_id.'` = '.$id;
+        $html   = '';
 
-        $sql    = 'SELECT * FROM `'.$this->db_table.'` WHERE '.$where;
-
+        //Достаем данные из БД
+        $where  = '`'.$this->dbColId.'` = '.$id;
+        $sql    = 'SELECT * FROM `'.$this->dbTable.'` WHERE '.$where;
 
         $result = $this->db->query($sql);
-        $row    = $result->fetch();
+        $row    = $result->fetch(\PDO::FETCH_ASSOC);
 
-        
-        $form_items_value =  $this->_fullFormItem($form_items, $row);
 
-        $form = new Form($this->form_conf);
+        $form = new Form($this->formConf);
+        $form->add_items($form_items);
 
-        $form->add_items($form_items_value);
+        //Если был передан параметр $full
+        if (!empty($full) && is_array($full)) {
+            foreach ($full as $name => $value) {
+                $row[$name] = $value;
+            }
+        }
 
-        $html = '';
+        $form->full($row);
+
 
         //если форма не была заполнена, выводим ее
-        if(!$form->is_submit())
-        {
-
-            /*
-            if(empty($location)) $location = $_SERVER['HTTP_REFERER'];
-            @session_start();
-            $_SESSION['coree']['locations'] =   $location;
-            */
-
+        if (!$form->is_submit()) {
             $html  = $form->render();
-        }
-        else if(!$form->is_valid()) $html = $form->error();
-        else
-        {
+
+        } else if(!$form->is_valid()) {
+            $html = $form->error();
+        } else {
             //если форма была заполнена без ошибок
             //1 создаем массив для записи в бд
-            $fields =  $this->db->listFields($this->db_table);
-           
+            $fields =  $this->db->listFields($this->dbTable);
+            $list   =  $this->_listItemForBD($form, $form_items, $fields );
 
-
-            $list  =  $this->_listItemForBD($form, $form_items, $fields );
             //2 Записываем в бд
-
-
-
-            $this->db->update($list, $this->db_table, $where);
+            $this->db->update($list, $this->dbTable, $where);
 
             $this->eventEdit($id, $form);
 
-            if(!empty($_SESSION['coree']['locations']))
-            {
-                @session_start();
-                Header("Location: ".$_SESSION['coree']['locations']);
+            //редирект
+            if (!empty($location)) {
+                Header("Location: ".$location);
                 exit();
             }
         }
@@ -173,117 +173,68 @@ class Crud
         $this->js = $form->js();
 
         return $html;
-
-
-
     }
 
-
-
-
-
-
-    private function _fullFormItem($form_items, $row )
+    /**
+     * Метод рекурсивно проходит по данным формы и формирует массив для записи в БД
+     * @param $form - экземпляр формы
+     * @param $formItems - данные формы
+     * @param $fields - список столбцов в таблице БД
+     * @return array - массив (ключ->значение) для записи в бд
+     */
+    private function _listItemForBD($form, $formItems, $fields )
     {
-
-
-        foreach ($form_items as $key => $item)
-        {
-            $items = (isset($item['items'])) ? $item['items'] : '';
-            $name  = (isset($item['name']))  ? $item['name']  : '';
-
-            if (!empty($items) && is_array($items))
-                $form_items[$key]['items'] = $this->_fullFormItem($items, $row);
-            else
-            {
-                if (!empty($name) && !empty($row[$name]))
-                {
-                    $form_items[$key]['value'] =
-                        self::getInputValue($form_items[$key], $row[$name]);
-                }
-
-            }
-        }
-
-        return $form_items;
-    }
-
-    private function _listItemForBD($form, $form_items, $fields )
-    {
-
-        //массив [riwDB]->value(POST)
 
         $out = array();
+        foreach ($formItems as  $key => $item) {
 
-        foreach ($form_items as $key => $item)
-        {
-            $items = (isset($item['items'])) ? $item['items'] : array();
+            $items = array();
+            if (isset($item['items'])){
+                $items = $item['items'];
+            }
 
-
-            if (!empty($items) && is_array($items))
+            if (!empty($items) && is_array($items)) {
                 $out = array_merge($out, $this->_listItemForBD($form, $items, $fields));
+            } else {
+                if (!empty($item['name'])
+                    && in_array($item['name'], $fields)
+                    && $item['type'] != "images_upload") {
 
-            else
-            {
-                if(!empty($item['name']) && in_array($item['name'], $fields) && $item['type'] != "images_upload")
-                {
                     $out[$item['name']] = $form->data($item['name']);
                 }
-
             }
         }
 
         return $out;
     }
 
-    private static function getInputValue(&$item, $value)
-    {
-
-        if(isset($item['dete_format']) && !is_null($item['dete_format']))
-        {
-
-            $unix = null;
-
-            if (!self::isTypeFormat($item, 'timestamp')) $unix = strtotime($value);
-            else $unix = $value;
-
-            $value =  date($item['dete_format'], $unix);
-
-        }
-
-
-
-
-        return $value;
-    }
-
-    private static function isTypeFormat($item, $type)
-    {
-        return (isset($item['format']['type']) &&  $item['format']['type'] == $type);
-    }
-
+    /**
+     * Метод возвращает скрипты Javascript
+     * @return mixed
+     */
     public function js()
     {
         return $this->js;
     }
 
-    public function eventAdd($id, $form)
-    {
+    /**
+     * Метод вызывается после добавления данных в бд
+     * @param $id - первичный ключ
+     * @param $form - данные формы
+     */
+    protected function eventAdd($id, $form) { }
 
-    }
+    /**
+     * Метод вызывается после перезаписи данных в БД
+     * @param $id - первичный ключ
+     * @param $form - данные формы
+     */
+    protected function eventEdit($id, $form) { }
 
-    public function eventEdit($id, $form)
-    {
-
-    }
-
-    public function eventDelete($id, $form)
-    {
-
-    }
-
-
-
-
-
+    /**
+     * Метод вызывается после удаления записи из БД
+     * @param $id - первичный ключ
+     * @param $form - данные формы
+     */
+    protected function eventDelete($id, $form) { }
 }
