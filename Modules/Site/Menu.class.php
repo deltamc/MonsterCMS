@@ -20,9 +20,14 @@ class Menu extends Lib\Crud
         parent::__construct($config['db_table_menu']);
     }
 
-    public function eventAdd($id, $form_items)
+    /**
+     * Метод вызывается после добавления новой записи в БД
+     * @param $id - ID новой записи
+     * @param $formItems - Данные формы
+     */
+    public function eventAdd($id, $formItems)
     {
-        Core\Events::Cell('Site.menuAddEnd', 'void', array($id, $form_items));
+        Core\Events::Cell('Site.menuAddEnd', 'void', array($id, $formItems));
     }
 
     public function eventEdit($id, $form_items)

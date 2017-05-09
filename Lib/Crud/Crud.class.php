@@ -22,17 +22,17 @@ class Crud
 
 
     /** Метод генерирует форму и добавляет данные из формы в бд
-     * @param $form_items - данные формы
+     * @param $formItems - данные формы
      * @param null $location - на какую страницу перенаправить после сохранения данных
      * @param null $full - массив (ключ->значение) с данными
      * для заполнения полей формы (перекрывают данные из БД)
      * @return string - html код формы
      */
-    public function add($form_items, $location = null, $full = null)
+    public function add($formItems, $location = null, $full = null)
     {
 
         $form = new Form($this->formConf);
-        $form->add_items($form_items);
+        $form->add_items($formItems);
 
         //Если был передан параметр $full
         if (!empty($full) && is_array($full)) {
@@ -57,13 +57,13 @@ class Crud
             $fields =  $this->db->listFields($this->dbTable);
             $list = '';
 
-            foreach ($form_items as $item) {
+            foreach ($formItems as $item) {
                 if (!empty($item['items'])) {
-                    $form_items = array_merge($form_items, $item['items']);
+                    $formItems = array_merge($formItems, $item['items']);
                 }
             }
 
-            foreach ($form_items as $item) {
+            foreach ($formItems as $item) {
                 if (!empty($item['name']) && in_array($item['name'], $fields)) {
                     $list[$item['name']] = $form->data($item['name']);
                 }
@@ -144,7 +144,6 @@ class Crud
         }
 
         $form->full($row);
-
 
         //если форма не была заполнена, выводим ее
         if (!$form->is_submit()) {

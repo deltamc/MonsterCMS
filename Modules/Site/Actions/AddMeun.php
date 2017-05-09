@@ -30,3 +30,4 @@ $formItems = Mcms::eventsForm($formItems);
 
 //Выводим форму
 $this->view->add('BODY', $this->model('Menu')->add($formItems));
+

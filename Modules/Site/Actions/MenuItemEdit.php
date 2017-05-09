@@ -93,9 +93,9 @@ $formItems = Mcms::eventsForm($formItems, array($moduleName, $itemType, $objectI
 $form->add_items($formItems);
 
 //Заполняем элементы форм получив массив из других модулей
-
 $full = Core\Events::cell('Site.menuItemEditFullForm', 'array_merge',
     array($moduleName, $itemType, $objectId));
+
 
 if (!empty($full)) {
 
