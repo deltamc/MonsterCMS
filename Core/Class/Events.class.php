@@ -127,6 +127,44 @@ class Events {
         var_dump(self::$events);
     }
 
+    /**
+     * Метод вызывает события формы
+     * @param array $formItems - Элементы формы
+
+     * @param array $params - параметры для передачи в методы которые подписаны на событие
+     * @return array
+     */
+    public static function eventsForm(array $formItems, $params = array())
+    {
+        $out = array();
+
+        foreach ($formItems as $it) {
+            if (isset($it['items']) && is_array($it['items'])) {
+                $it['items'] = self::eventsForm($it['items'], $params);
+                $out[] = $it;
+            } else {
+                if (isset($it['type']) && $it['type'] == 'event') {
+
+                    if(!is_array($params)) {
+                        $params = array();
+                    }
+
+                    $items = self::cell($it['event'], 'array_merge', $params);
+
+                    if (is_array($items)) {
+                        foreach ($items as $item) {
+                            $out[] = $item;
+                        }
+                    }
+                } else {
+                    $out[] = $it;
+                }
+            }
+        }
+
+        return $out;
+    }
+
 
 }
 
