@@ -71,6 +71,14 @@ class Controller extends Core\ControllerAbstract
             'items' => $items
         );
 
+        $varsCell = Core\Events::Cell('Site.menuTplVars', 'array',
+            array($menuId, $vars));
+
+        if (!empty($varsCell)) {
+            $vars = array_merge($varsCell, $vars);
+        }
+
+
         return $this->view->get($tpl, $vars);
     }
 
@@ -100,16 +108,26 @@ class Controller extends Core\ControllerAbstract
                 $subMenu = $this->getMenuTree($menuId, $id, $tpl,  $depth);
             }
 
+
+
             $item['sub_menu'] = $subMenu;
             $item['depth']    = $depth;
+            $item['id']       = $id;
 
-            $out .= $this->view->get($tpl, $item);
+            $varsCell = Core\Events::Cell('Site.menuItemTplVars', 'array_merge',
+                array($menuId, $item));
+
+            if (!empty($varsCell)) {
+                $vars = array_merge($item, $varsCell);
+            }
+
+            $out .= $this->view->get($tpl, $vars);
         }
         return $out;
     }
 
     /**
-     * Метод возвращает ID главной станицы (страница которая отрывается по умолчанию)
+     * Метод возвращает ID главной страницы (страница которая отрывается по умолчанию)
      * @return mixed
      * @throws \Exception
      */

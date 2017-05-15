@@ -1,1 +1,0 @@
-<h2 style="color:<?=$color;?>"><?=$heading;?></h2>

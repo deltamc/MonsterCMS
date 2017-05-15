@@ -19,6 +19,7 @@ if (!Core\Users::isAdmin()) {
 if ($this->getObjectId() === 0) {
     throw new Core\HttpErrorException(404);
 }
+$action = 'edit';
 
 $id = $this->getObjectId();
 
