@@ -36,10 +36,12 @@ class Events {
      * array_merge - массив. Возвращаемые массивы сливается в одни (array_merge)
      * array - массив. Возвращаемые массивы объединяется в один (array_push)
      * string - строка. Возвращаемые стоки сливаются в одну (конкатенация)
-     * @param array $arguments - аргументы которые будут переданные в метод
+     * @param array $parameters - параметры которые будут доступны в экземпляре класса EventParam (метод getParam)
+     * экземпляр класса EventParam передается виде параметра в метод-обработчик события
+     *
      * @return array|null|string
      */
-    public static function cell($key, $returnType = 'void', $arguments = array())
+    public static function cell($key, $returnType = 'void', $parameters = array())
     {
 
         $module = null;
@@ -67,10 +69,13 @@ class Events {
         foreach (self::$events[$module][$event] as $eventItem )
         {
 
+            $ep = new EventParam($key);
+            $ep->setParam($parameters);
+
             $out_temp = call_user_func_array
             (
                 array(Module::get($eventItem['module']), $eventItem['method']),
-                $arguments
+                $ep
             );
 
             if ($returnType == 'void' || empty($out_temp)) continue;
