@@ -71,8 +71,14 @@ class Controller extends Core\ControllerAbstract
             'items' => $items
         );
 
-        $varsCell = Core\Events::Cell('Site.menuTplVars', 'array',
-            array($menuId, $vars));
+        $varsCell = Core\Events::Cell(
+            'Site.menuTplVars',
+            'array',
+            array(
+                'menuId' => $menuId,
+                'menu'   => $vars
+            )
+        );
 
         if (!empty($varsCell)) {
             $vars = array_merge($varsCell, $vars);
@@ -114,11 +120,20 @@ class Controller extends Core\ControllerAbstract
             $item['depth']    = $depth;
             $item['id']       = $id;
 
-            $varsCell = Core\Events::Cell('Site.menuItemTplVars', 'array_merge',
-                array($menuId, $item));
+            $varsCell = Core\Events::Cell(
+                'Site.menuItemTplVars',
+                'array_merge',
+                array
+                (
+                    'menuId' => $menuId,
+                    'item'   => $item
+                )
+            );
 
             if (!empty($varsCell)) {
                 $vars = array_merge($item, $varsCell);
+            } else {
+                $vars = $item;
             }
 
             $out .= $this->view->get($tpl, $vars);

@@ -51,12 +51,20 @@ if ($this->model('MenuItems')->isChilds($menuId, $menuItemId )) {
         exit();
     }
 
-    $module      = $menuItemInfo->module;
+    $moduleName  = $menuItemInfo->module;
     $objectId    = $menuItemInfo->object_id;
     $itemType    = $menuItemInfo->item_type;
 
     //Вызываем событие
-    Core\Events::cell('Site.menuItemDeleteBefore', 'void', array($module, $itemType, $objectId));
+    Core\Events::cell(
+        'Site.menuItemDeleteBefore',
+        'void',
+        array(
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'objectId'   => $objectId
+        )
+    );
 
     //Удаляем пункт меню
     $this->model('MenuItems')->menuItemDelete($menuItemId);
@@ -64,8 +72,15 @@ if ($this->model('MenuItems')->isChilds($menuId, $menuItemId )) {
     $out['delete'] = true;
 
     //вызываем событие
-    Core\Events::cell('Site.menuItemDeleteEnd', 'void',
-        array($module, $itemType, $objectId));
+    Core\Events::cell(
+        'Site.menuItemDeleteEnd',
+        'void',
+        array(
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'objectId'   => $objectId
+        )
+    );
 }
 
 

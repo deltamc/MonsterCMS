@@ -32,12 +32,12 @@ $this->view->add('DIALOG_HEAD', Core\Lang::get('Site.editMenuTitle'));
 $formItems = include($this->modulePath . 'Forms' . DS . 'Menu.php');
 
 //Получаем данные формы с других модулей
-$formItems = Mcms::eventsForm($formItems);
+$formItems = Core\Events::eventsForm($formItems);
 
 //Заполняем элементы форм получив массив из других модулей
 
 $full = Core\Events::cell('Site.menuEditFullForm', 'array_merge',
-    array($id));
+    array('menuId' => $id));
 
 
 $this->view->add('BODY', $this->model('Menu')->edit($id, $formItems, null, $full));

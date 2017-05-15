@@ -50,7 +50,13 @@ $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
 $formItems = Mcms::hiddenItemsForm($formItems, $hide);
 
 //Получаем данные формы с других модулей
-$formItems = Mcms::eventsForm($formItems, array($moduleName, $itemType));
+$formItems = Core\Events::eventsForm(
+    $formItems,
+    array(
+        'moduleName' => $moduleName,
+        'itemType'   => $itemType
+    )
+);
 
 $form = new Lib\Form('');
 $form->add_items($formItems);
@@ -76,7 +82,12 @@ else if($form->is_valid())
     $module_param = Core\Events::cell(
         'Site.menuItemAddSave',
         'array_merge',
-        array($moduleName, $itemType, $url)
+        array
+        (
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'url'        => $url
+        )
     );
 
     $urlId    = 0;
@@ -125,10 +136,10 @@ else if($form->is_valid())
         'Site.menuItemAddEnd',
         'void',
         array(
-            $moduleName,
-            $itemType,
-            $url,
-            $objectId
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'url'        => $url,
+            'objectId'   => $objectId
         )
     );
 
