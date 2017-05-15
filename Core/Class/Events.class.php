@@ -70,7 +70,7 @@ class Events {
         {
 
             $ep = new EventParam($key);
-            $ep->setParam($parameters);
+            $ep->setParamArray($parameters);
 
             $out_temp = call_user_func_array
             (
