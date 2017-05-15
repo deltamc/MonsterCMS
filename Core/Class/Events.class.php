@@ -75,7 +75,7 @@ class Events {
             $out_temp = call_user_func_array
             (
                 array(Module::get($eventItem['module']), $eventItem['method']),
-                $ep
+                array($ep)
             );
 
             if ($returnType == 'void' || empty($out_temp)) continue;

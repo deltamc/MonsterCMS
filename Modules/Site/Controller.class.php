@@ -119,6 +119,8 @@ class Controller extends Core\ControllerAbstract
 
             if (!empty($varsCell)) {
                 $vars = array_merge($item, $varsCell);
+            } else {
+                $vars = $item;
             }
 
             $out .= $this->view->get($tpl, $vars);

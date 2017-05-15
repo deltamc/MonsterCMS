@@ -76,7 +76,12 @@ else if($form->is_valid())
     $module_param = Core\Events::cell(
         'Site.menuItemAddSave',
         'array_merge',
-        array($moduleName, $itemType, $url)
+        array
+        (
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'url'        => $url
+        )
     );
 
     $urlId    = 0;
@@ -125,10 +130,10 @@ else if($form->is_valid())
         'Site.menuItemAddEnd',
         'void',
         array(
-            $moduleName,
-            $itemType,
-            $url,
-            $objectId
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'url'        => $url,
+            'objectId'   => $objectId
         )
     );
 

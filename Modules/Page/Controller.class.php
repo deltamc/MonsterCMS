@@ -82,14 +82,16 @@ class Controller extends Core\ControllerAbstract
      * Метод вызывается при событии site.menuItemAddSave.
      * Данное событие вызывается при сохранении данных из
      * формы добавлении пункта меню в менеджере страниц.
-     *
-     * @param $moduleName
-     * @param $itemType
-     * @param string $url
+     * @param $ep - экземпляр класса Core\EventParam
      * @return null|array('object_id' => page_id, 'url_id' => page_url_id );
      */
-    public function eventMenuItemAddFormSave($moduleName, $itemType, $url='')
+    public function eventMenuItemAddFormSave(Core\EventParam $ep)
     {
+
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+        $url        = $ep->getParam('url');
+
         if($moduleName != $this->moduleName) return null;
 
 
