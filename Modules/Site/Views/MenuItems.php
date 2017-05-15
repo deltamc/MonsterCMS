@@ -4,10 +4,10 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 ?>
 
 <li >
-       <a href='<?=$url?>' <?=$css?> <?if(!empty($target)):?>target="<?=$target?>"<?endif?> ><?=$name?></a>
+       <a href='<?=$url?>' <?=$css?> <?php if(!empty($target)):?>target="<?=$target?>"<?php endif?> ><?=$name?></a>
 
-        <?if(!empty($sub_menu)):?>
+        <?php if(!empty($sub_menu)):?>
             <ul><?=$sub_menu?></ul>
-        <?endif?>
+        <?php endif?>
     </li>
 

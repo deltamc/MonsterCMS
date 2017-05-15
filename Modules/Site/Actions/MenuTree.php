@@ -6,9 +6,9 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 
-use \Monstercms\Core as Core;
+use \Monstercms\Core;
 use \Monstercms\Core\Lang;
-use \Monstercms\Lib as Lib;
+use \Monstercms\Lib;
 
 if ($this->getObjectId() === 0){
     throw new Core\HttpErrorException(404);
@@ -26,16 +26,13 @@ $out = array();
 
 $out['menuId'] = $menuId;
 
-if (!is_array($list))
-{
+if (!is_array($list)) {
     print  json_encode($out);
-
     exit();
 }
 
 $s = 0;
-foreach ($list as $item)
-{
+foreach ($list as $item) {
 
     $out['items'][$s] = array
     (
@@ -52,7 +49,7 @@ foreach ($list as $item)
            (
                'icoClass' => "fa fa-external-link-square",
                'name'     => Lang::get('Site.goTo'),
-               'url'      => "/site/GoTo/id/" . $item['id'],
+               'url'      => "/Site/GoTo/id/" . $item['id'],
                'role'     => 'link',
                'attr'     =>''
 
@@ -61,7 +58,7 @@ foreach ($list as $item)
             (
                 'icoClass' => "fa fa-cog",
                 'name'     => Lang::get('Site.config'),
-                'url'      => "/site/MenuItemEdit/id/" . $item['id'],
+                'url'      => "/Site/MenuItemEdit/id/" . $item['id'],
                'role'      => 'link',
                'attr'      => ''
 
@@ -70,7 +67,7 @@ foreach ($list as $item)
            (
                'icoClass' => "fa fa-trash-o",
                'name'     => Lang::get('Site.delete'),
-               'url'      => "/site/MenuItemDelete/id/" .
+               'url'      => "/Site/MenuItemDelete/id/" .
                             $item['id'].'/menu_id/'. $menuId,
                'role'     => 'menu-item-delete',
                'attr'     => 'data-confirm-text="'.Lang::get('Site.confirmDelete').'"'
@@ -87,7 +84,7 @@ foreach ($list as $item)
         $out['items'][$s]['url']   = $item['link_url'];
         $out['items'][$s]['icons'] = array
         (
-            array('class'=>'fa fa-link','title' => Lang::get('site.link'))
+            array('class'=>'fa fa-link','title' => Lang::get('Site.link'))
         );
     }
     /*if index*/
@@ -96,7 +93,7 @@ foreach ($list as $item)
         $out['items'][$s]['url'] = '/';
         $out['items'][$s]['icons'] = array
         (
-            array('class'=>'fa fa-home','title'=>Lang::get('site.index'))
+            array('class'=>'fa fa-home','title'=>Lang::get('Site.index'))
         );
     }
     /*if not index and not link*/
@@ -106,7 +103,7 @@ foreach ($list as $item)
         (
             'icoClass' => "fa fa-home",
             'name'     => Lang::get('Site.makeIndex'),
-            'url'      => "/site/MakeIndex/id/" . $item['id'],
+            'url'      => "/Site/MakeIndex/id/" . $item['id'],
             'role'    => 'set-index',
             'attr'   =>''
         );

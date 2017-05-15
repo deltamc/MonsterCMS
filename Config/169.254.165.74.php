@@ -24,16 +24,16 @@ define('DB_USER', 'root');
 /**
  * Пароль к БД
  */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'simsim');
 
 /*URL сайта*/
-define("SITE_URL",   "//" . HOST);
-
+define("SITE_URL",   "//" . HOST );
 
 /**
  * Префикс таблиц БД
  */
 define('DB_PREFIX', 'mcms_');
+
 
 
 /**

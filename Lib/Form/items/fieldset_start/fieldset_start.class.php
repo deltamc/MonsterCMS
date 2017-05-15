@@ -34,7 +34,3 @@ class fieldset_start extends form_item
         );
     }
 }
-
-
-
-?>

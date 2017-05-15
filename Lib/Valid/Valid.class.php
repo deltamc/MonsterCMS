@@ -1,6 +1,6 @@
-<?
+<?php
 namespace  Monstercms\Lib;
-class valid
+class Valid
 {
     public static $errors =  array
     (

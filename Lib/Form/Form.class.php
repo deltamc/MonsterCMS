@@ -1,4 +1,4 @@
-<? namespace  Monstercms\Lib;
+<?php namespace  Monstercms\Lib;
 
 use \Monstercms\Lib as Lib;
 
@@ -40,7 +40,7 @@ class Form
 
         $this->conf = array_merge( $this->conf_default(),  $conf);
 
-        $this->conf['errors'] = array_merge(Lib\valid::$errors, $this->conf['errors']);
+        $this->conf['errors'] = array_merge(Lib\Valid::$errors, $this->conf['errors']);
 
         self::$form_count ++;
 

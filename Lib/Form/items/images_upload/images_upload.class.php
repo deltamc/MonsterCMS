@@ -58,4 +58,3 @@ class images_upload extends form_item
         return array();
     }
 }
-?>

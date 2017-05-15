@@ -9,4 +9,3 @@ class html extends form_item
         return array('html'=>'');
     }
 }
-?>

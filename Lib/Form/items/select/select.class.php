@@ -36,4 +36,3 @@ class select extends form_item
         return $this->template($it['tpl'], $this->item );
     }
 }
-?>

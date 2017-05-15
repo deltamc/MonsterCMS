@@ -1,4 +1,4 @@
-<?
+<?php
 if(isset($_REQUEST[session_name()])){
         session_start();
 }
@@ -39,5 +39,3 @@ for($i=0;$i<strlen($text);$i++){
 }
 Header("Content-type: image/png");
 imagePng($image);
-
-?>

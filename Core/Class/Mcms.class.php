@@ -102,41 +102,7 @@ class Mcms
     }
 */
 
-    /**
-     * Метод вызывает события формы
-     * @param array $formItems - Элементы формы
-     * @param $moduleName - имя модуля
-     * @param array $params - параметры для передачи в методы которые подписаны на событие
-     * @return array
-     */
-    public static function eventsForm(array $formItems, $moduleName, $params = array())
-    {
-        $out = array();
 
-        foreach ($formItems as $it) {
-            if (isset($it['items']) && is_array($it['items'])) {
-                $it['items'] = self::eventsForm($it['items'], $moduleName, $params);
-                $out[] = $it;
-            } else {
-                if (isset($it['type']) && $it['type'] == 'event') {
-
-                    array_unshift($params, $moduleName);
-
-                    $items = Events::cell($it['event'], 'array_merge', $params);
-
-                    if (is_array($items)) {
-                        foreach ($items as $item) {
-                            $out[] = $item;
-                        }
-                    }
-                } else {
-                    $out[] = $it;
-                }
-            }
-        }
-
-        return $out;
-    }
 
     /**
      *

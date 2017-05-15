@@ -2,8 +2,9 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use Monstercms\Lib\View;
-use Monstercms\Lib\javascript;
-use Monstercms\Lib\css;
+use Monstercms\Lib\JavaScript;
+use Monstercms\Lib\Css;
+use Monstercms\Core;
 
 
 //Устанавливаем кодировку utf-8
@@ -36,6 +37,6 @@ View::setBasicTemplate(THEMES_DIR . DS . THEME . DS . 'Base.php');
 View::add('BODY',  '');
 
 
-JavaScript::add('/JavaScript/jquery.min.js');
-JavaScript::add('/JavaScript/mcms.windows.jquery.js');
-Css::add('/' . THEMES_DIR . '/' . THEMES_ADMIN . '/css/ui.css');
+JavaScript::add(SITE_URL . '/JavaScript/jquery.min.js');
+JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');
+Css::add(SITE_URL . '/' . THEMES_DIR . '/' . THEMES_ADMIN . '/css/ui.css');

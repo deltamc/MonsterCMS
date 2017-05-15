@@ -24,8 +24,9 @@ if (!Core\Users::isAdmin()) {
 
 //Назначаем базовый шаблон
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+
 //Заголовок формы
-$this->view->replace('TITLE', Core\Lang::get('Site.headingEdit'));
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Site.headingEdit'));
 
 //Ид объекта (пункта меню)
 $menuItemId = $this->getObjectId();
@@ -44,11 +45,14 @@ $objectId         = $menuItemInfo->object_id;
 $itemType         = $menuItemInfo->item_type;
 
 
+//Получаем конфигурации модуля
+$config = Module::get($moduleName)->config;
+
 //Проверяем тип пункта меню (должен быть прописан в насторйках модуля "menu_items")
 if(empty($config['menu_items'][$itemType]))
     throw new \Exception("Item type error");
-//Получаем конфигурации модуля
-$config = Module::get($moduleName)->config;
+
+
 $moduleAddConfig = $config['menu_items'][$itemType];
 
 //Прификс для событий формы
@@ -83,15 +87,29 @@ $form_items1_full = array
 
 );
 //Получаем данные формы с других модулей
-$formItems = Mcms::eventsForm($formItems, $moduleName, $itemType, $objectId);
+$formItems = Core\Events::eventsForm(
+    $formItems,
+    array(
+        'moduleName' => $moduleName,
+        'itemType'   => $itemType,
+        'objectId'   => $objectId
+    )
+);
 
 //Добавляем элементы формы
 $form->add_items($formItems);
 
 //Заполняем элементы форм получив массив из других модулей
+$full = Core\Events::cell(
+    'Site.menuItemEditFullForm',
+    'array_merge',
+    array(
+        'moduleName' => $moduleName,
+        'itemType'   => $itemType,
+        'objectId'   => $objectId
+    )
+);
 
-$full = Core\Events::cell('Site.menuItemEditFullForm', 'array_merge',
-    array($moduleName, $itemType, $objectId));
 
 if (!empty($full)) {
 
@@ -112,8 +130,17 @@ if (!$form->is_submit()) {
 
     $url = strtolower($url);
 
-    Core\Events::cell('Site.menuItemEditSave', 'void',
-        array($moduleName, $itemType, $url, $objectId));
+    Core\Events::cell
+    (
+        'Site.menuItemEditSave',
+        'void',
+        array(
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'url'        => $url,
+            'objectId'   => $objectId
+        )
+    );
 
     //Подготавливаем данные к записи в БД
     $data = array
@@ -145,7 +172,13 @@ if (!$form->is_submit()) {
     }
     //Вызываем событие
     Core\Events::cell('Site.menuItemEditEnd', 'void',
-        array($moduleName, $itemType, $url, $objectId ));
+        array(
+            'moduleName' => $moduleName,
+            'itemType'   => $itemType,
+            'url'        => $url,
+            'objectId'   => $objectId
+        )
+    );
 
     //Редирект
     if ((int) Request::getPost('menu_item_goto') === 1 && !empty($url)) {
@@ -155,9 +188,9 @@ if (!$form->is_submit()) {
             $url = '/'.$url.URL_SEMANTIC_END;
         }
 
-        Lib\header::location($url, 'top');
+        Lib\Header::location($url, 'top');
     } else {
-        Lib\header::location($this->structureUrl);
+        Lib\Header::location($this->structureUrl);
     }
 
 } else {

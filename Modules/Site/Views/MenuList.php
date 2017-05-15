@@ -1,7 +1,7 @@
-<?
+<?php
 defined('MCMS_ACCESS') or die('No direct script access.');
 
-use Monstercms\Core\Lang;
+use \Monstercms\Core\Lang;
 $s=0;
 $url = '/' . $moduleName . '/';
 ?>
@@ -11,7 +11,7 @@ $url = '/' . $moduleName . '/';
 <div class="panel-group" id="accordion">
 
 
-<?foreach ($menu_list as $menu):?>
+<?php foreach ($menu_list as $menu):?>
     <div class="panel panel-default" id="mcms-list-page-<?=$menu['id']?>-panel">
         <div class="panel-heading"  data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$s?>">
             <?=$menu['name']?> <span class="save">Save...</span>
@@ -30,13 +30,13 @@ $url = '/' . $moduleName . '/';
             </ul>
         </div>
 
-        <div id="collapse<?=$s?>" class="panel-collapse collapse <?if($s==0) print "in"?>">
+        <div id="collapse<?=$s?>" class="panel-collapse collapse <?php if($s==0) print "in"?>">
             <div class="panel-body custom-scrollbar" style="max-height:200px;overflow:auto; ">
                 <ul id="mcms-list-page-<?=$menu['id']?>" class="ztree mcms-list-page"></ul>
 
             </div>
         </div>
     </div>
-    <?$s++;?>
-<?endforeach;?>
+    <?php $s++;?>
+<?php endforeach;?>
 </div>

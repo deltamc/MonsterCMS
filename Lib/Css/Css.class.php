@@ -1,5 +1,7 @@
-<?
-namespace  Monstercms\Lib;
+<?php namespace  Monstercms\Lib;
+
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 class Css
 {
     static public $files = array();
@@ -34,4 +36,3 @@ class Css
         return $out;
     }
 }
-?>

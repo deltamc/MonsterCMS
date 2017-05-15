@@ -70,5 +70,4 @@ class inline_start extends form_item
     </table>
 </p>
 */
-?>
 

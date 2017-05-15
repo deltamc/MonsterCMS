@@ -36,6 +36,7 @@ class Module
      */
     public static function set($module)
     {
+
         if (!self::isModule($module)) {
             throw new \Exception('Module not include');
         }

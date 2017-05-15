@@ -1,4 +1,4 @@
-<? namespace  Monstercms\Lib;
+<?php namespace  Monstercms\Lib;
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
@@ -31,8 +31,8 @@ class DataBase extends \PDO
      * @param null|string|int $where - условие, если передали целое число,
      * то обновляем данные со значением $this->idColumn = $where
      * @return \PDOStatement - результат обновления
+     * @throws \Exception
      */
-
     function update($list, $table, $where = null)
     {
 
@@ -41,7 +41,7 @@ class DataBase extends \PDO
         $s      = 0;
         foreach ($list as $key => $value) {
             if (!$this->isRegWord($value)) {
-                $values .= "`{$key}` = ?";
+                $values .= "`{$key}` = ".$this->quote($value);
             } else {
                 $values .= "`{$key}` = {$value}";
             }
@@ -63,18 +63,7 @@ class DataBase extends \PDO
 
         $this->lastSql = $sql;
 
-        $stmt = $this->prepare($sql);
-        $s    = 0;
-
-        foreach ($list as &$value) {
-            if($this->isRegWord($value)) {
-                continue;
-            }
-            $stmt->bindParam(++$s, &$value);
-        }
-        unset($value);
-
-        return $stmt->execute();
+        return $this->exec($sql);
     }
 
     /**
@@ -135,8 +124,8 @@ class DataBase extends \PDO
      * @param null|string|int $where - условие, если передали целое число,
      * то удаляем данные со значением $this->idColumn = $where
      * @return \PDOStatement - результат
+     * @throws \Exception
      */
-
     public function delete($table, $where = null)
     {
         $sql = "DELETE FROM {$table}";

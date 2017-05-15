@@ -7,16 +7,27 @@ defined('MCMS_ACCESS') or die('No direct script access.');
  */
 
 use \Monstercms\Core;
+use \Monstercms\Core\Mcms;
 use \Monstercms\Lib;
 
+//проверяем, есть ли права доступа
 if (!Core\Users::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 
+$action = 'add';
+
+//базовый шаблон
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
 
-$this->view->add('TITLE', Core\Lang::get('Site.addMenuTitle'));
+//Заголовок формы
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Site.addMenuTitle'));
 
-$form_items = include($this->modulePath . 'Forms' . DS . 'Menu.php');
+$formItems = include($this->modulePath . 'Forms' . DS . 'Menu.php');
 
-$this->view->add('BODY', $this->model('Menu')->add($form_items));
+//Получаем данные формы с других модулей
+$formItems = Core\Events::eventsForm($formItems);
+
+//Выводим форму
+$this->view->add('BODY', $this->model('Menu')->add($formItems));
+

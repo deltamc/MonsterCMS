@@ -11,4 +11,3 @@ class submit extends form_item
         );
     }
 }
-?>

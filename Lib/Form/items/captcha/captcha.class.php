@@ -27,4 +27,3 @@ class captcha extends form_item
         );
     }
 }
-?>

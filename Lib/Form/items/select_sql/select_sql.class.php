@@ -75,8 +75,3 @@ class select_sql extends form_item
 
 
 }
-
-
-
-
-?>
