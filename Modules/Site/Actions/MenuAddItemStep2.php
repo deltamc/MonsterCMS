@@ -50,7 +50,13 @@ $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
 $formItems = Mcms::hiddenItemsForm($formItems, $hide);
 
 //Получаем данные формы с других модулей
-$formItems = Core\Events::eventsForm($formItems, array($moduleName, $itemType));
+$formItems = Core\Events::eventsForm(
+    $formItems,
+    array(
+        'moduleName' => $moduleName,
+        'itemType'   => $itemType
+    )
+);
 
 $form = new Lib\Form('');
 $form->add_items($formItems);

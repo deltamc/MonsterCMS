@@ -23,13 +23,16 @@ class Controller extends Core\ControllerAbstract
      * Данное событие вызывается при генерации формы добавление
      * нового пункта меню в менеджере страниц.
      *
-     * @param $moduleName - имя модуля
-     * @param $itemType - тип страницы
+     * @param $ep
      *
      * @return null|array - элементы формы
      */
-    public function eventMenuItemAddForm($moduleName, $itemType)
+    public function eventMenuItemAddForm(Core\EventParam $ep)
     {
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+
+
         if($moduleName != $this->moduleName) return null;
 
         $form_items =  Module::get('PageHead')->getSeoForm();
@@ -45,13 +48,15 @@ class Controller extends Core\ControllerAbstract
      * Данное событие вызывается при генерации формы редактирование
      * пункта меню в менеджере страниц.
      *
-     * @param $moduleName - имя модуля
-     * @param $itemType - тип страницы
+     * @param $ep
      *
      * @return null|array - элементы формы
      */
-    public function eventMenuItemEditForm($moduleName, $itemType,  $objectId)
+    public function eventMenuItemEditForm(Core\EventParam $ep)
     {
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+        $objectId   = (int) $ep->getParam('objectId');
 
         if($moduleName != $this->moduleName) return null;
 
@@ -65,16 +70,19 @@ class Controller extends Core\ControllerAbstract
      * Данное событие вызывается при заполнении
      * формы редактирования пункта меню в менеджере страниц.
      *
-     * @param $moduleName - имя модуля
-     * @param $itemType - тип страницы
-     * @param $id - ид страницы
+     * @param $ep
+     *
      * @return  null|array - данные для заполнения формы
      */
-    public function eventMenuItemEditFullForm($moduleName, $itemType, $id)
+    public function eventMenuItemEditFullForm(Core\EventParam $ep)
     {
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+        $objectId   = (int) $ep->getParam('objectId');
+
         if($moduleName != $this->moduleName) return null;
 
-        return Module::get('PageHead')->fullSeoForm($moduleName, $id);
+        return Module::get('PageHead')->fullSeoForm($moduleName, $objectId);
     }
 
 
@@ -109,15 +117,17 @@ class Controller extends Core\ControllerAbstract
      * Данное событие вызывается после сохранении данных из
      * формы редактировании пункта меню в менеджере страниц.
      *
-     * @param $moduleName - имя модуля
-     * @param $itemType - тип страницы
-     * @param $url - чпу
-     * @param $objectId - ид страницы
+     * @param $ep
      *
      * @return null
      */
-    public function eventMenuItemEditFormSaveEnd($moduleName, $itemType, $url, $objectId)
+    public function eventMenuItemEditFormSaveEnd(Core\EventParam $ep)
     {
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+        $url        = $ep->getParam('url');
+        $objectId   = (int) $ep->getParam('objectId');
+
         if($moduleName != $this->moduleName) return null;
 
         Module::get('PageHead')->saveSeoForm($this->moduleName, $objectId);
@@ -142,8 +152,12 @@ class Controller extends Core\ControllerAbstract
      *
      * @return null
      */
-    public function menuItemDelete($moduleName, $itemType, $objectId)
+    public function menuItemDelete(Core\EventParam $ep)
     {
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+        $objectId   = (int) $ep->getParam('objectId');
+
         if($moduleName != $this->moduleName) return null;
 
         $id = intval($objectId);
