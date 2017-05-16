@@ -124,7 +124,7 @@ class Module
                 continue;
             }
 
-            $init = MODULE_DIR . DS .$moduleName . DS . 'Actions' . DS . 'Init.php';
+            $init = MODULE_DIR . DS .$moduleName . DS . 'Init.php';
 
             if (file_exists($init)) {
                 include_once($init);
