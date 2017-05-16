@@ -11,12 +11,7 @@ use Monstercms\Core;
 Header('Content-Type: text/html; charset=utf-8');
 
 //Временная зона
-@ini_set('date.timezone', TIMEZONE);
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set(TIMEZONE);
-} else {
-    putenv('TZ='.TIMEZONE);
-}
+Core\Mcms::setTimeZone(TIMEZONE);
 
 //Режим отладки
 if (DEBUGGING) {

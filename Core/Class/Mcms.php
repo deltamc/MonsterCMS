@@ -56,52 +56,6 @@ class Mcms
 
         return $out;
     }
-    //@TODO Вместо $item_type и $object_id передавать массив параметров для передачи в метод подписчика события
-
-    /*
-    public static function eventsForm(array $form_items, $moduleName, $item_type, $object_id = null)
-    {
-        $out = array();
-
-        foreach ($form_items as $it)
-        {
-
-            if (isset($it['items']) && is_array($it['items']))
-            {
-                $it['items'] = self::eventsForm($it['items'], $moduleName, $item_type);
-                $out[] = $it;
-            }
-            else
-            {
-                if(isset($it['type']) && $it['type'] == 'event')
-                {
-                    $vars = array($moduleName, $item_type);
-                    if(!is_null($object_id)) $vars['object_id'] = $object_id;
-
-                    $items = Events::cell($it['event'], 'array_merge', $vars);
-
-
-                    if(is_array($items))
-                    {
-                        foreach($items as $item)
-                        {
-                            $out[] = $item;
-                        }
-
-                    }
-                }
-                else
-                {
-                    $out[] = $it;
-                }
-
-            }
-        }
-
-        return $out;
-    }
-*/
-
 
 
     /**
@@ -124,5 +78,13 @@ class Mcms
         return $config['menu_items'][$item_type]['menu_item_name'];
     }
 
-
+    static public function setTimeZone($timezone)
+    {
+        @ini_set('date.timezone', $timezone);
+        if (function_exists('date_default_timezone_set')) {
+            date_default_timezone_set($timezone);
+        } else {
+            putenv('TZ='.$timezone);
+        }
+    }
 }
