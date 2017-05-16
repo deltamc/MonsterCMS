@@ -58,4 +58,12 @@ class EventParam
 
         return null;
     }
+
+    /**
+     * Метод возвращает имя события
+     * @return string
+     */
+    public function getEventName(){
+        return $this->eventName;
+    }
 }

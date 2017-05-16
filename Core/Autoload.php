@@ -17,7 +17,7 @@ $autoLoad->addNamespace(
  */
 $autoLoad->addNamespace(
     'Monstercms\Modules\*',
-    MODULE_DIR . DS . '$1' . DS . '%class%.class.php'
+    MODULE_DIR . DS . '$1' . DS . 'Class' . DS . '%class%.php'
 );
 
 /**

@@ -72,7 +72,7 @@ class Module
         $module = preg_replace('/[^\w-_0-9]/', '', $module);
 
         $moduleFile = ROOT . DS . MODULE_DIR . DS .
-            $module . DS . 'Controller.class.php';
+            $module . DS . 'Class' . DS . 'Controller.php';
 
 
         if (!is_file($moduleFile)) {
