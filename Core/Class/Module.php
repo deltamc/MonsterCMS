@@ -107,7 +107,7 @@ class Module
 
     /**
      * Метод инциализирует все доступные модули
-     * (подключает файлы: modules/Модуль/actions/init.php)
+     * (подключает файлы: modules/Модуль/Init.php)
      */
     public static function initAll()
     {

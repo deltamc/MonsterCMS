@@ -9,7 +9,7 @@ $autoLoad = new  Autoload();
  */
 $autoLoad->addNamespace(
     'Monstercms\Core',
-    ENGINE_DIR . DS . 'Class' . DS . '%class%.class.php'
+    ENGINE_DIR . DS . 'Class' . DS . '%class%.php'
 );
 /**
  * Классы пространства имен  Monstercms\Modules\Название_модуля
