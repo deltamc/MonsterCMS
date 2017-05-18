@@ -10,16 +10,16 @@ use Monstercms\Core;
 //Устанавливаем кодировку utf-8
 Header('Content-Type: text/html; charset=utf-8');
 
+//Подключаем файлы
+require_once(LIB_DIR . DS . 'Autoload' . DS . 'Autoload.class.php');
+require_once(ENGINE_DIR . DS . 'Autoload.php');
+require_once(ENGINE_DIR . DS . 'Function.php');
+
 //Временная зона
 Core\Mcms::setTimeZone(TIMEZONE);
 
 //Режим отладки
 Core\Mcms::showError(DEBUGGING);
-
-//Подключаем файлы
-require_once(LIB_DIR . DS . 'Autoload' . DS . 'Autoload.class.php');
-require_once(ENGINE_DIR . DS . 'Autoload.php');
-require_once(ENGINE_DIR . DS . 'Function.php');
 
 View::setBasicTemplate(THEMES_DIR . DS . THEME . DS . 'Base.php');
 View::add('BODY',  '');
