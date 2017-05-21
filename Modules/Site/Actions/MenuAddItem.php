@@ -9,7 +9,7 @@ if (!Core\Users::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 
-$modules = $this->model('MenuItems')->itemsType();
+$modules = $this->model('MenuItems')->moduleList();
 $vars    = array('modules' => $modules);
 
 Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);

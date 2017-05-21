@@ -28,25 +28,25 @@ if (empty($moduleName) || !Module::isModule($moduleName)) {
     throw new \Exception("The module can not be found");
 }
 
-//Проверяем тип пункта меню (должен быть прописан в насторйках модуля "menu_items")
-if (empty(Module::get($moduleName)->config['menu_items'][$itemType])) {
-    throw new \Exception("Item type error");
-}
-
 //Получаем настройки
-$moduleAddConfig  = Module::get($moduleName)->config['menu_items'][$itemType];
+$moduleAddConfig  = $this->model('MenuItems')->getModuleInfo($moduleName, $itemType);
+
+//Проверяем тип пункта меню
+if (!$moduleAddConfig) {
+    throw new \Exception('Item type error');
+}
 
 //Получаем массив с именами элементов формы которые нужно скрыть
 $hide = array();
-if (isset($moduleAddConfig['hidden_form_items'])
-    && is_array($moduleAddConfig['hidden_form_items'])) {
-    $hide = $moduleAddConfig['hidden_form_items'];
+if (isset($moduleAddConfig['hiddenFormItems'])
+    && is_array($moduleAddConfig['hiddenFormItems'])) {
+    $hide = $moduleAddConfig['hiddenFormItems'];
 }
 
 //Получаем данные формы
 $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
 
-// Скрываем поля формы ( какие поля скрыть хранятся в настройках модуля hidden_form_items )
+// Скрываем поля формы
 $formItems = Mcms::hiddenItemsForm($formItems, $hide);
 
 //Получаем данные формы с других модулей

@@ -6,29 +6,29 @@ use Monstercms\Core;
 return array
 (
     'module' => 'Page',
-
+/*
     "menu_items" => array(
         'page_text' => array(
             //экшен при переходе из пункта меню
             "action_link_menu"                 => 'view',
-            /* Отображать в форме добавления пункта меню*/
+
             //"menu_item"                 => true,
             "menu_item_name"            => Core\Lang::get('Page.menuItemName'),
-            /* which fields form hide (form add item menu)*/
+
             "hidden_form_items"  => array("menu_item_url"),
             "menu_item_icon"     => "",
             "menu_item_add_heading"     => Core\Lang::get('Page.menuItemHeading'),
         ),
 
         'page_text2' => array(
-            //экшен при переходе из пункта меню
+
             "action_link_menu"                 => 'view',
 
-            /* Отображать в форме добавления пункта меню*/
+
 
             "menu_item"                 => true,
             "menu_item_name"            => "тест",
-            /* which fields form hide (form add item menu)*/
+
             "hidden_form_items"  => array("menu_item_url"),
 
             "menu_item_icon"     => "",
@@ -37,7 +37,7 @@ return array
 
     ),
 
-
+*/
 
     "image_path"                    => UPLOAD_ROOT . DS. 'Page',
     "db_table"                      => DB_PREFIX."module_page",

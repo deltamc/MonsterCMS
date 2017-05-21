@@ -34,6 +34,8 @@ if (!is_array($list)) {
 $s = 0;
 foreach ($list as $item) {
 
+    $moduleInfo = $this->model('MenuItems')->getModuleInfo($item['module'], $item['item_type']);
+
     $out['items'][$s] = array
     (
        'id'          =>  $item['id'],
@@ -41,7 +43,7 @@ foreach ($list as $item) {
        'name'        =>  $item['name'],
        'menuId'      =>  $menuId,
        'hide'        =>  $item['hide'],
-       'module_name' =>  Core\Mcms::getMenuItemName($item['module'], $item['item_type']),
+       'module_name' =>  $moduleInfo['menuItemName'],
        'open'        =>  'true',
        'menu'        => array
        (

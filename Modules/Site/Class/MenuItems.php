@@ -9,6 +9,7 @@ use Monstercms\Lib  as Lib;
 class MenuItems extends Lib\Crud
 {
     private $tree = null;
+    private $modules = null;
 
     //private $tree = array();
     //private $db;
@@ -59,39 +60,73 @@ class MenuItems extends Lib\Crud
 
 
 
-    public function itemsType()
+    public function moduleList()
     {
         $out = array();
+        $this->modules = null;
 
-        $module_list = Core\Module::moduleList();
-
-        foreach ($module_list as $module) {
-
-            $moduleObj = Core\Module::get($module);
-
-            if (!property_exists ( $moduleObj , 'config' )) {
-                continue;
-            }
-
-            $config = $moduleObj->config;
-
-            if (!isset($config) || !isset($config['menu_items'])
-                || !is_array($config['menu_items']))
-            {
-                continue;
-            }
+        $items = Core\Events::cell(
+            'Site.menuItemAddModuleList',
+            'array'
+        );
 
 
-            foreach ($config['menu_items'] as $type => $item_config) {
-                $out[$module][$type] =  array
-                (
-                    $item_config['menu_item_name'],
-                    $item_config['menu_item_icon']
-
-                );
-            }
+        if (!is_array($items) || empty($items)) {
+            return $out;
         }
+
+        $default = array(
+            'hiddenFormItems'    => array(),
+            'menuItemIcon'       => '',
+
+            'menuItemName'       => ''
+        );
+
+        $necessarily = array(
+            'module',
+            'itemType',
+
+        );
+
+        foreach ($items as $item) {
+            if (!self::isNecessarily($item, $necessarily)) {
+                continue;
+            }
+            $out[] = $item;
+            $this->modules[$item['module']][$item['itemType']] = array_merge($default, $item);
+        }
+
         return $out;
+    }
+
+    public function getModuleInfo($module, $itemType)
+    {
+        if (!$this->modules) {
+            $this->moduleList();
+        }
+
+        if (empty($this->modules) || !isset($this->modules[$module][$itemType])) {
+            return null;
+        }
+
+        return $this->modules[$module][$itemType];
+    }
+
+    /**
+     * Метод проверяет ассоциативный массив на наличии в нем обязательных ключей
+     * @param array $arr - ассоциативный массив
+     * @param array $necessarily - массив с ключами
+     * @return bool
+     */
+    private static function isNecessarily(array $arr, array $necessarily)
+    {
+        foreach ($necessarily as $val) {
+           if (!isset($arr[$val])) {
+                return false;
+           }
+        }
+
+        return true;
     }
 
     public function setIndex($itemMenuId)

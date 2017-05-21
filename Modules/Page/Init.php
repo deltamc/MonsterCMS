@@ -13,3 +13,6 @@ Core\Events::subs('Site.menuItemEditEnd',      $moduleName, 'eventMenuItemEditFo
 Core\Events::subs('Site.menuItemEditFullForm', $moduleName, 'eventMenuItemEditFullForm', 0);
 
 Core\Events::subs('Site.menuItemDeleteBefore', $moduleName, 'menuItemDelete', 0);
+
+Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList', 2);
+Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList2', 1);

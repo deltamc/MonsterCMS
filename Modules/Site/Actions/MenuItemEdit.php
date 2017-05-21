@@ -46,22 +46,19 @@ $itemType         = $menuItemInfo->item_type;
 
 
 //Получаем конфигурации модуля
-$config = Module::get($moduleName)->config;
-
-//Проверяем тип пункта меню (должен быть прописан в насторйках модуля "menu_items")
-if(empty($config['menu_items'][$itemType]))
-    throw new \Exception("Item type error");
+//$config = Module::get($moduleName)->config;
+$moduleAddConfig = $this->model('MenuItems')->getModuleInfo($moduleName, $menuItemInfo->item_type);
 
 
-$moduleAddConfig = $config['menu_items'][$itemType];
+//$moduleAddConfig = $config['menu_items'][$itemType];
 
 //Прификс для событий формы
 $action = 'edit';
 
 //Получаем массив с именами элементов формы которые нужно скрыть
 $hide = array();
-if (is_array($moduleAddConfig['hidden_form_items'])) {
-    $hide = $moduleAddConfig['hidden_form_items'];
+if (is_array($moduleAddConfig['hiddenFormItems'])) {
+    $hide = $moduleAddConfig['hiddenFormItems'];
 }
 //Получаем данные формы
 $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
