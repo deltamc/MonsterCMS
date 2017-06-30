@@ -59,14 +59,15 @@ define('THEME', 'Sut');
 /**
  * Директория с темами
  */
-define('THEMES_DIR', 'Themes');
+define('THEMES_DIR_MAIN', 'Themes/Admin');
+define('THEMES_DIR_ADMIN', 'Themes/Main');
 
 
 
 /**
  * Тема адинки
  */
-define('THEMES_ADMIN', 'Admin');
+define('THEMES_ADMIN', 'Classic');
 
 /**
  * Шаблон диалогового окна
