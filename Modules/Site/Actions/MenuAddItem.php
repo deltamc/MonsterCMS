@@ -12,7 +12,7 @@ if (!Core\Users::isAdmin()) {
 $modules = $this->model('MenuItems')->moduleList();
 $vars    = array('modules' => $modules);
 
-Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+Core\Mcms::setDialogTheme();
 
 $this->view->inc('BODY', 'AddItemModuleList.php', $vars);
 

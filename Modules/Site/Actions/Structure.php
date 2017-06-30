@@ -16,10 +16,12 @@ if (!Core\Users::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 
-View::setBasicTemplate(THEMES_DIALOG_PATH);
+Core\Mcms::setDialogTheme();
 
 $this->view->add('TITLE', Lang::get('Site.structure'));
 $this->view->inc('BODY', 'StructureTools.php');
+
+
 
 $menuList = $this->model('Menu')->menuList();
 

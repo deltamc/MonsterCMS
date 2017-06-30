@@ -21,10 +21,12 @@ Core\Mcms::setTimeZone(TIMEZONE);
 //Режим отладки
 Core\Mcms::showError(DEBUGGING);
 
-View::setBasicTemplate(THEMES_DIR . DS . THEME . DS . 'Base.php');
+View::setBasicTemplate(THEMES_DIR_MAIN . DS . THEME . DS . 'Base.php');
 View::add('BODY',  '');
+View::add('THEME_PATH',  THEMES_DIR_MAIN . DS . THEME . DS);
+View::add('BASE',        SITE_URL . '/' . THEMES_DIR_MAIN .  '/' . THEME . '/');
 
 
 JavaScript::add(SITE_URL . '/JavaScript/jquery.min.js');
 JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');
-Css::add(SITE_URL . '/' . THEMES_DIR . '/' . THEMES_ADMIN . '/css/ui.css');
+Css::add(SITE_URL . '/' . THEMES_DIR_ADMIN . '/' . THEMES_ADMIN . '/css/ui.css');

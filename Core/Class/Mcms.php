@@ -3,7 +3,7 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use Monstercms\Lib;
-
+use \Monstercms\Lib\View;
 
 
 class Mcms
@@ -98,5 +98,11 @@ class Mcms
             @ini_set('error_reporting', 0);
             @ini_set('display_errors', 0);
         }
+    }
+
+    static function setDialogTheme()
+    {
+        View::setBasicTemplate(THEMES_DIALOG_PATH);
+        View::replace('BASE', BASE_DIALOG);
     }
 }

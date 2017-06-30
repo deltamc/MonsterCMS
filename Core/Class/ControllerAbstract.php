@@ -27,8 +27,8 @@ abstract class ControllerAbstract
 
 
         $this->view = new Lib\View(array(
-            THEMES_DIR . DS . THEME . DS . $this->moduleName,
-            MODULE_DIR . DS . $this->moduleName . DS . 'Views'
+            THEMES_DIR_MAIN . DS . THEME . DS . 'Modules' . DS . $this->moduleName,
+            MODULE_DIR  . DS . $this->moduleName . DS . 'Views'
         ));
 
         $this->db = Mcms::DB();

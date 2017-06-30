@@ -18,7 +18,7 @@ if (!Core\Users::isAdmin()) {
 $action = 'add';
 
 //базовый шаблон
-Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+Core\Mcms::setDialogTheme();
 
 //Заголовок формы
 $this->view->add('DIALOG_HEAD', Core\Lang::get('Site.addMenuTitle'));
