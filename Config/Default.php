@@ -54,7 +54,7 @@ define('DB_TABLE_USERS_DATA',   DB_PREFIX . 'users_data');
 /**
  * Тема сайта по умолчанию
  */
-define('THEME', 'Surfhouse');
+define('THEME', 'Surfhouse/Contact');
 
 /**
  * Директория с темами
