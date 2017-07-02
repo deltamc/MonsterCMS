@@ -5,7 +5,8 @@ class select extends form_item
     {
         return array
         (
-            'options'        => array()
+            'options'        => array(),
+            'options_attr'   => array()
         );
     }
 
@@ -26,6 +27,9 @@ class select extends form_item
             $input  .= '<option ';
             $input  .= 'value="'.$key.'" ';
             if($it['value'] == $key) $input  .= 'selected ';
+            if (isset($it['options_attr'][$key])) {
+                $input  .= $it['options_attr'][$key] . ' ';
+            }
             $input  .= '>';
             $input  .= $value;
             $input .='</option>';
