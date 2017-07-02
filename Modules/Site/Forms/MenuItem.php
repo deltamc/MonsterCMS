@@ -171,17 +171,30 @@ $form = array
                 'event' => $this->moduleName . '.' . $action.'FormTabBaseEnd'
             ),
 
-        )
-
+        ),
     ),
-            array(
-                'type'=>'event',
-                'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
+    array(
+        'type'=>'event',
+        'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
+    ),
+
+    array
+    (
+        'type'  => 'tab',
+        'label' => Lang::get('Site.theme'),
+        'items' => array(
+            array
+            (
+                'name' => "menu_item_theme",
+                'type' => 'select',
+                'label' => '',
+                'options' => \Monstercms\Core\Theme::getNames(),
+                'options_attr' => \Monstercms\Core\Theme::getPreviewsForAttr(),
             ),
+        )
+    ),
 
-
-
-        array
+    array
         (
             'type' => 'html',
             'html' => '<input type="submit" value="'.Lang::get('Site.submit').'" />
