@@ -188,6 +188,8 @@ $form = array
                 'name' => "menu_item_theme",
                 'type' => 'select',
                 'label' => '',
+                'first'          => true,
+                'first_text'     => "По умолчанию",
                 'options' => \Monstercms\Core\Theme::getNames(),
                 'options_attr' => \Monstercms\Core\Theme::getPreviewsForAttr(),
             ),

@@ -30,7 +30,7 @@ class select extends form_item
             $input  .= "<option value='" . $it['first_value'] . "'";
             if($it['value'] == $it['first_value']) $input  .= " selected";
             $input  .= " >" . $it['first_text'] . "</option>";
-            
+
         }
 
         foreach($it['options'] as $key => $value)
