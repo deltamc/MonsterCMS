@@ -6,7 +6,10 @@ class select extends form_item
         return array
         (
             'options'        => array(),
-            'options_attr'   => array()
+            'options_attr'   => array(),
+            'first'          => false,
+            'first_value'    => "",
+            'first_text'     => "",
         );
     }
 
@@ -21,6 +24,14 @@ class select extends form_item
         if($it['autofocus'])          $input .= 'autofocus ';
         if(!empty($it['attributes'])) $input .= $this->attributes($it['attributes']);
         $input  .= '>';
+
+        if($it['first'])
+        {
+            $input  .= "<option value='" . $it['first_value'] . "'";
+            if($it['value'] == $it['first_value']) $input  .= " selected";
+            $input  .= " >" . $it['first_text'] . "</option>";
+            
+        }
 
         foreach($it['options'] as $key => $value)
         {
