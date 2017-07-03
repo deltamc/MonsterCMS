@@ -32,14 +32,12 @@ class Controller extends Core\ControllerAbstract
         $moduleName = $ep->getParam('moduleName');
         $itemType   = $ep->getParam('itemType');
 
-
         if($moduleName != $this->moduleName) return null;
 
-        $form_items =  Module::get('PageHead')->getSeoForm();
+        $formSeo   =  Module::get('PageHead')->getSeoForm();
+        $formTheme =  Module::get('PageHead')->getThemeForm();
 
-
-        return $form_items;
-
+        return array_merge($formSeo, $formTheme);
     }
 
 
@@ -60,9 +58,10 @@ class Controller extends Core\ControllerAbstract
 
         if($moduleName != $this->moduleName) return null;
 
-        $form_items =  Module::get('PageHead')->getSeoForm();
+        $formSeo   =  Module::get('PageHead')->getSeoForm();
+        $formTheme =  Module::get('PageHead')->getThemeForm();
 
-        return $form_items;
+        return array_merge($formSeo, $formTheme);
     }
 
     /**

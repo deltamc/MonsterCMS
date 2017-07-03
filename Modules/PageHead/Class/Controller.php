@@ -1,6 +1,6 @@
 <?php namespace Monstercms\Modules\PageHead;
 
-use \Monstercms\Core as Core;
+use \Monstercms\Core;
 use \Monstercms\Core\Lang;
 use \Monstercms\Lib;
 use \Monstercms\Lib\Request;
@@ -14,6 +14,11 @@ class Controller extends Core\ControllerAbstract
       return include($this->modulePath . DS . "Forms" . DS . "Seo.php");
    }
 
+    public function getThemeForm()
+   {
+      return include($this->modulePath . DS . "Forms" . DS . "Theme.php");
+   }
+
    public function fullSeoForm($module, $objectId) {
 
       $pageHead = Core\PageHead::init();
@@ -25,7 +30,8 @@ class Controller extends Core\ControllerAbstract
           'menu_item_seo_description' => $pageHead->getDescription(),
           'menu_item_seo_keywords'    => $pageHead->getKeywords(),
           'menu_item_seo_canonical'   => $pageHead->getCanonical(),
-          'menu_item_seo_noindex'     => (int) $pageHead->isNoindex()
+          'menu_item_seo_noindex'     => (int) $pageHead->isNoindex(),
+          'menu_item_theme'           => $pageHead->getTheme(),
       );
    }
 
@@ -36,6 +42,7 @@ class Controller extends Core\ControllerAbstract
       $pageHead->setKeywords(Request::getPost('menu_item_seo_keywords'));
       $pageHead->setCanonical(Request::getPost('menu_item_seo_canonical'));
       $pageHead->setNoindex(Request::getPost('menu_item_seo_noindex'));
+      $pageHead->setTheme(Request::getPost('menu_item_theme'));
       $pageHead->save($module, $objectId);
    }
 }

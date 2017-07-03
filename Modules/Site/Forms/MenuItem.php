@@ -178,23 +178,7 @@ $form = array
         'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
     ),
 
-    array
-    (
-        'type'  => 'tab',
-        'label' => Lang::get('Site.theme'),
-        'items' => array(
-            array
-            (
-                'name' => "menu_item_theme",
-                'type' => 'select',
-                'label' => '',
-                'first'          => true,
-                'first_text'     => "По умолчанию",
-                'options' => \Monstercms\Core\Theme::getNames(),
-                'options_attr' => \Monstercms\Core\Theme::getPreviewsForAttr(),
-            ),
-        )
-    ),
+
 
     array
         (

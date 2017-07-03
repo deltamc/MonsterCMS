@@ -1,5 +1,5 @@
 <?php
-use \Monstercms\Core as Core;
+use \Monstercms\Core;
 use \Monstercms\Core\Lang;
 
 $form = array
