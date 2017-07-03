@@ -16,7 +16,8 @@ class Theme
      *               name    => название темы
      *               file    => php файл темы
      *               style   => css файл
-     *               preview => файл-превью темы
+     *               preview => файл-превью темы,
+     *               dir     => папка
      *         )
      * )
      *
@@ -50,6 +51,7 @@ class Theme
 
                 foreach ($conf as $theme => $value) {
                     $out[$file . '/' . $theme] = $value;
+                    $out[$file . '/' . $theme]['dir'] = $file;
                 }
             }
         }

@@ -59,8 +59,8 @@ define('THEME', 'Surfhouse/Contact');
 /**
  * Директория с темами
  */
-define('THEMES_DIR_MAIN', 'Themes' . DS . 'Main');
-define('THEMES_DIR_ADMIN', 'Themes' . DS .  'Admin');
+define('THEMES_DIR_MAIN', 'Themes' . '/' . 'Main');
+define('THEMES_DIR_ADMIN', 'Themes' . '/' .  'Admin');
 
 /**
  * Тема адинки

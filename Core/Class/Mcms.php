@@ -105,4 +105,17 @@ class Mcms
         View::setBasicTemplate(THEMES_DIALOG_PATH);
         View::replace('BASE', BASE_DIALOG);
     }
+
+    static function setTheme($theme = null)
+    {
+        if($theme === null) {
+            $theme = THEME;
+        }
+        $themeInfo = Theme::getTheme($theme);
+
+        View::setBasicTemplate(THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS . $themeInfo['file']);
+
+        View::add('THEME_PATH',  THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS);
+        View::add('BASE',        SITE_URL . '/' . THEMES_DIR_MAIN .  '/' . $themeInfo['dir'] . '/');
+    }
 }
