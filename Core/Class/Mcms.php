@@ -3,7 +3,7 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use Monstercms\Lib;
-
+use \Monstercms\Lib\View;
 
 
 class Mcms
@@ -98,5 +98,32 @@ class Mcms
             @ini_set('error_reporting', 0);
             @ini_set('display_errors', 0);
         }
+    }
+
+    static function setDialogTheme()
+    {
+        View::setBasicTemplate(THEMES_DIALOG_PATH);
+        View::replace('BASE', BASE_DIALOG);
+    }
+
+    static function setTheme($theme = null)
+    {
+        if($theme === null) {
+            $theme = THEME;
+        }
+
+
+
+        $themeInfo = Theme::getTheme($theme);
+
+        View::setBasicTemplate(THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS . $themeInfo['file']);
+
+        View::replace('THEME_PATH',  THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS);
+        View::replace('BASE',        SITE_URL . '/' . THEMES_DIR_MAIN .  '/' . $themeInfo['dir'] . '/');
+
+        if (!empty($themeInfo['style']) ) {
+            Lib\Css::add($themeInfo['style']);
+        }
+
     }
 }

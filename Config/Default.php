@@ -54,25 +54,29 @@ define('DB_TABLE_USERS_DATA',   DB_PREFIX . 'users_data');
 /**
  * Тема сайта по умолчанию
  */
-define('THEME', 'Sut');
+define('THEME', 'Surfhouse/Contact');
 
 /**
  * Директория с темами
  */
-define('THEMES_DIR', 'Themes');
-
-
+define('THEMES_DIR_MAIN', 'Themes' . '/' . 'Main');
+define('THEMES_DIR_ADMIN', 'Themes' . '/' .  'Admin');
 
 /**
  * Тема адинки
  */
-define('THEMES_ADMIN', 'Admin');
+define('THEMES_ADMIN', 'Classic');
 
 /**
  * Шаблон диалогового окна
  *
  */
-define('THEMES_DIALOG_PATH', THEMES_DIR . DS . THEMES_ADMIN .DS . 'Dialog.php');
+define('THEMES_DIALOG_PATH', THEMES_DIR_ADMIN . DS . THEMES_ADMIN .DS . 'Dialog.php');
+
+/*
+ * Базовый путь диалогового окна
+ */
+define('BASE_DIALOG', SITE_URL . '/' . THEMES_DIR_ADMIN .  '/' . THEMES_ADMIN . '/');
 
 /**
  * Временная зона

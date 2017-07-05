@@ -171,17 +171,16 @@ $form = array
                 'event' => $this->moduleName . '.' . $action.'FormTabBaseEnd'
             ),
 
-        )
-
+        ),
     ),
-            array(
-                'type'=>'event',
-                'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
-            ),
+    array(
+        'type'=>'event',
+        'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
+    ),
 
 
 
-        array
+    array
         (
             'type' => 'html',
             'html' => '<input type="submit" value="'.Lang::get('Site.submit').'" />

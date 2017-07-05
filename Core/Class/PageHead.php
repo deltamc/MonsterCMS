@@ -9,6 +9,7 @@ class PageHead
     private $keywords    = '';
     private $canonical   = '';
     private $noIndex     = false;
+    private $theme       = '';
 
     private static $instance = null;
 
@@ -104,7 +105,7 @@ class PageHead
     }
 
     /**
-     * Метод устанавливает значение тега
+     * Метод возвращает значение тега
      * <link rel="canonical" href="" />
      *
      * @return string
@@ -120,6 +121,24 @@ class PageHead
     public function setCanonical($canonical)
     {
         $this->canonical = $canonical;
+    }
+
+    /**
+     * Метод устанавливает тему
+     * @param string $theme
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+    }
+
+    /**
+     * Метод возвращает название темы
+     * @return string $theme
+     */
+    public function getTheme()
+    {
+        return $this->theme;
     }
 
     /**
@@ -145,6 +164,8 @@ class PageHead
             $this->keywords    = $data['seo_keywords'];
             $this->canonical   = $data['seo_canonical'];
             $this->noIndex     = (bool) $data['seo_noindex'];
+            $this->theme       = $data['theme'];
+
             return true;
         }
 
@@ -180,7 +201,8 @@ class PageHead
             'seo_description' => $this->description,
             'seo_keywords'    => $this->keywords,
             'seo_canonical'   => $this->canonical,
-            'seo_noindex'     => (int) $this->noIndex
+            'seo_noindex'     => (int) $this->noIndex,
+            'theme'           => (empty($this->theme)) ? 'NULL' : $this->theme,
         );
         $data = $this->getData($objectId, $module);
 

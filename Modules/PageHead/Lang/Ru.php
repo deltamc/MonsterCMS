@@ -8,4 +8,6 @@ return array(
     'seoCanonical'   => 'Канонический тег',
     'seoNoindex'     => 'Не индексировать',
     'seoNoindexHelp' => 'Запрет индексации текущей страницы, если отметить, у страницы выведется тег: `<meta name="robots" content="noindex">`',
+    'default'        => 'По умолчанию',
+    'theme'          => 'Тема'
 );
