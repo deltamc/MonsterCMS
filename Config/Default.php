@@ -44,7 +44,7 @@ define('DB_TABLE_URL', DB_PREFIX . 'urls');
 /**
  * Имя таблицы с заголовками страниц
  */
-define('DB_TABLE_PAGE_HEAD',   DB_PREFIX . 'page_head');
+define('DB_TABLE_PAGE_SEMANTIC',   DB_PREFIX . 'page_semantic');
 
 
 define('DB_TABLE_USERS',   DB_PREFIX . 'users');

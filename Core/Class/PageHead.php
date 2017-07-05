@@ -20,7 +20,7 @@ class PageHead
     function __construct()
     {
         $this->db      = Mcms::DB();
-        $this->dbTable = DB_TABLE_PAGE_HEAD;
+        $this->dbTable = DB_TABLE_PAGE_SEMANTIC;
     }
 
     public static function init()
