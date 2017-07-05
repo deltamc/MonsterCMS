@@ -21,7 +21,11 @@ $page_info = $this->model->info($id);
 $pageHead = Core\PageHead::init();
 $pageHead->setData($this->moduleName, $id);
 
+
 $title = $pageHead->getTitle();
+
+
+Core\Mcms::setTheme($pageHead->getTheme());
 
 if(empty($tile)) {
     $title = $page_info->name . ' - ' . SITE_NAME;

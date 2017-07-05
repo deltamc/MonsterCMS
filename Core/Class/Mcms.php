@@ -111,11 +111,19 @@ class Mcms
         if($theme === null) {
             $theme = THEME;
         }
+
+
+
         $themeInfo = Theme::getTheme($theme);
 
         View::setBasicTemplate(THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS . $themeInfo['file']);
 
-        View::add('THEME_PATH',  THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS);
-        View::add('BASE',        SITE_URL . '/' . THEMES_DIR_MAIN .  '/' . $themeInfo['dir'] . '/');
+        View::replace('THEME_PATH',  THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS);
+        View::replace('BASE',        SITE_URL . '/' . THEMES_DIR_MAIN .  '/' . $themeInfo['dir'] . '/');
+
+        if (!empty($themeInfo['style']) ) {
+            Lib\Css::add($themeInfo['style']);
+        }
+
     }
 }

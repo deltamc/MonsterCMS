@@ -10,7 +10,7 @@ return array(
     'Contact' => array(
         'name'       => 'Surfhouse - Контакты',
         'file'       => 'Base.php',
-        'style'      => 'style.css',
+        'style'      => 'style2.css',
         'preview'    => 'preview/base.png',
     ),
 
