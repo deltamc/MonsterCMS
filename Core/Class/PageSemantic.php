@@ -17,10 +17,9 @@ class PageSemantic
     private $dbTable;
 
 
-    function __construct()
+    private function __construct()
     {
-        $this->db      = Mcms::DB();
-        $this->dbTable = DB_TABLE_PAGE_SEMANTIC;
+
     }
 
     protected function __clone() {}
@@ -29,6 +28,8 @@ class PageSemantic
     {
         if (!isset(self::$instance)) {
             self::$instance = new self();
+            self::$instance->db      = Mcms::DB();
+            self::$instance->dbTable = DB_TABLE_PAGE_SEMANTIC;
 
         }
 
