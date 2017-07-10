@@ -68,7 +68,7 @@ View::add('SITE_URL',    SITE_URL);
 View::add('CSS',         Lib\Css::get());
 View::add('JS',          Lib\JavaScript::get());
 
-$pageHead = Core\PageHead::init();
+$pageHead = Core\PageSemantic::init();
 
 View::add('NOINDEX',     $pageHead->isNoindex());
 View::add('TITLE',       $pageHead->getTitle());

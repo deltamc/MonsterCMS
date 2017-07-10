@@ -1,4 +1,4 @@
-<?php namespace Monstercms\Modules\PageHead;
+<?php namespace Monstercms\Modules\PageSemantic;
 
 use \Monstercms\Core;
 use \Monstercms\Core\Lang;
@@ -21,7 +21,7 @@ class Controller extends Core\ControllerAbstract
 
    public function fullSeoForm($module, $objectId) {
 
-      $pageHead = Core\PageHead::init();
+      $pageHead = Core\PageSemantic::init();
       $pageHead->setData($module, $objectId);
 
       return array
@@ -36,7 +36,7 @@ class Controller extends Core\ControllerAbstract
    }
 
    public function saveSeoForm($module, $objectId) {
-      $pageHead = Core\PageHead::init();
+      $pageHead = Core\PageSemantic::init();
       $pageHead->setTitle(Request::getPost('menu_item_seo_title'));
       $pageHead->setDescription(Request::getPost('menu_item_seo_description'));
       $pageHead->setKeywords(Request::getPost('menu_item_seo_keywords'));

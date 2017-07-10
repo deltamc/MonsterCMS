@@ -18,7 +18,7 @@ if ($id == 0) {
 
 $page_info = $this->model->info($id);
 
-$pageHead = Core\PageHead::init();
+$pageHead = Core\PageSemantic::init();
 $pageHead->setData($this->moduleName, $id);
 
 

@@ -2,7 +2,7 @@
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
-class PageHead
+class PageSemantic
 {
     private $title       = '';
     private $description = '';
@@ -23,10 +23,12 @@ class PageHead
         $this->dbTable = DB_TABLE_PAGE_SEMANTIC;
     }
 
+    protected function __clone() {}
+
     public static function init()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new PageHead();
+            self::$instance = new self();
 
         }
 

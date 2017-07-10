@@ -34,8 +34,8 @@ class Controller extends Core\ControllerAbstract
 
         if($moduleName != $this->moduleName) return null;
 
-        $formSeo   =  Module::get('PageHead')->getSeoForm();
-        $formTheme =  Module::get('PageHead')->getThemeForm();
+        $formSeo   =  Module::get('PageSemantic')->getSeoForm();
+        $formTheme =  Module::get('PageSemantic')->getThemeForm();
 
         return array_merge($formSeo, $formTheme);
     }
@@ -58,8 +58,8 @@ class Controller extends Core\ControllerAbstract
 
         if($moduleName != $this->moduleName) return null;
 
-        $formSeo   =  Module::get('PageHead')->getSeoForm();
-        $formTheme =  Module::get('PageHead')->getThemeForm();
+        $formSeo   =  Module::get('PageSemantic')->getSeoForm();
+        $formTheme =  Module::get('PageSemantic')->getThemeForm();
 
         return array_merge($formSeo, $formTheme);
     }
@@ -81,7 +81,7 @@ class Controller extends Core\ControllerAbstract
 
         if($moduleName != $this->moduleName) return null;
 
-        return Module::get('PageHead')->fullSeoForm($moduleName, $objectId);
+        return Module::get('PageSemantic')->fullSeoForm($moduleName, $objectId);
     }
 
 
@@ -106,7 +106,7 @@ class Controller extends Core\ControllerAbstract
 
         $page = $this->model->add($name, $url);
 
-        Module::get('PageHead')->saveSeoForm($this->moduleName, $page['id']);
+        Module::get('PageSemantic')->saveSeoForm($this->moduleName, $page['id']);
 
         return array('object_id' => $page['id'], 'url_id' => $page['url_id'] );
     }
@@ -129,7 +129,7 @@ class Controller extends Core\ControllerAbstract
 
         if($moduleName != $this->moduleName) return null;
 
-        Module::get('PageHead')->saveSeoForm($this->moduleName, $objectId);
+        Module::get('PageSemantic')->saveSeoForm($this->moduleName, $objectId);
 
         $this->model->urlUpdate($objectId, $url);
 
