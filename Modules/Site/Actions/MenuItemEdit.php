@@ -179,10 +179,12 @@ if (!$form->is_submit()) {
 
     //Редирект
     if ((int) Request::getPost('menu_item_goto') === 1 && !empty($url)) {
-        $url = '/';
+
 
         if ((int) Request::getPost('menu_item_index') !== 1) {
             $url = '/'.$url.URL_SEMANTIC_END;
+        } else {
+            $url = '/';
         }
 
         Lib\Header::location($url, 'top');
