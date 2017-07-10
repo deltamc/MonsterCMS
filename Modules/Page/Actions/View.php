@@ -46,6 +46,7 @@ $body = Core\Events::cell(
 );
 
 $this->view->add('BODY', $body);
+$this->view->add('BODY', "page");
 /*
 $this->tag->BODY .= $this->view->get('top.php');
 $this->tag->BODY .= $mEdit->html;
