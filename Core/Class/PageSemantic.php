@@ -203,7 +203,7 @@ class PageSemantic
             'seo_noindex'     => (int) $this->noIndex,
             'theme'           => (empty($this->theme)) ? 'NULL' : $this->theme,
         );
-        
+
         $data = $this->getData($objectId, $module);
 
         if (!empty($data)) {
