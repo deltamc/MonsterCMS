@@ -6,5 +6,8 @@ use \Monstercms\Core;
 
 class Controller extends Core\ControllerAbstract
 {
-    
+    public function getConfig()
+    {
+        return $this->config;
+    }
 }

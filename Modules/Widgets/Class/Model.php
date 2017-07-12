@@ -8,6 +8,9 @@ use Monstercms\Core;
 
 class Model extends Core\ModelAbstract
 {
-
-
+    /**
+     * экземпляры контроллеров виджетов
+     * @var array
+     */
+    private $widgetsControllers = array();
 }
