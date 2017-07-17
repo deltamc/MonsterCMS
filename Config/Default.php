@@ -104,6 +104,11 @@ define('LIB_DIR', 'Lib');
  */
 define('MODULE_DIR', 'Modules');
 
+/**
+ * Директория с виджитами
+ */
+define('WIDGET_DIR', 'Widgets');
+
 
 
 /**

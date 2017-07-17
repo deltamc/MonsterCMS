@@ -37,7 +37,7 @@ $edit = false;
 $this->config['medit']['widgets']['images']['path'] =
     $this->config['image_path'] . '/' . $id;
 
-$mEdit = new Lib\Medit($id, $this->config['medit'], $edit);
+
 
 $body = Core\Events::cell(
     $this->moduleName . '.top',
@@ -53,8 +53,10 @@ $this->tag->BODY .= $mEdit->html;
 $this->tag->BODY .= $this->view->get('bottom.php');
 */
 
+$widgets = Core\Module::get('Widgets');
+
 $this->view->inc('BODY', 'Top.php');
-$this->view->add('BODY', $mEdit->html);
+$this->view->add('BODY', $widgets->toolBar());
 $this->view->inc('BODY', 'Bottom.php');
 
 $body = Core\Events::cell(

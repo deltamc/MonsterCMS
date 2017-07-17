@@ -1,0 +1,110 @@
+html{
+    margin:0;
+}
+body{
+    background-color: transparent !important;
+
+}
+
+/*
+    Окно
+*/
+
+/*
+    Меню администратора
+*/
+
+#admin-panel
+{
+    height:40px;
+}
+#admin-panel .fixed
+{
+    position: fixed;
+    left:50%;
+    z-index:500;
+    height:40px;
+    width:1080px;
+    margin-left:-540px;
+    background: #fff;
+    border-bottom:2px solid #0E3460;
+}
+
+
+
+#admin-panel a.but
+{
+    display:block;
+    float:left;
+    padding:8px;
+    font-size:14px;
+
+}
+#admin-panel a.but:hover
+{
+    background:#0E3460;
+    color:#fff;
+    text-decoration:none;
+}
+#admin-panel a.but.right
+{
+    float:right;
+}
+
+/*
+    Виджеты
+*/
+.medit-element-art-tools a{
+    background-color: #0E3460;
+    color:#fff;
+    padding:3px;
+    font-size:18px;
+    margin:2px;
+    width:25px;
+    height:25px;
+    text-align:center;
+}
+.medit-element-art-tools a:hover
+{
+    text-decoration: none;
+    background-color: #1463ab;
+}
+
+.medit-element-art-tools a.fa-times
+{
+    background-color: #cc2934;
+}
+
+.medit-element-art-tools a.fa-times:hover
+{
+    background-color: #fc2b41;
+}
+
+#medit-tools
+{
+    position: fixed;
+    left:10px;
+    top:0;
+
+    background: #f2f5f6;
+
+
+    /*
+
+    background: -moz-linear-gradient(top, #f2f5f6 0%, #e3eaed 37%, #c8d7dc 100%);
+    background: -webkit-linear-gradient(top, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%);
+    background: linear-gradient(to bottom, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#c8d7dc',GradientType=0 );
+    */
+
+}
+
+#medit-tools img
+{
+    cursor: pointer;
+}
+
+#medit-tools img:hover
+{
+    background: #42aefa;
+}

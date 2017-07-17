@@ -4,6 +4,7 @@
     <base href="<?=$BASE;?>" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/window.css" rel="stylesheet">
 
     <?=$HEAD;?>
 

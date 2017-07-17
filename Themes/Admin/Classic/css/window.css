@@ -1,5 +1,7 @@
-body, html{
+
+body{
     background-color: transparent !important;
+
 }
 
 
@@ -206,42 +208,7 @@ body, html{
 
 /* ����� ������ */
 
-#admin-panel
-{
-    height:40px;
-}
-#admin-panel .fixed
-{
-    position: fixed;
-    left:50%;
-    z-index:500;
-    height:40px;
-    width:1080px;
-    margin-left:-540px;
-    background: #fff;
-    border-bottom:2px solid #0E3460;
-}
 
-
-
-#admin-panel a.but
-{
-    display:block;
-    float:left;
-    padding:8px;
-    font-size:14px;
-
-}
-#admin-panel a.but:hover
-{
-background:#0E3460;
-    color:#fff;
-    text-decoration:none;
-}
-#admin-panel a.but.right
-{
-    float:right;
-}
 
 .authorization div, .authorization p
 {
@@ -1012,3 +979,6 @@ ul.ztree.zTreeDragUL
 
     text-decoration: none !important;
 }
+
+
+

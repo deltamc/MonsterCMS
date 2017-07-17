@@ -1,5 +1,6 @@
 <?php namespace Monstercms\Core;
 
+use Monstercms\Lib;
 
 abstract class WidgetAbstract
 {
@@ -14,16 +15,28 @@ abstract class WidgetAbstract
     protected $db;
 
     /**
+     * @var Lib\View
+     */
+    protected $view;
+
+    /**
      * настойки модуля WIDGET
      * @var array
      */
     protected $widgetsConfig = array();
 
-    function __construct()
+    function __construct($widgetName)
     {
         $this->widgets = Module::get('Widgets');
         $this->widgetsConfig = $this->widgets->getConfig();
         $this->db = Mcms::DB();
+
+        $this->widgetName = $widgetName;
+
+        $this->view = new Lib\View(array(
+            THEMES_DIR_MAIN . DS . THEME . DS . 'Widgets' . DS . $this->widgetName,
+            WIDGET_DIR  . DS . $this->widgetName . DS . 'Views'
+        ));
     }
 
     /**
@@ -63,6 +76,8 @@ abstract class WidgetAbstract
     public function getJs(){
         return array();
     }
+
+
 
 
 

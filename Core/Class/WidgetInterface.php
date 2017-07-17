@@ -16,9 +16,10 @@ interface WidgetInterface
 
     /**
      * Метод возвращает представления виджета
+     * @param $vars - массив переманных которые видны в шаблоне
      *  @return string
      */
-    public function getView();
+    public function getView(array $vars);
 
     /**
      * Метод возвращает url иконки
@@ -32,12 +33,15 @@ interface WidgetInterface
      */
     public function getName();
 
-
     /**
-     * Метод возвращает версию модуля Widget с которой он совместим
-     * @return string
+     * Размер окна в формате wxh, например: 700x800
+     * если метод возвращает пустое заначение или false, то окно не отображается
+     * @return string|false
      */
-    public function compatibility();
+    public function getWindowSize();
+
+
+
 
 
 }
