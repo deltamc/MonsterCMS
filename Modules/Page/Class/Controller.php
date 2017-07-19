@@ -106,6 +106,8 @@ class Controller extends Core\ControllerAbstract
 
         $page = $this->model->add($name, $url);
 
+
+
         Module::get('PageSemantic')->saveSeoForm($this->moduleName, $page['id']);
 
         return array('object_id' => $page['id'], 'url_id' => $page['url_id'] );
@@ -126,7 +128,7 @@ class Controller extends Core\ControllerAbstract
         $itemType   = $ep->getParam('itemType');
         $url        = $ep->getParam('url');
         $objectId   = (int) $ep->getParam('objectId');
-
+        
         if($moduleName != $this->moduleName) return null;
 
         Module::get('PageSemantic')->saveSeoForm($this->moduleName, $objectId);

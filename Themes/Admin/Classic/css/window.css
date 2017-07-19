@@ -291,60 +291,6 @@ a.fa-times
 }
 
 
-#MCMSwindow
-{
-    background: #E5E5E5;
-    border: 1px solid #fff;
-    border-radius: 5px 5px 5px 5px;
-
-    display:none;
-    position: absolute;
-    box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
-    width: 450px;
-    height: 450px;
-    z-index: 900000000000;
-    font-size:20px;
-    color:#000;
-    padding:15px;
-    font-weight:bold !important;
-
-
-}
-#MCMSwindow iframe
-{
-    position: relative;
-    top: -30px;
-}
-#MCMSwindow .close
-{
-    opacity: 1;
-    background: url(close.png) no-repeat center;
-    display:block;
-    float:right;
-    border:1px solid #8b8b8b;
-    background-color: #E5E5E5  !important;
-    padding:3px;
-    position:relative;
-    top:-45px;
-    right:-1px;
-    border-bottom:none;
-    border-radius: 5px 5px 0px 0px;
-    cursor: pointer;
-    width:  50px;
-    height: 30px;
-}
-
-#MCMSwindowMask
-{
-    position:absolute;
-    z-index:90000;
-    background-color:#666;
-    display:none;
-}
-
-
-
-
 
 
 
@@ -763,7 +709,10 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li a {padding:1px 3px 0 0; margin:0; cursor:pointer; height:17px; color:#333; background-color: transparent;
     text-decoration:none; vertical-align:top; display: inline-block}
 .ztree li a:hover {text-decoration:underline}
-.ztree li a.curSelectedNode {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
+.ztree li a.curSelectedNode
+{
+  font-weight: bold;
+}
 .ztree li a.curSelectedNode_Edit {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
 .ztree li a.tmpTargetNode_inner {padding-top:0px; background-color:#316AC5; color:white; height:16px; border:1px #316AC5 solid;
     opacity:0.8; filter:alpha(opacity=80)}

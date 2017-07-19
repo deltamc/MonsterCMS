@@ -33,7 +33,7 @@ class Model extends Core\ModelAbstract
         $url = new Core\Url();
         $url->delete($info->url_id);
 
-        $this->config['medit']['widgets']['images']['path'] =
+        /*$this->config['medit']['widgets']['images']['path'] =
             $this->config['image_path'] . '/' . $id;
 
         $medit = new Lib\medit($id, $this->config['medit']);
@@ -48,6 +48,7 @@ class Model extends Core\ModelAbstract
             }
             @rmdir($dir);
         }
+        */
         $this->db->delete($this->config['db_table'], $id);
 
     }
@@ -69,7 +70,7 @@ class Model extends Core\ModelAbstract
         $url->setId((int) $page->url_id)
             ->setUrl($newUrl)
             ->setModule($this->moduleName)
-            ->setAction('view')
+            ->setAction('View')
             ->setObjectId($id);
         $url->update();
 
@@ -90,11 +91,14 @@ class Model extends Core\ModelAbstract
             'name'        => $name,
             'date_create' => time(),
             'date_update' => time(),
+            'url_id' => 'NULL'
         );
 
         $this->db->insert($data, $this->dbTable);
 
         $id     =  $this->db->lastInsertId();
+
+
         $url_id = null;
 
         if (!is_null($url)) {
