@@ -167,7 +167,7 @@ class MenuItems extends Lib\Crud
 
         $result = $this->db->query($sql);
 
-        return $result->fetchObject($result);
+        return $result->fetchObject();
     }
 
     public function menuItemAdd($data)

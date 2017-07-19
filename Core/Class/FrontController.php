@@ -69,7 +69,7 @@ class FrontController
             $this->objectId = (int) $params['objectId'];
         }
 
-        
+
     }
 
     /**
