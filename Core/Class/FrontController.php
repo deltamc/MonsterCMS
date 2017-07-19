@@ -25,7 +25,7 @@ class FrontController
     protected function handleRequest()
     {
         $this->module = DEFAULT_MODULE;
-        $this->action = DEFAULT_MODULE;
+        $this->action = DEFAULT_ACTION;
 
         $request = $_SERVER['REQUEST_URI'];
 
@@ -68,6 +68,8 @@ class FrontController
         if ($params['objectId']) {
             $this->objectId = (int) $params['objectId'];
         }
+
+        
     }
 
     /**
