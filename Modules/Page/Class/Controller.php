@@ -11,12 +11,6 @@ use Monstercms\Core\Module;
 
 class Controller extends Core\ControllerAbstract
 {
-    public function actionEmail_send()
-    {
-        /*TODO убрать в виджет */
-        include_once($this->modulePath . 'Actions' . DS . 'EmailSend.php');
-    }
-
 
     /**
      * Метод вызывается при событии site.addFormTabBaseAfter.

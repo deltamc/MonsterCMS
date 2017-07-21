@@ -10,7 +10,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getFormEdit()
     {
-        return include('Form.php');
+        return include(WIDGET_DIR . DS . 'Shit' . DS . 'Form.php');
     }
 
     /**
@@ -19,7 +19,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getFormAdd()
     {
-        return include('Form.php');
+        return include(WIDGET_DIR . DS . 'Shit' . DS . 'Form.php');
     }
 
     /**
@@ -64,8 +64,24 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      * если метод возвращает пустое заначение или false, то окно не отображается
      * @return string|false
      */
-    function getWindowSize()
+    public function getWindowSize()
     {
         return '700x800';
+    }
+
+    /**
+     * Массив с параметрами. ключ=>значение
+     * Данный массив заполнит форму добавления виджета.
+     * После заполнения формы добавления/редактирования виджета
+     * пост параметры ($_POST) ключи которых совпадают с ключами параметров виджета,
+     * значения параметров виджетов будут сохранены в БД
+     * @return array
+     */
+    public function getParameters()
+    {
+        return array(
+            'name' => 'Говняшкин',
+            'age'  => 52
+        );
     }
 }

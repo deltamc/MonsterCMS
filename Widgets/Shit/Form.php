@@ -2,12 +2,17 @@
 return array(
     array
     (
-            'name' => "end_data_time",
-            'type' => 'datatime',
-            'label' => 'Дата окончания акции',
+            'name' => "name",
+            'type' => 'text',
+            'label' => 'Как зовут какашку?',
             'valid' => array
             (
                 'required'
             ),
     ),
+    array
+        (
+            'type' => 'submit',
+            'value' => ' OK '
+        ),
 );

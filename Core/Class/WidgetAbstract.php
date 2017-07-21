@@ -73,10 +73,15 @@ abstract class WidgetAbstract
      * отображении виджетов на странице
      * @return array
      */
-    public function getJs(){
+    public function getJs()
+    {
         return array();
     }
 
+    public function getWidgetName()
+    {
+        return $this->widgetName;
+    }
 
 
 

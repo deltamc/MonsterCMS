@@ -3,6 +3,7 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
+use \Monstercms\Lib;
 
 class Controller extends Core\ControllerAbstract
 {
@@ -11,6 +12,11 @@ class Controller extends Core\ControllerAbstract
         return $this->config;
     }
 
+    /**
+     * Метод выводит панель инструментов
+     * @return string
+     * @throws \Exception
+     */
     public function toolBar()
     {
         $this->model->init();
@@ -32,7 +38,11 @@ class Controller extends Core\ControllerAbstract
             );
         }
 
+        Lib\JavaScript::add('/' . MODULE_DIR.'/'.$this->moduleName.'/JavaScript/widgets.js');
+
         return $this->view->get("Tools.php", array('widgets'=>$vars));
 
     }
+
+
 }

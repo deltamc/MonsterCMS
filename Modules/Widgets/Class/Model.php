@@ -120,5 +120,36 @@ class Model extends Core\ModelAbstract
         }
     }
 
+    function add(Core\WidgetInterface $widget, array $date, $objectId = null)
+    {
+        $params = $widget->getParameters();
+
+        $insert = array();
+
+        $widgetId = null;
+
+        $list = array(
+            'widget'=> $widget->getWidgetName(),
+            'cache' => '',
+            'pos'   => '',
+            'object_id' => $objectId
+        );
+
+        foreach ($params as $key => &$value) {
+            if (isset($date[$key])) {
+                $value = $this->db->quote($value);
+                $insert[] = array(
+                    'widget_id' => $widgetId,
+                    'key'       => $key,
+                    'value'     => $value
+                );
+            }
+        }
+        unset($value);
+
+        print_r($params);
+
+    }
+
 
 }
