@@ -1,9 +1,9 @@
-<div id="medit-tools">
+<div id="medit-tools" data-page-id="<?=$pageId?>">
     <?php foreach ($widgets as $widget):?>
     <img src="<?=$widget['ico']?>" id="medit-widget-but-<?=$widget['widget'];?>"
-         title="<?=$widget['name'];?>" date-widget='<?=$widget['widget']?>'
-         date-window-add='<?=(empty($widget['window_size']))? 'false': 'true';?>'
-         date-window-size='<?=$widget['window_size'];?>' />
+         title="<?=$widget['name'];?>" data-widget='<?=$widget['widget']?>'
+         data-window-add='<?=(empty($widget['window_size']))? 'false': 'true';?>'
+         data-window-size='<?=$widget['window_size'];?>'  />
 
     <?php endforeach?>
 

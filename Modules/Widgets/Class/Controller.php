@@ -14,10 +14,11 @@ class Controller extends Core\ControllerAbstract
 
     /**
      * Метод выводит панель инструментов
+     * @param $pageId - ид страницы
      * @return string
      * @throws \Exception
      */
-    public function toolBar()
+    public function toolBar($pageId)
     {
         $this->model->init();
 
@@ -39,8 +40,23 @@ class Controller extends Core\ControllerAbstract
         }
 
         Lib\JavaScript::add('/' . MODULE_DIR.'/'.$this->moduleName.'/JavaScript/widgets.js');
+        Lib\JavaScript::add('/JavaScript/scroll.js');
 
-        return $this->view->get("Tools.php", array('widgets'=>$vars));
+        return $this->view->get("Tools.php", array('widgets'=>$vars, 'pageId' => $pageId));
+
+    }
+
+    public function view($pageId)
+    {
+        $pageId = (int) $pageId;
+        $widgets = $this->model->widgetsList($pageId);
+
+        $vars = array(
+           'widgets' =>  $widgets,
+            'pageId' => $pageId,
+        );
+
+        return $this->view->get('widgetsList.php', $vars);
 
     }
 

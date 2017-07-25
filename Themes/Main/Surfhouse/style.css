@@ -258,7 +258,7 @@
     margin-top:-20px;
     background-color: #f8f8f8;
 }
-#main .article h2{
+#main .article h1{
     font-family: Roboto;
     color:
     #707070;
@@ -267,6 +267,13 @@
     font-style: italic;
     text-align: left;
     padding: 31px 25px;
+}
+#main .article p{
+    padding: 10px 25px;
+    font-size: 14px;
+    font-family: Raleway;
+    color:  #000000;
+    font-size: 14px;
 }
 
 

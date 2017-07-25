@@ -1,4 +1,4 @@
-<?php namespace Monstercms\Widgets\Shit;
+<?php namespace Monstercms\Widgets\Heading;
 
 use Monstercms\Core;
 
@@ -10,7 +10,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getFormEdit()
     {
-        return include(WIDGET_DIR . DS . 'Shit' . DS . 'Form.php');
+        return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
     }
 
     /**
@@ -19,7 +19,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getFormAdd()
     {
-        return include(WIDGET_DIR . DS . 'Shit' . DS . 'Form.php');
+        return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
     }
 
     /**
@@ -37,7 +37,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public  function getIco()
     {
-        return 'http://www.iconsearch.ru/uploads/icons/pidginsmilies/24x24/poop.png';
+        return '/Widgets/' . $this->widgetName . '/ico.png';
     }
 
     /**
@@ -46,7 +46,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getName()
     {
-        return "Какашка";
+        return "Заголовок";
     }
 
 
@@ -66,7 +66,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getWindowSize()
     {
-        return '700x800';
+        return '550x250';
     }
 
     /**
@@ -80,8 +80,8 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
     public function getParameters()
     {
         return array(
-            'name' => 'Говняшкин',
-            'age'  => 52
+            'heading' => '',
+            'level'  => 1
         );
     }
 }

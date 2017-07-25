@@ -2,9 +2,9 @@
 return array(
     array
     (
-            'name' => "name",
-            'type' => 'text',
-            'label' => 'Как зовут какашку?',
+            'name' => "text",
+            'type' => 'textarea',
+            'label' => 'Текст*:',
             'valid' => array
             (
                 'required'
@@ -13,6 +13,6 @@ return array(
     array
         (
             'type' => 'submit',
-            'value' => ' OK '
+            'value' => ' Сохранить '
         ),
 );

@@ -35,7 +35,7 @@ abstract class WidgetAbstract
 
         $this->view = new Lib\View(array(
             THEMES_DIR_MAIN . DS . THEME . DS . 'Widgets' . DS . $this->widgetName,
-            WIDGET_DIR  . DS . $this->widgetName . DS . 'Views'
+            WIDGET_DIR  . DS . $this->widgetName . DS
         ));
     }
 

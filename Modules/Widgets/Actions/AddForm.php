@@ -16,14 +16,17 @@ if (!Core\Users::isAdmin()) {
 }
 $params = $this->getParams();
 
-if (!isset($params['widget']) || empty($params['widget'])) {
+if (!isset($params['widget']) || empty($params['widget']) || !isset($params['pageId'])) {
     throw new Core\HttpErrorException(404);
 }
+
 $widgetName = $params['widget'];
 
 if (!$this->model->isWidget($widgetName)){
     throw new \Exception('Widget ' . $widgetName . ' no found');
 }
+
+$pageId = (int) $params['pageId'];
 
 Core\Mcms::setDialogTheme();
 
@@ -50,7 +53,7 @@ if(!$form->is_submit()) {
     $html .= $form->error();
 } else {
 
-    $this->setParams(array('widget'=>$widget, 'widgetName' => $widgetName));
+    $this->setParams(array('widget'=>$widget, 'widgetName' => $widgetName, 'pageId' => $pageId));
     $this->addFormSaveAction();
 }
 

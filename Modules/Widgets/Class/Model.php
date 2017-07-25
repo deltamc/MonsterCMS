@@ -128,28 +128,84 @@ class Model extends Core\ModelAbstract
 
         $widgetId = null;
 
-        $list = array(
-            'widget'=> $widget->getWidgetName(),
-            'cache' => '',
-            'pos'   => '',
-            'object_id' => $objectId
-        );
+
 
         foreach ($params as $key => &$value) {
             if (isset($date[$key])) {
-                $value = $this->db->quote($value);
-                $insert[] = array(
-                    'widget_id' => $widgetId,
-                    'key'       => $key,
-                    'value'     => $value
-                );
+                $value = $date[$key];
             }
         }
         unset($value);
 
-        print_r($params);
+        $widgetName = $widget->getWidgetName();
+        $cache = $widget->getView($params);
+        $pos   = $this->getNextMaxPos($objectId);
+
+        $list = array(
+            'widget'    => $widgetName,
+            'cache'     => $cache,
+            'pos'       => $pos,
+            'object_id' => $objectId
+        );
+
+
+
+        $this->db->insert($list, $this->config['dbTableWidgets']);
+        $widgetId = $this->db->lastInsertId();
+
+        foreach ($params as $key => $value) {
+
+                $insert[] = array(
+                    $widgetId,
+                    $key,
+                    $value
+                );
+        }
+        $fields = array(
+            'widget_id',
+            'key',
+            'value'
+        );
+        $this->db->insertOrUpdate($fields, $insert, $this->config['dbTableOptions']);
+
+        return array(
+            'id'        => $widgetId,
+            'widget'    => $widgetName,
+            'cache'     => $cache,
+            'pos'       => $pos,
+            'object_id' => $objectId
+        );
+
 
     }
+
+    function getNextMaxPos($objectId = null){
+        if (is_null($objectId)) return 0;
+
+        $objectId = (int) $objectId;
+
+        $table = $this->config['dbTableWidgets'];
+        $sql = "SELECT `pos` FROM {$table}  WHERE object_id=" . $objectId;
+
+        $result = $this->db->query($sql);
+        $pos    = $result->fetch();
+
+        return $pos[0] +1;
+    }
+
+    public function widgetsList($objectId)
+    {
+        $objectId = (int) $objectId;
+
+        $table = $this->config['dbTableWidgets'];
+        $sql = "SELECT * FROM {$table}  WHERE object_id=" . $objectId;
+
+        $result = $this->db->query($sql);
+
+        return $result->fetchAll();
+
+    }
+
 
 
 }

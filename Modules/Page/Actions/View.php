@@ -34,8 +34,7 @@ if(empty($tile)) {
 $edit = false;
 //$edit = (Core\Users::isAdmin()) ? true : false;
 
-$this->config['medit']['widgets']['images']['path'] =
-    $this->config['image_path'] . '/' . $id;
+
 
 
 
@@ -46,7 +45,7 @@ $body = Core\Events::cell(
 );
 
 $this->view->add('BODY', $body);
-$this->view->add('BODY', "page");
+
 /*
 $this->tag->BODY .= $this->view->get('top.php');
 $this->tag->BODY .= $mEdit->html;
@@ -56,7 +55,8 @@ $this->tag->BODY .= $this->view->get('bottom.php');
 $widgets = Core\Module::get('Widgets');
 
 $this->view->inc('BODY', 'Top.php');
-$this->view->add('BODY', $widgets->toolBar());
+$this->view->add('BODY', $widgets->toolBar($id));
+$this->view->add('BODY', $widgets->view($id));
 $this->view->inc('BODY', 'Bottom.php');
 
 $body = Core\Events::cell(
