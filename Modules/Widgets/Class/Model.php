@@ -56,7 +56,7 @@ class Model extends Core\ModelAbstract
             throw new \Exception('Module not include');
         }
 
-        $controllerName = '\\Monstercms\\Widgets\\' . $widget . '\\Controller';
+        $controllerName = '\\Monstercms\\Widgets\\' . $widget . '\\Widget';
 
         self::$controllers[$widget] = new $controllerName($widget, $pageId);
 
@@ -70,7 +70,7 @@ class Model extends Core\ModelAbstract
      */
     public function isWidget($widget)
     {
-        $controllerName = '\\Monstercms\\Widgets\\'. $widget . '\\Controller';
+        $controllerName = '\\Monstercms\\Widgets\\'. $widget . '\\Widget';
 
         if (preg_match('/^-/', $widget)) {
             return false;

@@ -129,7 +129,7 @@ class Mcms
 
     }
 
-    static function getThisThemeInfo()
+    static public function getThisThemeInfo()
     {
         return self::$thisThemeInfo;
     }

@@ -1,6 +1,5 @@
 <?php
 
-//print $this->pageId;
 return array(
     array
     (
@@ -11,7 +10,7 @@ return array(
             (
                 'required'
             ),
-            'upload_script'=>'fdsa.php',
+            'upload_script'=>'/Widgets/UploadCkeditor/PageId/' . $this->pageId.'?',
             'height'=>'300',
             'resize_enabled' => false,
 
