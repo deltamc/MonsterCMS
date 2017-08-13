@@ -3,7 +3,7 @@
 use Monstercms\Core;
 use Monstercms\Modules\Widgets as ModuleWidgets;
 
-class Controller extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
+class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
 {
 
 
@@ -87,5 +87,23 @@ class Controller extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\W
         return array(
             'text' => ''
         );
+    }
+
+    public function deleteAfter(array $data, array $params) {
+        $text = $params['text'];
+        $pageId = 10;
+        $result = array();
+
+        $uploadDir = str_replace('/', '\/', UPLOAD_DIR);
+
+        $pattern = '/'.$uploadDir.'\/Widgets\/'.$pageId.'\/([a-f0-9]*\.\w{3,5})/';
+
+        preg_match_all($pattern,$text, $result);
+        $result = $result[1];
+        if (empty($result)) return;
+
+        foreach ($result as $item) {
+            @ulink(UPLOAD_DIR . DS. $item);
+        }
     }
 }

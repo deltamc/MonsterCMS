@@ -3,7 +3,7 @@
 use Monstercms\Core;
 use Monstercms\Modules\Widgets as ModuleWidgets;
 
-class Controller extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
+class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
 {
     /**
      * Метод возвращает массив с формой редактирования
