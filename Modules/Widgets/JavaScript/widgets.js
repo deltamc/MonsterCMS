@@ -1,9 +1,13 @@
+var toolsClass = "mcms-widget-tools";
+var widgetClass = ".mcms-widget";
+
 $(function ()
 {
 
     bindEventTools();
-
+    widgetToolsBind($(widgetClass), toolsClass);
 });
+
 
 /**
  * Функция добавляет события в toolbar
@@ -72,11 +76,11 @@ function widgetWindow(url, size)
     $('#MCMSwindow iframe').attr('src',url);
 }
 
-function addWidget(html, widget, id){
+function addWidget(html, widget, id, pos){
 
 
 
-    $('#mcms-widgets').append(widgetWrap(id, widget, html));
+    $('#mcms-widgets').append(widgetWrap(id, widget, html, pos));
     $widget = getWidget(id);
 
     $('#MCMSwindow').MCMSwindow('close');
@@ -87,6 +91,8 @@ function addWidget(html, widget, id){
         $widget.hide().fadeIn();
     }});
 
+    widgetToolsBind($widget, toolsClass )
+
 
 }
 
@@ -95,23 +101,25 @@ function getWidget(id){
 }
 
 
-function widgetWrap(id, widget, html)
+function widgetWrap(id, widget, html, pos)
 {
     return '<div class="mcms-widget ' + widget +
-        '" data-id="' + id + '">' + html + '</div>';
+        '" data-id="' + id +
+        '" data-pos="'+pos+'" data-widget="'+widget+'">' + html + '</div>';
 
 }
 
 /**
  * шаблон панели инструментов виджета
- * @param tools_class - имя css класса
+ * @param toolsClass - имя css класса
  * @returns {string}
  */
-function widgetTools(tools_class)
+function widgetTools(toolsClass)
 {
-    html = '<div class="' + tools_class + '">';
 
-    html += '<a href="#" class="edit fa fa-pencil-square-o" title="Редактировать"></a>';
+    html = '<div class="' + toolsClass + '" >';
+
+    html += '<a href="#" class="edit fa fa-pencil" title="Редактировать"></a>';
 
     html += '<a href="#" class="up fa fa-angle-up"  title="Вверх" ></a>';
     html += '<a href="#" class="down fa fa-angle-down" title="Вниз"></a>';
@@ -123,57 +131,203 @@ function widgetTools(tools_class)
 
 /**
  * функция добавляет к виджету панель инструментов
+ *
  * @param el - dom объект
+ * @param toolsClass - toolsClass
  */
 
-function widgetToolsCreate(el)
+function widgetToolsCreate(el, toolsClass)
 {
-    var tools_class = "mcms-widget";
 
-    html = element_art_tools_tpl(tools_class);
+
+    var html = widgetTools(toolsClass);
 
     $(el).append(html);
 
-    $('.'+ tools_class +' .edit').click(function (event)
+
+
+    $('.'+ toolsClass +' .edit').click(function (event)
     {
         event.preventDefault();
         var $el = $(this).parent().parent();
-        element_art_edit($el);
+        var windowName = $el.attr('data-widget');
+
+        var widgetId = $el.attr('data-id');
+        var windowSize = geWindowsSize(windowName);
+        widgetEditWindows(widgetId, windowSize);
     });
 
-    $('.'+ tools_class +' .del').click(function ()
+
+    $('.'+ toolsClass +' .del').click(function (event)
     {
-        var el = $($(this).parent().parent())[0];
+        event.preventDefault();
+        var $el = $(this).parent().parent();
+        var $widget =  $(this).parent().parent();
         if (confirm("Удалить блок")) {
-            id = $(el).attr("date-id");
-            widget =  $(el).attr("date-widget");
-            delete_element_art(id, widget);
+
+            var id = $widget.attr("data-id");
+
+            widgetDelete(id, $widget);
         }
         $(this).unbind('click');
         return false;
     });
 
-    $('.'+ tools_class +' .up').click(function ()
+    $('.'+ toolsClass +' .up').click(function (event)
     {
+        event.preventDefault();
         var $el = $(this).parent().parent();
 
-        element_art_pos($el, 'up');
+        widgetSetPos($el, 'up');
         //save();
-        element_art_tools_hide();
+        widgetToolsHide(toolsClass);
         return false
     });
 
-    $('.'+ tools_class +' .down').click(function ()
+    $('.'+ toolsClass +' .down').click(function (event)
     {
+        event.preventDefault();
         var $el = $(this).parent().parent();
 
-        element_art_pos($el, 'down');
+        widgetSetPos($el, 'down');
         //save();
-        element_art_tools_hide();
+        widgetToolsHide(toolsClass);
         return false
     });
 }
 
+/**
+ * функция отображает панель инструментов виджета
+ * @param el - doom объект обвертки виджета
+ * @param toolsClass
+ */
+
+function widgetToolsShow(el, toolsClass)
+{
+    widgetToolsCreate(el, toolsClass);
+
+}
+/**
+ * функция скрывает панель инструментов виджета
+ */
+
+function widgetToolsHide(toolsClass)
+{
+
+    $('.' + toolsClass).remove();
+}
 
 
+/*
+ * Функция добавляет событие, которое срабатывает при наведения курсора на виджет
+  * (отображает панель инструментов)
+ * */
+function widgetToolsBind($el, toolsClass )
+{
 
+    $el.hover
+    (
+        function ()
+        {
+
+            widgetToolsShow(this, toolsClass);
+
+        },
+
+        function ()
+        {
+            widgetToolsHide(toolsClass);
+
+        }
+
+    );
+}
+
+function widgetEditWindows(widgetId, windowSize){
+    url = '/Widgets/EditForm/widgetId/' + widgetId;
+
+    widgetWindow(url, windowSize)
+}
+
+function geWindowsSize(widget){
+    return $('#medit-widget-but-' + widget).attr('data-window-size');
+}
+
+function editWidget(html, widgetId){
+    $widget = getWidget(widgetId);
+    $widget.html(html);
+    $('#MCMSwindow').MCMSwindow('close');
+    /*
+    $.scrollTo($widget, {offset:{'top':-200}, 'duration':600, 'onAfter':function(){
+        $widget.hide().fadeIn();
+    }});
+    */
+
+}
+
+/**
+ * функция меняет позицию виджета на странице
+ * @param $widget - jquery объект виджета
+ * @param action - действие up|down
+ * @returns {null}
+ */
+function widgetSetPos($widget, action)
+{
+    if(action != 'up' && action != 'down') return null;
+    if($widget.size() == 0 )                  return null;
+
+
+    var $widget2;
+
+    if(action == "up")   $widget2    = $widget.prev();
+    if(action == "down") $widget2    = $widget.next();
+
+    var widget1Pos = getWidgetPos($widget);
+    var widget1Id  = getWidgetId($widget);
+
+    var widget2Pos = getWidgetPos($widget2);
+    var widget2Id  = getWidgetId($widget2);
+
+
+    var url = '/Widgets/SetPos/id1/' + widget1Id;
+    url    += '/pos1/'+widget1Pos+'/id2/' + widget2Id+'/pos2/' + widget2Pos;
+
+
+    $.ajax({
+        url: url,
+
+        success: function()
+        {
+            //alert(action);
+            if(action == "up")   $widget.insertBefore ($widget.prev());
+            if(action == "down") $widget.insertAfter  ($widget.next());
+        }
+    });
+}
+
+function getWidgetPos($widget){
+    return $widget.attr('data-pos');
+}
+
+function getWidgetId($widget){
+    return $widget.attr('data-id');
+}
+
+/**
+ * функция удаляет виджет
+ * @param id
+ * @param widget
+ */
+
+function widgetDelete(id, $widget)
+{
+    var url = '/Widgets/Delete/id/' + id;
+
+    $.ajax({
+        url: url,
+        success: function()
+        {
+            $widget.fadeOut(500, function(){this.remove();});
+        }
+    });
+}

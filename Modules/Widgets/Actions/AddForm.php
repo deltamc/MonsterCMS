@@ -30,7 +30,8 @@ $pageId = (int) $params['pageId'];
 
 Core\Mcms::setDialogTheme();
 
-$widget = $this->model->get($widgetName);
+$widget = $this->model->get($widgetName, $pageId);
+
 
 $form = new Lib\Form();
 
@@ -56,5 +57,5 @@ if(!$form->is_submit()) {
     $this->setParams(array('widget'=>$widget, 'widgetName' => $widgetName, 'pageId' => $pageId));
     $this->addFormSaveAction();
 }
-
+Lib\JavaScript::add($form->js());
 $this->view->add('BODY', $html);

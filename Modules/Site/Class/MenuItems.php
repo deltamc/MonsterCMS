@@ -195,9 +195,13 @@ class MenuItems extends Lib\Crud
 
         $sql = 'SELECT MAX(pos)+1 FROM `' . $table . '` WHERE menu_id=' . $menu_id;
 
+
+
         $result = $this->db->query($sql);
 
         $pos = $result->fetch();
+
+        if(empty($pos[0])) $pos[0] = 0;
 
         return $pos[0];
     }

@@ -233,50 +233,52 @@ iframe.sendform
     width:0; height:0; border:0
 }
 
-.medit-element
+.mcms-widget
 {
     position:relative;
-    border:1px dotted #ffffff;
+    border:1px dotted transparent;
 
 }
-.medit-element:hover
+.mcms-widget:hover
 {
     border:1px dotted #0089ec;
 
 }
 
-.medit-element-art-tools
+.mcms-widget-tools
 {
     position:absolute;
-    top:0px;
-    right:0px;
+    top:-30px;
+    right:0;
     z-index:20;
+    background: #E5E5E5;
+    border-radius: 5px;
+    box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
+
 }
 
-.medit-element-art-tools a{
-    background-color: #0E3460;
-    color:#fff;
-    padding:3px;
-    font-size:18px;
-    margin:2px;
-    width:25px;
-    height:25px;
-    text-align:center;
-}
-.medit-element-art-tools a:hover
-{
+.mcms-widget-tools a{
+
+    padding:7px;
     text-decoration: none;
-    background-color: #1463ab;
+    font-size: 23px;
+    color:#000;
+}
+.mcms-widget-tools a:hover {
+    text-decoration: none;
+    color: #42aefa;
 }
 
-.medit-element-art-tools a.fa-times
+
+
+.mcms-widget-tools a.fa-times
 {
-    background-color: #cc2934;
+    color: #cc2934;
 }
 
-.medit-element-art-tools a.fa-times:hover
+.mcms-widget-tools a.fa-times:hover
 {
-    background-color: #fc2b41;
+    color: #fc2b41;
 }
 
 #medit-tools

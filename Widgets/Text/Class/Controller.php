@@ -1,15 +1,20 @@
 <?php namespace Monstercms\Widgets\Text;
 
 use Monstercms\Core;
+use Monstercms\Modules\Widgets as ModuleWidgets;
 
-class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
+class Controller extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
 {
+
+
     /**
      * Метод возвращает массив с формой редактирования
      * @return array
      */
     public function getFormEdit()
     {
+
+
         return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
     }
 
@@ -66,7 +71,7 @@ class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
      */
     public function getWindowSize()
     {
-        return '550x200';
+        return '700x500';
     }
 
     /**

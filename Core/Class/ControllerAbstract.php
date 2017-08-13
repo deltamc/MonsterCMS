@@ -105,6 +105,17 @@ abstract class ControllerAbstract
         return null;
     }
 
+    protected function isParam($key, $empty = true) {
+        if (isset($this->params[$key])){
+            if (!$empty) {
+                return true;
+            } else {
+                return !empty($this->params[$key]);
+            }
+        }
+        return false;
+    }
+
     /**
      * Метод возвращает ид объекта
      * @return int

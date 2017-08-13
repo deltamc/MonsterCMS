@@ -7,9 +7,16 @@ use \Monstercms\Lib;
 
 class Controller extends Core\ControllerAbstract
 {
+
+
     public function getConfig()
     {
         return $this->config;
+    }
+
+    public function setConfig($key, $value)
+    {
+        $this->config[$key] = $value;
     }
 
     /**
@@ -58,6 +65,11 @@ class Controller extends Core\ControllerAbstract
 
         return $this->view->get('widgetsList.php', $vars);
 
+    }
+
+    public function deleteAllWidgetsByPageId($pageId)
+    {
+        $this->model->deleteAllWidgetsByPageId($pageId);
     }
 
 

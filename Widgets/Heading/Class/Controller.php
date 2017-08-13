@@ -1,8 +1,9 @@
 <?php namespace Monstercms\Widgets\Heading;
 
 use Monstercms\Core;
+use Monstercms\Modules\Widgets as ModuleWidgets;
 
-class Controller extends Core\WidgetAbstract implements Core\WidgetInterface
+class Controller extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
 {
     /**
      * Метод возвращает массив с формой редактирования

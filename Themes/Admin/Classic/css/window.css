@@ -96,7 +96,7 @@ body{
 
 }
 
-.form2 div
+.form2 > div
 {
     text-align: left;
     margin-top:10px;

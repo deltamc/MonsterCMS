@@ -18,11 +18,12 @@ $cache = $newWidget['cache'];
 $vars = array(
     'cache' => $newWidget['cache'],
     'id'    => $newWidget['id'],
-    'widget' => $newWidget['widget']
+    'widget' => $newWidget['widget'],
+    'pos' => $newWidget['pos'],
 );
 Core\Mcms::setDialogTheme();
 $this->view->add('BODY', '<div id="widget-html" style="display: none">' . $cache .'</div>');
-$js = $this->view->get('addWidgetJs.php', $vars);
+$js = $this->view->get('AddWidgetJs.php', $vars);
 
 Lib\Javascript::add($js);
 

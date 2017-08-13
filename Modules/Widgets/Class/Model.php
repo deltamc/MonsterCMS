@@ -16,17 +16,18 @@ class Model extends Core\ModelAbstract
 
     /**
      * Метод возвращает экземпляр контроллера (виджета)
-     * @param $widget - модуль
+     * @param $widget - виджет
+     * @param $pageId - ид страницы
      * @throws \Exception
      * @return Core\WidgetInterface
      */
-    public function get($widget)
+    public function get($widget, $pageId = null)
     {
         if (isset(self::$controllers[$widget])) {
             return self::$controllers[$widget];
         }
 
-        self::set($widget);
+        self::set($widget, $pageId);
 
         if (isset(self::$controllers[$widget])) {
             return self::$controllers[$widget];
@@ -48,7 +49,7 @@ class Model extends Core\ModelAbstract
      * @throws \Exception
      * @return  Core\WidgetInterface
      */
-    public function set($widget)
+    public function set($widget, $pageId = null)
     {
 
         if (!self::isWidget($widget)) {
@@ -57,7 +58,7 @@ class Model extends Core\ModelAbstract
 
         $controllerName = '\\Monstercms\\Widgets\\' . $widget . '\\Controller';
 
-        self::$controllers[$widget] = new $controllerName($widget);
+        self::$controllers[$widget] = new $controllerName($widget, $pageId);
 
         return  self::$controllers[$widget];
     }
@@ -69,7 +70,7 @@ class Model extends Core\ModelAbstract
      */
     public function isWidget($widget)
     {
-        $controllerName = '\\Monstercms\\Widgets\\'.$widget . '\\Controller';
+        $controllerName = '\\Monstercms\\Widgets\\'. $widget . '\\Controller';
 
         if (preg_match('/^-/', $widget)) {
             return false;
@@ -77,7 +78,7 @@ class Model extends Core\ModelAbstract
 
         $class = new \ReflectionClass($controllerName);
 
-        if(!$class->implementsInterface('Monstercms\Core\WidgetInterface')) {
+        if(!$class->implementsInterface('Monstercms\Modules\Widgets\WidgetInterface')) {
             return false;
         }
 
@@ -120,7 +121,7 @@ class Model extends Core\ModelAbstract
         }
     }
 
-    function add(Core\WidgetInterface $widget, array $date, $objectId = null)
+    function add(WidgetInterface $widget, array $date, $objectId = null)
     {
         $params = $widget->getParameters();
 
@@ -138,8 +139,8 @@ class Model extends Core\ModelAbstract
         unset($value);
 
         $widgetName = $widget->getWidgetName();
-        $cache = $widget->getView($params);
-        $pos   = $this->getNextMaxPos($objectId);
+        $cache      = $widget->getView($params);
+        $pos        = $this->getNextMaxPos($objectId);
 
         $list = array(
             'widget'    => $widgetName,
@@ -149,7 +150,7 @@ class Model extends Core\ModelAbstract
         );
 
 
-
+        $widget->addBefore($list, $params);
         $this->db->insert($list, $this->config['dbTableWidgets']);
         $widgetId = $this->db->lastInsertId();
 
@@ -161,12 +162,17 @@ class Model extends Core\ModelAbstract
                     $value
                 );
         }
+
+
+
         $fields = array(
             'widget_id',
             'key',
             'value'
         );
         $this->db->insertOrUpdate($fields, $insert, $this->config['dbTableOptions']);
+
+        $widget->addAfter($list, $params);
 
         return array(
             'id'        => $widgetId,
@@ -185,7 +191,7 @@ class Model extends Core\ModelAbstract
         $objectId = (int) $objectId;
 
         $table = $this->config['dbTableWidgets'];
-        $sql = "SELECT `pos` FROM {$table}  WHERE object_id=" . $objectId;
+        $sql = "SELECT max(`pos`) FROM {$table}  WHERE object_id=" . $objectId;
 
         $result = $this->db->query($sql);
         $pos    = $result->fetch();
@@ -198,11 +204,158 @@ class Model extends Core\ModelAbstract
         $objectId = (int) $objectId;
 
         $table = $this->config['dbTableWidgets'];
-        $sql = "SELECT * FROM {$table}  WHERE object_id=" . $objectId;
+        $sql = "SELECT * FROM {$table}  WHERE object_id={$objectId} ORDER BY `pos`";
 
         $result = $this->db->query($sql);
 
         return $result->fetchAll();
+
+    }
+
+    public function getInfoById($widgetId)
+    {
+
+        $widgetId = (int) $widgetId;
+        $table = $this->config['dbTableWidgets'];
+        $sql = "SELECT * FROM {$table} WHERE id={$widgetId}";
+
+        $result = $this->db->query($sql);
+        $info    = $result->fetch(\PDO::FETCH_ASSOC);
+
+        $table = $this->config['dbTableOptions'];
+        $sql = "SELECT * FROM {$table} WHERE widget_id={$widgetId}";
+
+        $result = $this->db->query($sql);
+
+        $options = $result->fetchAll(\PDO::FETCH_ASSOC);
+        foreach($options as $option){
+            $info['options'][$option['key']] = $option['value'];
+
+        }
+
+        return $info;
+    }
+
+    public function edit(WidgetInterface $widget, $data, $widgetId)
+    {
+        $params = $widget->getParameters();
+        $widgetId = (int) $widgetId;
+
+        $table = $this->config['dbTableWidgets'];
+        $sql = "SELECT * FROM {$table} WHERE id={$widgetId}";
+
+        $result = $this->db->query($sql);
+        $info    = $result->fetch(\PDO::FETCH_ASSOC);
+
+        $insert = array();
+
+        foreach ($params as $key => &$value) {
+            if (isset($data[$key])) {
+                $value = $data[$key];
+            }
+        }
+        unset($value);
+
+        $widgetName = $widget->getWidgetName();
+        $cache = $widget->getView($params);
+
+
+
+
+        $list = array(
+            'widget'    => $widgetName,
+            'pos'       => $info['pos'],
+            'object_id' => $info['object_id'],
+            'cache'     => $cache,
+        );
+
+        $widget->editBefore($list, $params);
+
+        $this->db->update($list, $table, $widgetId);
+
+        $widget->editAfter($list, $params);
+
+        foreach ($params as $key => $value) {
+
+            $insert[] = array(
+                $widgetId,
+                $key,
+                $value
+            );
+        }
+        $fields = array(
+            'widget_id',
+            'key',
+            'value'
+        );
+        $this->db->insertOrUpdate($fields, $insert, $this->config['dbTableOptions']);
+
+        return array(
+            'id'        => $widgetId,
+            'widget'    => $widgetName,
+            'cache'     => $cache
+        );
+    }
+
+    /**
+     * функция меняет местами я pos1 и pos2
+     * @param $id1
+     * @param $pos1
+     * @param $id2
+     * @param $pos2
+     */
+
+    public function exchangePosWidget($id1, $pos1, $id2, $pos2)
+    {
+        $id1  = intval($id1);
+        $pos1 = intval($pos1);
+
+        $id2  = intval($id2);
+        $pos2 = intval($pos2);
+
+        $tab =  $this->config['dbTableWidgets'];
+
+        $sql = "UPDATE `" . $tab . "` SET `pos`='".$pos2."' WHERE `id`=" . $id1;
+        $this->db->query($sql);
+
+        $sql = "UPDATE `" . $tab . "` SET `pos`='".$pos1."' WHERE `id`=" . $id2;
+        $this->db->query($sql);
+
+
+    }
+
+    /**
+     * функция удалет виджет с бд.     *
+     * @param $id
+     * @return null
+     */
+    public function delete($id)
+    {
+        $info = $this->getInfoById($id);
+        $widget = $this->get($info['widget']);
+        $widget->deleteBefore($info, $info['options']);
+
+        $this->db->delete($this->config['dbTableWidgets'], intval($id));
+        $this->db->delete($this->config['dbTableOptions'], 'widget_id =' .intval($id));
+
+        $widget->deleteAfter($info, $info['options']);
+    }
+
+    public function deleteAllWidgetsByPageId($pageId)
+    {
+        $pageId = (int) $pageId;
+
+        $sql    = 'SELECT * FROM '.$this->config['dbTableWidgets'].' WHERE object_id='.$pageId;
+
+
+        $result = $this->db->query($sql);
+
+
+        while($row = $result->fetch())
+        {
+
+            $this->delete($row['id']);
+        }
 
     }
 

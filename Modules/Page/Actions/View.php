@@ -18,6 +18,10 @@ if ($id == 0) {
 
 $page_info = $this->model->info($id);
 
+if (empty($page_info)) {
+    throw new Core\HttpErrorException(404);
+}
+
 $pageHead = Core\PageSemantic::init();
 $pageHead->setData($this->moduleName, $id);
 

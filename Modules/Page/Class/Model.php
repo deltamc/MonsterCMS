@@ -30,26 +30,17 @@ class Model extends Core\ModelAbstract
 
         $info = $this->db->getObject($this->dbTable, $pageId);
 
+        if (empty($info)) return;
+
+        Core\Module::get('Widgets')->deleteAllWidgetsByPageId($id);
+
         $url = new Core\Url();
         $url->delete($info->url_id);
-
-        /*$this->config['medit']['widgets']['images']['path'] =
-            $this->config['image_path'] . '/' . $id;
-
-        $medit = new Lib\medit($id, $this->config['medit']);
-
-        $medit->deleteWidgetsByGroupId($id);
-
-        $dir = $this->config['image_path'] . DS . $id;
-
-        if (file_exists($dir)) {
-            foreach (glob($dir . DS . '*') as $file) {
-                @unlink($file);
-            }
-            @rmdir($dir);
-        }
-        */
         $this->db->delete($this->config['db_table'], $id);
+
+
+
+
 
     }
 
@@ -114,9 +105,10 @@ class Model extends Core\ModelAbstract
             $this->db->update(array('url_id' => $url_id), $this->dbTable, $id);
         }
 
+        /*
         $dir = UPLOAD_ROOT . DS . $this->moduleName . DS . $id;
         mkdir($dir, 0777, true);
-
+        */
         return array('id' => $id,'url_id' => $url_id);
 
 
