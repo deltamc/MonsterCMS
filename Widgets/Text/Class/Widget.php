@@ -91,7 +91,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
 
     public function deleteAfter(array $data, array $params) {
         $text = $params['text'];
-        $pageId = 10;
+        $pageId = $data['object_id'];
         $result = array();
 
         $uploadDir = str_replace('/', '\/', UPLOAD_DIR);
