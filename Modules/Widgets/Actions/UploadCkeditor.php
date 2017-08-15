@@ -23,7 +23,7 @@ $uploadDir = UPLOAD_DIR . DS . $this->moduleName . DS . $pageId;
 $imageFull ='';
 
 $errors = array(
-    Core\Lang::get('Widgets.uploadOk'),
+    '',
     Core\Lang::get('Widgets.errorNotImage'),
     Core\Lang::get('Widgets.errorMaxSize'),
     Core\Lang::get('Widgets.errorUpload'),

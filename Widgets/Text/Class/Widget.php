@@ -71,7 +71,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getWindowSize()
     {
-        return '700x500';
+        return '800x600';
     }
 
     /**
@@ -85,7 +85,9 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getParameters()
     {
         return array(
-            'text' => ''
+            'text' => '',
+            'id' => '',
+            'css_class' => '',
         );
     }
 
@@ -100,10 +102,13 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
 
         preg_match_all($pattern,$text, $result);
         $result = $result[1];
+
+
         if (empty($result)) return;
 
         foreach ($result as $item) {
-            @ulink(UPLOAD_DIR . DS. $item);
+            print UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item . PHP_SLF;
+            @unlink(UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item);
         }
     }
 }

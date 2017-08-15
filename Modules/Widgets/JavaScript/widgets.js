@@ -66,7 +66,7 @@ function widgetWindow(url, size)
         y:false,
         autoOpen:true,
         mask:true,
-        quickClose:true
+        quickClose:false
     };
 
     /*Открываем окно*/
