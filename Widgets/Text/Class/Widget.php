@@ -112,16 +112,11 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
         }
     }
 
-
     /**
-     * Массив с файлами JS
-     * @return array
+     * Вес сортировки, чем больше вес тем ниже будет отображаться иконка виджета в панели
+     * @return int
      */
-    public function getJavaScript(){}
-
-    /**
-     * Массив с файлами CSS
-     * @return array
-     */
-    public function getCSS(){}
+    public function getOrder(){
+        return 1;
+    }
 }

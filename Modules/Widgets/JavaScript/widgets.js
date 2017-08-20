@@ -82,7 +82,7 @@ function addWidget(html, widget, id, pos){
     //$('#mcms-widgets').append(widgetWrap(id, widget, html, pos));
     $('#mcms-widgets').append(html);
     $widget = getWidget(id);
-
+    $widget.css('display','block');
     $('#MCMSwindow').MCMSwindow('close');
 
     //$(document).scrollTop($widget.offset().top);

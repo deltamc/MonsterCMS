@@ -284,6 +284,7 @@ section:after{
 
 #main .article section{
     padding: 10px 25px;
+    display: block;
 }
 
 

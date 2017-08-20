@@ -112,4 +112,13 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
             '/' . WIDGET_DIR . '/' . $this->widgetName . '/zenburn.css'
         );
     }
+
+
+    /**
+     * Вес сортировки, чем больше вес тем ниже будет отображаться иконка виджета в панели
+     * @return int
+     */
+    public function getOrder(){
+        return 100;
+    }
 }

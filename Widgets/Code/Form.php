@@ -1,5 +1,5 @@
 <?php
-
+use Monstercms\Core\Module;
 return array(
 
     array(
@@ -13,6 +13,7 @@ return array(
                   'name' => "code",
                   'type' => 'textarea',
                   'label' => 'Код*:',
+                  'style'  => 'height:400px;',
                   'valid' => array
                   (
                       'required'
@@ -25,33 +26,7 @@ return array(
           'label' => 'Атрибуты',
           'items' =>array
          (
-                array
-                (
-                        'name' => "id",
-                        'type' => 'text',
-                        'label' => 'Id:',
-                        'valid' => array
-                        (
-                            'pattern' => array(
-                                '^[\w\d-_]*$',
-                                'Не допустимые символы'
-                            ),
-                        ),
-                ),
-
-              array
-              (
-                  'name' => "css_class",
-                  'type' => 'text',
-                  'label' => 'CSS class:',
-                  'valid' => array
-                  (
-                      'pattern' => array(
-                          '^[\w\d-_]*$',
-                          'Не допустимые символы'
-                      ),
-                  ),
-              ),
+              Module::get('Widgets')->getCssClassFormElement()
           )
         ),
 

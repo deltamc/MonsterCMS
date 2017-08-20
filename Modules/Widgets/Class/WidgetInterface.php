@@ -58,6 +58,12 @@ interface WidgetInterface
      */
     public function getWidgetName();
 
+    /**
+     * Вес сортировки, чем больше вес тем ниже будет отображаться иконка виджета в панели
+     * @return int
+     */
+    public function getOrder();
+
 
 
 

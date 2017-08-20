@@ -42,9 +42,14 @@ class Controller extends Core\ControllerAbstract
                 'ico'         => $widget->getIco(),
                 'name'        => $widget->getName(),
                 'widget'      => $key,
-                'window_size' => $widget->getWindowSize()
+                'window_size' => $widget->getWindowSize(),
+                'order'       => (int) $widget->getOrder(),
             );
         }
+
+        usort($vars, function($a,$b){
+            return ($a['order']-$b['order']);
+        });
 
         Lib\JavaScript::add('/' . MODULE_DIR.'/'.$this->moduleName.'/JavaScript/widgets.js');
         Lib\JavaScript::add('/JavaScript/scroll.js');
@@ -93,6 +98,12 @@ class Controller extends Core\ControllerAbstract
     public function deleteAllWidgetsByPageId($pageId)
     {
         $this->model->deleteAllWidgetsByPageId($pageId);
+    }
+
+
+    public function getCssClassFormElement()
+    {
+        return include MODULE_DIR . DS . $this->moduleName . DS . 'Forms' .DS . 'CssClass.php';
     }
 
 

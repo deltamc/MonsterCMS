@@ -225,6 +225,8 @@ class Model extends Core\ModelAbstract
             $item['css']        = $widgetObj->getCSS();
         }
         unset($item);
+
+
         return $list;
 
     }
