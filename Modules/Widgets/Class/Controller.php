@@ -63,6 +63,29 @@ class Controller extends Core\ControllerAbstract
             'pageId' => $pageId,
         );
 
+
+        foreach ($widgets as $widget) {
+            if(!empty($widget['javascript'])) {
+                if (is_array($widget['javascript'])) {
+                    foreach ($widget['javascript'] as $js) {
+                        Lib\JavaScript::add($js);
+                    }
+                } else {
+                    Lib\JavaScript::add($widget['javascript']);
+                }
+            }
+
+            if(!empty($widget['css'])) {
+                if (is_array($widget['css'])) {
+                    foreach ($widget['css'] as $css) {
+                        Lib\Css::add($css);
+                    }
+                } else {
+                    Lib\Css::add($widget['css']);
+                }
+            }
+        }
+
         return $this->view->get('widgetsList.php', $vars);
 
     }

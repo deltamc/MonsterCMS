@@ -1,4 +1,4 @@
-<?php namespace Monstercms\Widgets\Text;
+<?php namespace Monstercms\Widgets\Code;
 
 use Monstercms\Core;
 use Monstercms\Modules\Widgets as ModuleWidgets;
@@ -51,7 +51,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getName()
     {
-        return "Параграф";
+        return "Код";
     }
 
 
@@ -85,31 +85,11 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getParameters()
     {
         return array(
-            'text' => '',
+            'code' => '',
+            'language' => '',
             'id' => '',
             'css_class' => '',
         );
-    }
-
-    public function deleteAfter(array $data, array $params) {
-        $text = $params['text'];
-        $pageId = $data['object_id'];
-        $result = array();
-
-        $uploadDir = str_replace('/', '\/', UPLOAD_DIR);
-
-        $pattern = '/'.$uploadDir.'\/Widgets\/'.$pageId.'\/([a-f0-9]*\.\w{3,5})/';
-
-        preg_match_all($pattern,$text, $result);
-        $result = $result[1];
-
-
-        if (empty($result)) return;
-
-        foreach ($result as $item) {
-            print UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item . PHP_SLF;
-            @unlink(UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item);
-        }
     }
 
 
@@ -117,11 +97,19 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      * Массив с файлами JS
      * @return array
      */
-    public function getJavaScript(){}
+    public function getJavaScript(){
+        return array(
+            '/' . WIDGET_DIR . '/' . $this->widgetName . '/highlight.pack.js'
+        );
+    }
 
     /**
      * Массив с файлами CSS
      * @return array
      */
-    public function getCSS(){}
+    public function getCSS(){
+        return array(
+            '/' . WIDGET_DIR . '/' . $this->widgetName . '/zenburn.css'
+        );
+    }
 }

@@ -79,8 +79,8 @@ function widgetWindow(url, size)
 function addWidget(html, widget, id, pos){
 
 
-
-    $('#mcms-widgets').append(widgetWrap(id, widget, html, pos));
+    //$('#mcms-widgets').append(widgetWrap(id, widget, html, pos));
+    $('#mcms-widgets').append(html);
     $widget = getWidget(id);
 
     $('#MCMSwindow').MCMSwindow('close');
@@ -100,7 +100,7 @@ function getWidget(id){
     return $('.mcms-widget[data-id="'+id+'"]');
 }
 
-
+/*
 function widgetWrap(id, widget, html, pos)
 {
     return '<div class="mcms-widget ' + widget +
@@ -108,7 +108,7 @@ function widgetWrap(id, widget, html, pos)
         '" data-pos="'+pos+'" data-widget="'+widget+'">' + html + '</div>';
 
 }
-
+*/
 /**
  * шаблон панели инструментов виджета
  * @param toolsClass - имя css класса
@@ -331,3 +331,27 @@ function widgetDelete(id, $widget)
         }
     });
 }
+
+function addCssFile(file){
+    $('head').prepend('<link rel="stylesheet" href="'+file+'" />');
+}
+
+function addJavaScriptFiles(files, callback){
+    //$('head').append('<script href="'+file+'" ></script>');
+    $.getMultiScripts(files).done(function() {
+        callback();
+    });
+
+}
+
+$.getMultiScripts = function(arr, path) {
+    var _arr = $.map(arr, function(scr) {
+        return $.getScript( (path||"") + scr );
+    });
+
+    _arr.push($.Deferred(function( deferred ){
+        $( deferred.resolve );
+    }));
+
+    return $.when.apply($, _arr);
+};

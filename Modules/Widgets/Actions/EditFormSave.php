@@ -19,7 +19,8 @@ $cache = $newWidget['cache'];
 $vars = array(
     'cache' => $newWidget['cache'],
     'id'    => $newWidget['id'],
-    'widget' => $newWidget['widget']
+    'widget' => $newWidget['widget'],
+    'class' => $newWidget['css_class']
 );
 Core\Mcms::setDialogTheme();
 $this->view->add('BODY', '<div id="widget-html" style="display: none">' . $cache .'</div>');

@@ -1,4 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i,800,900i|Roboto:400,400i,700,700i&subset=cyrillic');
+
 *{
     margin:0;
     padding:0;
@@ -13,7 +15,11 @@
       margin:0 auto;
 
 }
-
+section:after{
+    content: '';
+    clear: both;
+    display:block;
+}
 
 .row{
     display:grid;
@@ -269,11 +275,15 @@
     padding: 31px 25px;
 }
 #main .article p{
-    padding: 10px 25px;
+
     font-size: 14px;
     font-family: Raleway;
     color:  #000000;
     font-size: 14px;
+}
+
+#main .article section{
+    padding: 10px 25px;
 }
 
 

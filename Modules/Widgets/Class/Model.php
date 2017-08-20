@@ -121,7 +121,7 @@ class Model extends Core\ModelAbstract
         }
     }
 
-    function add(WidgetInterface $widget, array $date, $objectId = null)
+    function add(WidgetInterface $widget, array $data, $objectId = null)
     {
         $params = $widget->getParameters();
 
@@ -132,8 +132,8 @@ class Model extends Core\ModelAbstract
 
 
         foreach ($params as $key => &$value) {
-            if (isset($date[$key])) {
-                $value = $date[$key];
+            if (isset($data[$key])) {
+                $value = $data[$key];
             }
         }
         unset($value);
@@ -142,11 +142,17 @@ class Model extends Core\ModelAbstract
         $cache      = $widget->getView($params);
         $pos        = $this->getNextMaxPos($objectId);
 
+        $cssClass   = '';
+        if (isset($data['css_class'])) {
+            $cssClass = htmlspecialchars($data['css_class']);
+        }
+
         $list = array(
             'widget'    => $widgetName,
             'cache'     => $cache,
             'pos'       => $pos,
-            'object_id' => $objectId
+            'object_id' => $objectId,
+            'css_class' => $cssClass
         );
 
 
@@ -179,7 +185,8 @@ class Model extends Core\ModelAbstract
             'widget'    => $widgetName,
             'cache'     => $cache,
             'pos'       => $pos,
-            'object_id' => $objectId
+            'object_id' => $objectId,
+            'css_class' => $cssClass,
         );
 
 
@@ -208,7 +215,17 @@ class Model extends Core\ModelAbstract
 
         $result = $this->db->query($sql);
 
-        return $result->fetchAll();
+        $list = $result->fetchAll(\PDO::FETCH_ASSOC);
+
+
+        foreach ($list as &$item) {
+            $widgets[$item['widget']] = true;
+            $widgetObj = $this->get($item['widget']);
+            $item['javascript'] = $widgetObj->getJavaScript();
+            $item['css']        = $widgetObj->getCSS();
+        }
+        unset($item);
+        return $list;
 
     }
 
@@ -259,7 +276,10 @@ class Model extends Core\ModelAbstract
         $widgetName = $widget->getWidgetName();
         $cache = $widget->getView($params);
 
-
+        $cssClass   = '';
+        if (isset($data['css_class'])) {
+            $cssClass = $data['css_class'];
+        }
 
 
         $list = array(
@@ -267,6 +287,7 @@ class Model extends Core\ModelAbstract
             'pos'       => $info['pos'],
             'object_id' => $info['object_id'],
             'cache'     => $cache,
+            'css_class' => $cssClass
         );
 
         $widget->editBefore($list, $params);

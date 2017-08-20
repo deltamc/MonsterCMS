@@ -85,4 +85,5 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
             'level'  => 1
         );
     }
+
 }

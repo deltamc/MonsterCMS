@@ -151,6 +151,21 @@ abstract class WidgetAbstract
     }
 
 
+    /**
+     * Массив с файлами JS
+     * @return array
+     */
+    public function getJavaScript(){}
+
+    /**
+     * Массив с файлами CSS
+     * @return array
+     */
+    public function getCSS(){}
+
+
+
+
 
 
 }
