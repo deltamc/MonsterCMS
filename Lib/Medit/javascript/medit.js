@@ -32,14 +32,10 @@ function bind_event_tools()
     {
         var $this = $(this);
 
-
-
         var widget = $this.attr("date-widget");
-
 
         if($this.attr("date-window_add") == "")
         {
-
             add_widget_no_windows(widget);
         }
         else

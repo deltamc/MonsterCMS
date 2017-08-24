@@ -1,6 +1,5 @@
-<?
-namespace  Monstercms\Lib;
-class upload
+<?php namespace  Monstercms\Lib;
+class Upload
 {
 
 	var $file = false;
@@ -9,7 +8,7 @@ class upload
 
     public $rash;
 
-    public $img_ext = array('gif', 'jpg', 'png');
+    public $img_ext = array('gif', 'jpg','jpeg', 'png');
 
     /**
      * @param $files - POST индекс (input type=file)
@@ -19,7 +18,6 @@ class upload
      * @param $maxsize - максимальный размер файла
      * @return bool
      */
-
     function __construct($files, $dir, $filename=false, $type=false, $maxsize=false)
 	{
 
@@ -74,7 +72,7 @@ class upload
 
                 if(filesize($file_tmp_name) > $maxsize)
                 {
-                    //привышает максимальный размер
+                    //превышен максимальный размер
                     $this->error = 2;
                     return false;
                 }
@@ -104,7 +102,7 @@ class upload
 			    if (@move_uploaded_file($file_tmp_name, $dir.$filename))
 			    {
 
-						/*chmod($dir.$filename,0777);*/
+
                 	 	$this->error = 0;
 
                 	 	return true;
@@ -113,6 +111,7 @@ class upload
 			    }
 			    else
 			    {
+
                     $this->error = 3;
                 	return false;
                 }

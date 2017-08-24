@@ -1,0 +1,614 @@
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i,800,900i|Roboto:400,400i,700,700i&subset=cyrillic');
+
+*{
+    margin:0;
+    padding:0;
+
+}
+.wrap{
+    height:100%;
+    background-color: #f8f8f8;
+}
+.wrap > *{
+      width:1170px;
+      margin:0 auto;
+
+}
+section:after{
+    content: '';
+    clear: both;
+    display:block;
+}
+
+.row{
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap:30px;
+    box-sizing: border-box;
+
+
+}
+
+.row > *{
+    /*border:1px dotted rgba(0,0,0, 0.1);*/
+}
+
+.row .col{
+
+    border:1px solid red;
+    box-sizing: border-box;
+
+}
+/************* header *********************/
+
+.wrap.header{
+    background: #abeafa url(images/bg.jpg) center;
+
+}
+
+#header{
+
+
+    height:700px;
+
+}
+
+#header .logo-social{
+    height:220px;
+}
+#header .welcome-slide{
+    height:420px;
+}
+
+
+#header .logo{
+    margin-top:24px;
+    height:111px;
+    background: url(images/logo.png) no-repeat center;
+    grid-column: 1 / 4;
+
+
+}
+#header .social{
+
+
+    grid-column: 10 / 12;
+    height:16px;
+    margin-top:50px;
+}
+#header .social a{
+    color:#fff;
+    text-decoration: none;
+    display: inline-block;
+    font-size:18px;
+    margin-right:10px;
+}
+#header .social a:hover{
+    color:#373737;
+}
+
+#header .welcome{
+    height: 300px;
+    grid-column: 1 / 4;
+    background-color: rgb(255, 245, 31);
+    align-self: end;
+}
+
+#header .welcome h2{
+    font-family: Raleway;
+    color:
+    #333333;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-left:25px;
+    margin-top:82px;
+    text-transform: uppercase;
+
+}
+
+#header .welcome p{
+    font-family: Raleway;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 14px;
+    text-align: left;
+    width: 218px;
+    height:60px;
+    margin-left:25px;
+    margin-top:25px;
+}
+
+#header .title-slide{
+    grid-column: 8 / 12;
+
+}
+#header .title-slide h2{
+    font-family: Raleway;
+    color:
+    #fff51f;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 34px;
+    text-align: left;
+}
+#header .title-slide p{
+    font-family: Raleway;
+    color:    #fff51f;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+#header .title-slide .buynow{
+    margin-top:63px;
+    background-color:
+    #fff51f;
+    width: 124px;
+    height: 49px;
+    line-height: 49px;
+    text-align: center;
+    text-decoration: none;
+    font-family: Raleway;
+    color:  #000000;
+    font-size: 14px;
+    font-weight: 800;
+    display: block;
+}
+
+#header .title-slide .buynow:hover{
+    background-color:#373737;
+    color: #fff51f;
+}
+
+/*********** MAIN ****************/
+
+#main .sidebar{
+    grid-column: 1 / 4;
+    margin-top:-20px;
+}
+
+#main .sidebar .menu h2{
+    height:66px;
+
+    font-family: Roboto;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 66px;
+
+    background-color: #333333;
+    text-transform: uppercase;
+    padding-left:42px;
+}
+
+#main .sidebar ul.menu{
+    list-style-type: none;
+    width:270px;
+    z-index: 10;
+    position: relative;
+
+}
+#main .sidebar ul.menu a {
+    display:block;
+    background-color: #26d2fc;
+    height:43px;
+    line-height: 43px;
+    padding-left:42px;
+
+    font-family: Roboto;
+    color:  #333333;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    text-decoration: none;
+    text-transform: uppercase;
+
+}
+#main .sidebar ul.menu li{
+    position: relative;
+}
+
+#main .sidebar ul.menu li ul{
+    list-style: none;
+
+    position: absolute;
+    right:0;
+    z-index: -1;
+    top:0;
+    width: 270px;
+    transition: all .3s;
+}
+#main .sidebar ul.menu li ul li ul{
+    display: none;
+}
+#main .sidebar ul.menu li:hover > ul{
+    display: block;
+    right:-270px;
+
+}
+#main .sidebar ul.menu .fa-chevron-right{
+    position: absolute;
+    right:20px;
+    top:15px;
+}
+
+#main .sidebar ul.menu a:hover{
+    background-color: #000000;
+    color:#ffffff;
+
+}
+
+#main .sidebar .banner{
+    background-color: #e0e0e0;
+    width: 270px;
+    height: 300px;
+    padding-left:142px;
+    padding-top:129px;
+    font-family: Raleway;
+    color: #333333;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 36px;
+    box-sizing: border-box;
+    margin-top:30px;
+    text-transform: uppercase;
+}
+
+
+
+#main .article{
+    grid-column: 4 / 13;
+    margin-top:-20px;
+    background-color: #f8f8f8;
+}
+#main .article h1{
+    font-family: Roboto;
+    color:
+    #707070;
+    font-size: 22px;
+    font-weight: 900;
+    font-style: italic;
+    text-align: left;
+    padding: 31px 25px;
+}
+#main .article p{
+
+    font-size: 14px;
+    font-family: Raleway;
+    color:  #000000;
+    font-size: 14px;
+}
+
+#main .article section{
+    padding: 10px 25px;
+    display: block;
+}
+
+
+/******** products ************/
+
+.row.products{
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 30px;
+}
+
+.product{
+    background-color: #fff;
+    height:320px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #333333;
+    font-family: Roboto;
+    padding:10px;
+    border:1px solid transparent;
+    position: relative;
+
+}
+.product:hover{
+
+    border:1px solid #aaa;
+}
+.product .row{
+    grid-column-gap: 0;
+    grid-template-columns: 60% 40%;
+    margin-top:20px;
+}
+.product .name{
+    font-size: 14px;
+    font-weight: 900;
+    font-style: italic;
+    line-height: 18px;
+}
+
+.product .price{
+    font-size: 18px;
+    font-weight: 900;
+    font-style: italic;
+    text-align: right;
+}
+.product .old-price{
+    color: #e24602;
+    font-size: 14px;
+    font-weight: 900;
+    font-style: italic;
+    text-decoration: line-through;
+}
+.product .sticker{
+    position: absolute;
+    top:-1px;
+    right:-1px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 46px 46px 0;
+    border-color: transparent #007bff transparent transparent;
+}
+.product .sticker:before {
+    content: '';
+    font-size: 9px;
+    margin-left:20px;
+    margin-top:5px;
+
+}
+
+.product .img img{
+    width:100%;
+    height:auto;
+    max-width:255px;
+    max-height: 255px;
+}
+
+.product .sticker.hot{
+    border-color: transparent #faef03 transparent transparent;
+}
+.product .sticker.hot:before {
+    content: 'HOT';
+
+}
+
+.product .sticker.new{
+    border-color: transparent #e24602 transparent transparent;
+}
+.product .sticker.new:before {
+    content: 'NEW';
+    color:#fff;
+
+}
+
+
+/*********** brands **************/
+#brands{
+    grid-template-columns: repeat(5, 1fr);
+    background-color: #fff;
+    height: 160px;
+    margin-top:30px;
+}
+#brands .brand{
+    align-self: center;
+}
+#brands .brand img{
+    width:100%;
+
+}
+
+/*********** instagram **************/
+#instagram{
+    padding-bottom: 60px;
+    background-color: #eaeaea;
+    box-sizing: border-box;
+}
+#instagram .row{
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap:12px;
+}
+
+#instagram h2{
+    text-align: center;
+
+    font-family: Roboto;
+    color: #333333;
+    font-size: 22px;
+    font-weight: 900;
+    font-style: italic;
+    padding-top:54px;
+    padding-bottom:30px;
+
+}
+#instagram h2 .heshtag{
+    font-size: 18px;
+
+
+}
+#instagram .row a{
+    align-self: center;
+    text-align:center;
+    text-decoration: none;
+
+}
+
+#instagram .row a img{
+    border:6px solid #fff;
+    width:170px;
+    height:170px;
+
+
+}
+
+/*********** social **************/
+#social{
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap:0px;
+}
+#social a{
+    line-height: 130px;
+    text-align: center;
+    font-size:60px;
+    color:#fff;
+    text-decoration: none;
+}
+
+#social a.fa-facebook{
+    background-color: #3b5997;
+}
+
+#social a.fa-twitter{
+    background-color: #3fccfd;
+}
+
+#social a.fa-pinterest-p{
+    background-color: #cb2027;
+}
+
+/************footer************/
+
+.wrap.footer{
+    background-color: #373737;
+}
+#footer{
+    height:320px;
+    color:#fff;
+    font-family: Roboto;
+    font-size: 12px;
+    padding-top:75px;
+}
+#footer p{
+
+
+    font-weight: 400;
+    line-height: 12px;
+
+}
+
+#footer h2{
+    font-family: Raleway;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 28px;
+
+}
+
+#footer ul.menu{
+    list-style: none;
+
+}
+#footer ul.menu a{
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 18px;
+    color:#fff;
+    text-decoration: none;
+}
+
+#footer ul.menu a:hover{
+    color:    #fff51f;
+}
+
+
+
+#footer .category{
+    grid-column: 1/3;
+}
+#footer .account{
+    grid-column: 3/5;
+}
+#footer .support {
+    grid-column: 5/7;
+}
+#footer .newsletter {
+    grid-column: 7/10;
+
+}
+#footer .newsletter form{
+    margin:20px 0;
+}
+#footer .newsletter input[type=email]{
+    background-color: #fff51f;
+    color:black;
+    box-sizing: border-box;
+    line-height: 30px;
+    border:none;
+    vertical-align: middle;
+    width:68%;
+    display: block;
+    float: left;
+    text-transform: uppercase;
+    padding-left:21px;
+    font-weight: 700;
+}
+#footer .newsletter input[type=submit]{
+    background-color: black;
+
+    border:none;
+    font-family: Roboto;
+    color:#ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: center;
+    width:30%;
+    box-sizing: border-box;
+    display: block;
+
+}
+
+#footer .newsletter .payments{
+    grid-column-gap:0px;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+#footer .aboutus {
+    grid-column: 10/13;
+
+}
+
+#footer .aboutus .contacts{
+    margin-top: 10px;
+    line-height: 25px;
+    font-size: 14px;
+}
+#footer .aboutus .contacts .label{
+    margin-right:18px;
+}
+
+#footer .aboutus .contacts a{
+    text-decoration: none;
+    color: #faef03;
+}
+
+/************* copyright ***********/
+
+.wrap.copyright{
+    background-color: #333333;
+    height: 47px;
+}
+#copyright{
+    line-height: 47px;
+    color:#fff;
+}
+#copyright .copy{
+    grid-column: 1/9;
+    font-family: Roboto;
+    color:     #dad9d9;
+    font-size: 12px;
+    font-weight: 400;
+
+}
+
+#copyright .social{
+    grid-column: 9/13;
+    text-align: right;
+
+}
+#copyright .social a{
+    color:#fff;
+    text-decoration: none;
+    margin-right:20px;
+    font-size:18px;
+}
+
+#copyright .social a:hover{
+    color: #faef03;
+}

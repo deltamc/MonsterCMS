@@ -23,7 +23,7 @@ if (!Core\Users::isAdmin()) {
 }
 
 //Назначаем базовый шаблон
-Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+Core\Mcms::setDialogTheme();
 
 //Заголовок формы
 $this->view->add('DIALOG_HEAD', Core\Lang::get('Site.headingEdit'));
@@ -46,22 +46,19 @@ $itemType         = $menuItemInfo->item_type;
 
 
 //Получаем конфигурации модуля
-$config = Module::get($moduleName)->config;
-
-//Проверяем тип пункта меню (должен быть прописан в насторйках модуля "menu_items")
-if(empty($config['menu_items'][$itemType]))
-    throw new \Exception("Item type error");
+//$config = Module::get($moduleName)->config;
+$moduleAddConfig = $this->model('MenuItems')->getModuleInfo($moduleName, $menuItemInfo->item_type);
 
 
-$moduleAddConfig = $config['menu_items'][$itemType];
+//$moduleAddConfig = $config['menu_items'][$itemType];
 
 //Прификс для событий формы
 $action = 'edit';
 
 //Получаем массив с именами элементов формы которые нужно скрыть
 $hide = array();
-if (is_array($moduleAddConfig['hidden_form_items'])) {
-    $hide = $moduleAddConfig['hidden_form_items'];
+if (is_array($moduleAddConfig['hiddenFormItems'])) {
+    $hide = $moduleAddConfig['hiddenFormItems'];
 }
 //Получаем данные формы
 $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
@@ -182,10 +179,12 @@ if (!$form->is_submit()) {
 
     //Редирект
     if ((int) Request::getPost('menu_item_goto') === 1 && !empty($url)) {
-        $url = '/';
+
 
         if ((int) Request::getPost('menu_item_index') !== 1) {
             $url = '/'.$url.URL_SEMANTIC_END;
+        } else {
+            $url = '/';
         }
 
         Lib\Header::location($url, 'top');

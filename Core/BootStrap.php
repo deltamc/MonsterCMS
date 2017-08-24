@@ -10,33 +10,22 @@ use Monstercms\Core;
 //Устанавливаем кодировку utf-8
 Header('Content-Type: text/html; charset=utf-8');
 
-//Временная зона
-@ini_set('date.timezone', TIMEZONE);
-if (function_exists('date_default_timezone_set')) {
-    date_default_timezone_set(TIMEZONE);
-} else {
-    putenv('TZ='.TIMEZONE);
-}
-
-//Режим отладки
-if (DEBUGGING) {
-    ini_set('error_reporting', E_ALL);
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-} else {
-    ini_set('error_reporting', 0);
-    ini_set('display_errors', 0);
-}
-
 //Подключаем файлы
 require_once(LIB_DIR . DS . 'Autoload' . DS . 'Autoload.class.php');
 require_once(ENGINE_DIR . DS . 'Autoload.php');
 require_once(ENGINE_DIR . DS . 'Function.php');
 
-View::setBasicTemplate(THEMES_DIR . DS . THEME . DS . 'Base.php');
+//Временная зона
+Core\Mcms::setTimeZone(TIMEZONE);
+
+//Режим отладки
+Core\Mcms::showError(DEBUGGING);
+
 View::add('BODY',  '');
+
+Core\Mcms::setTheme();
 
 
 JavaScript::add(SITE_URL . '/JavaScript/jquery.min.js');
 JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');
-Css::add(SITE_URL . '/' . THEMES_DIR . '/' . THEMES_ADMIN . '/css/ui.css');
+Css::add(SITE_URL . '/' . THEMES_DIR_ADMIN . '/' . THEMES_ADMIN . '/css/main.css');

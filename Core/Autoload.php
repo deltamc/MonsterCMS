@@ -9,7 +9,7 @@ $autoLoad = new  Autoload();
  */
 $autoLoad->addNamespace(
     'Monstercms\Core',
-    ENGINE_DIR . DS . 'Class' . DS . '%class%.class.php'
+    ENGINE_DIR . DS . 'Class' . DS . '%class%.php'
 );
 /**
  * Классы пространства имен  Monstercms\Modules\Название_модуля
@@ -17,7 +17,7 @@ $autoLoad->addNamespace(
  */
 $autoLoad->addNamespace(
     'Monstercms\Modules\*',
-    MODULE_DIR . DS . '$1' . DS . '%class%.class.php'
+    MODULE_DIR . DS . '$1' . DS . 'Class' . DS . '%class%.php'
 );
 
 /**
@@ -27,6 +27,16 @@ $autoLoad->addNamespace(
 $autoLoad->addNamespace(
     'Monstercms\Lib',
     LIB_DIR . DS . '%class%' . DS . '%class%.class.php'
+);
+
+/**
+ * Классы пространства имен  Monstercms\Widgets\Название_виджета
+ * загружаются с паки Widgets/Название виджета/класс.class.php *
+ *
+ */
+$autoLoad->addNamespace(
+    'Monstercms\Widgets\*',
+    WIDGET_DIR . DS . '$1' . DS . 'Class' . DS . '%class%.php'
 );
 
 

@@ -17,10 +17,19 @@ class Css
         /*если файл, добавляем в массив*/
         if(preg_match("/.css$/", $css))
         {
-            if(!in_array($css, self::$files)) self::$files[] = array($css, 'F');
+            if(!self::is($css)) self::$files[] = array($css, 'F');
         }
         else self::$files[] = array($css, 'C');
 
+    }
+
+    static public function is($js)
+    {
+        foreach(self::$files as $item)
+        {
+            if($item[0] == $js) return true;
+        }
+        return false;
     }
 
 

@@ -112,7 +112,7 @@ function deleteItemMenu(treeObj, $link, menu_id){
 
     var confirm_text = $link.attr('data-confirm-text');
     var durl = $link.attr('href');
-
+console.log(durl);
     var isDelete = confirm(confirm_text);
     if(isDelete)
     {

@@ -24,7 +24,7 @@ $action = 'edit';
 $id = $this->getObjectId();
 
 //Шаблон
-Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+Core\Mcms::setDialogTheme();
 
 //Заголовок формы
 $this->view->add('DIALOG_HEAD', Core\Lang::get('Site.editMenuTitle'));

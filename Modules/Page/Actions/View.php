@@ -18,10 +18,18 @@ if ($id == 0) {
 
 $page_info = $this->model->info($id);
 
-$pageHead = Core\PageHead::init();
+if (empty($page_info)) {
+    throw new Core\HttpErrorException(404);
+}
+
+$pageHead = Core\PageSemantic::init();
 $pageHead->setData($this->moduleName, $id);
 
+
 $title = $pageHead->getTitle();
+
+
+Core\Mcms::setTheme($pageHead->getTheme());
 
 if(empty($tile)) {
     $title = $page_info->name . ' - ' . SITE_NAME;
@@ -30,10 +38,9 @@ if(empty($tile)) {
 $edit = false;
 //$edit = (Core\Users::isAdmin()) ? true : false;
 
-$this->config['medit']['widgets']['images']['path'] =
-    $this->config['image_path'] . '/' . $id;
 
-$mEdit = new Lib\Medit($id, $this->config['medit'], $edit);
+
+
 
 $body = Core\Events::cell(
     $this->moduleName . '.top',
@@ -42,14 +49,18 @@ $body = Core\Events::cell(
 );
 
 $this->view->add('BODY', $body);
+
 /*
 $this->tag->BODY .= $this->view->get('top.php');
 $this->tag->BODY .= $mEdit->html;
 $this->tag->BODY .= $this->view->get('bottom.php');
 */
 
+$widgets = Core\Module::get('Widgets');
+
 $this->view->inc('BODY', 'Top.php');
-$this->view->add('BODY', $mEdit->html);
+$this->view->add('BODY', $widgets->toolBar($id));
+$this->view->add('BODY', $widgets->view($id));
 $this->view->inc('BODY', 'Bottom.php');
 
 $body = Core\Events::cell(

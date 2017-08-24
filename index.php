@@ -33,6 +33,8 @@ if (is_file($configDir . $configFile)) {
 require_once(ENGINE_DIR . DS . 'BootStrap.php');
 
 try {
+
+
     $front = new Core\FrontController();
     $front->route();
 
@@ -51,7 +53,7 @@ try {
             ' (code:'   . $e->getCode() . ') <br />' .
             ' File:'    . $e->getFile() . ' <br />' .
             ' Line:'    . $e->getLine() . ' <br />' .
-            ' Trace:'   . $e->getTraceAsString();
+            ' Trace:'   . str_replace("\n", "<br>\n", $e->getTraceAsString());
     }
 }
 
@@ -60,14 +62,13 @@ try {
 Module::get('MenuAdmin')->view();
 
 
-View::add('THEME_PATH',  THEMES_DIR . DS . THEME . DS);
-View::add('BASE',        SITE_URL . '/' . THEMES_DIR .  '/' . THEME . '/');
+
 View::add('HEAD',        '');
 View::add('SITE_URL',    SITE_URL);
 View::add('CSS',         Lib\Css::get());
 View::add('JS',          Lib\JavaScript::get());
 
-$pageHead = Core\PageHead::init();
+$pageHead = Core\PageSemantic::init();
 
 View::add('NOINDEX',     $pageHead->isNoindex());
 View::add('TITLE',       $pageHead->getTitle());

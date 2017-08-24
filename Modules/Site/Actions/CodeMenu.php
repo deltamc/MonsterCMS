@@ -42,7 +42,7 @@ $html  = $form->render();
 
 $menu = $this->model('Menu')->menuInfo($id);
 
-Lib\View::setBasicTemplate(THEMES_DIALOG_PATH);
+Core\Mcms::setDialogTheme();
 
 
 $vars = array('form'=>$html, 'menu_name' => $menu->name);

@@ -21,6 +21,18 @@ class ckeditor extends form_item
         return array
         (
             'html' => true,
+            //Скрипт для загрузки изображения
+            'upload_script' => null,
+            //ширена
+            'width'=>'100%',
+            //высота
+            'height'=>'500',
+            //можно ли менять размер
+            'resize_enabled'=>true,
+            //css
+            'bodyClass' => null,
+            'bodyId'    => null,
+            'contentsCss' => null,
 
         );
     }
@@ -44,11 +56,42 @@ class ckeditor extends form_item
 
 
         $input  .= '<script type="text/javascript">';
+        $input  .= '$(function(){';
 
-        if(!empty($it['upload_script']))
-        $input  .= 'CKEDITOR.config.filebrowserUploadUrl = "'.$it['upload_script'].'";';
 
         $input  .= 'var ckeditor1 = CKEDITOR.replace( "'.$it['id'].'" );';
+
+
+        if(!empty($it['upload_script'])) {
+            $input  .= 'CKEDITOR.config.filebrowserUploadUrl = "'.$it['upload_script'].'";';
+            $input  .= 'CKEDITOR.config.extraPlugins = "uploadimage";';
+        }
+
+        if(!empty($it['width'])) {
+            $input  .= 'CKEDITOR.config.width = "'.$it['width'].'";';
+        }
+
+        if(!empty($it['height'])) {
+            $input  .= 'CKEDITOR.config.height = "'.$it['height'].'";';
+        }
+
+        if(!empty($it['resize_enabled'])) {
+            $input  .= 'CKEDITOR.config.resize_enabled = "'.$it['resize_enabled'].'";';
+        }
+
+        if(!empty($it['bodyClass'])) {
+            $input  .= 'CKEDITOR.config.bodyClass = "'.$it['bodyClass'].'";';
+        }
+
+        if(!empty($it['bodyId'])) {
+            $input  .= 'CKEDITOR.config.bodyId = "'.$it['bodyId'].'";';
+        }
+
+        if(!empty($it['contentsCss'])) {
+            $input  .= 'CKEDITOR.config.contentsCss = "'.$it['contentsCss'].'";';
+        }
+
+
 
 /*
         $input  .= 'AjexFileManager.init({';
@@ -63,6 +106,7 @@ class ckeditor extends form_item
 
 
 */
+        $input  .= '});';
         $input  .= '</script>';
 
 
