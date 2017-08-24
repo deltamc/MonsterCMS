@@ -219,10 +219,10 @@ class Model extends Core\ModelAbstract
 
 
         foreach ($list as &$item) {
-            $widgets[$item['widget']] = true;
             $widgetObj = $this->get($item['widget']);
             $item['javascript'] = $widgetObj->getJavaScript();
             $item['css']        = $widgetObj->getCSS();
+            $item['window_size'] = $widgetObj->getEditFormWindowSize();
         }
         unset($item);
 
@@ -279,8 +279,10 @@ class Model extends Core\ModelAbstract
         $cache = $widget->getView($params);
 
         $cssClass   = '';
+
         if (isset($data['css_class'])) {
             $cssClass = $data['css_class'];
+
         }
 
 
@@ -316,7 +318,8 @@ class Model extends Core\ModelAbstract
         return array(
             'id'        => $widgetId,
             'widget'    => $widgetName,
-            'cache'     => $cache
+            'cache'     => $cache,
+            'css_class' => $cssClass
         );
     }
 

@@ -22,8 +22,8 @@ function bindEventTools()
         var widget = $this.attr("data-widget");
         var pageId = $('#medit-tools').attr("data-page-id");
 
-        if($this.attr("data-window_add") == "") {
-            addWidgetNoWindows(widget);
+        if($this.attr("data-window-size") == "") {
+            addWidgetNoWindows(widget, pageId);
         } else {
             var windowSize = $this.attr("data-window-size");
 
@@ -36,8 +36,26 @@ function bindEventTools()
 
 }
 
-function addWidgetNoWindows(widget) {
+function addWidgetNoWindows(widget, pageId) {
+    url = '/Widgets/AddWidgetOutsideWindow/widget/' + widget + '/pageId/' + pageId;
 
+    $.ajax({
+        url: url,
+        dataType : "json",
+        success: function (data, textStatus)
+        {
+
+            if (typeof data.js === "object") {
+                addJavaScriptFiles(data.js, function(){
+                    addWidget(data.html, data.widget, data.id, data.pos);
+                });
+            } else {
+                addWidget(data.html, data.widget, data.id, data.pos);
+            }
+            addCssFiles(data.css);
+
+        }
+    });
 }
 
 function addWidgetWindows(widget, windowSize, pageId)
@@ -114,12 +132,15 @@ function widgetWrap(id, widget, html, pos)
  * @param toolsClass - имя css класса
  * @returns {string}
  */
-function widgetTools(toolsClass)
+function widgetTools(toolsClass, edit)
 {
-
+    edit = edit || false;
     html = '<div class="' + toolsClass + '" >';
 
-    html += '<a href="#" class="edit fa fa-pencil" title="Редактировать"></a>';
+    if(edit) {
+        html += '<a href="#" class="edit fa fa-pencil" title="Редактировать"></a>';
+    }
+
 
     html += '<a href="#" class="up fa fa-angle-up"  title="Вверх" ></a>';
     html += '<a href="#" class="down fa fa-angle-down" title="Вниз"></a>';
@@ -139,8 +160,12 @@ function widgetTools(toolsClass)
 function widgetToolsCreate(el, toolsClass)
 {
 
+    var windowSize = $(el).attr('data-window-size');
 
-    var html = widgetTools(toolsClass);
+    var edit = true;
+    if(windowSize == "") edit = false;
+
+    var html = widgetTools(toolsClass, edit);
 
     $(el).append(html);
 
@@ -153,7 +178,7 @@ function widgetToolsCreate(el, toolsClass)
         var windowName = $el.attr('data-widget');
 
         var widgetId = $el.attr('data-id');
-        var windowSize = geWindowsSize(windowName);
+
         widgetEditWindows(widgetId, windowSize);
     });
 
@@ -332,8 +357,10 @@ function widgetDelete(id, $widget)
     });
 }
 
-function addCssFile(file){
-    $('head').prepend('<link rel="stylesheet" href="'+file+'" />');
+function addCssFiles(files){
+    for(var i in files) {
+        $('head').prepend('<link rel="stylesheet" href="'+files[i]+'" />');
+    }
 }
 
 function addJavaScriptFiles(files, callback){

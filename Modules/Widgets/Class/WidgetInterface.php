@@ -35,11 +35,18 @@ interface WidgetInterface
     public function getName();
 
     /**
-     * Размер окна в формате wxh, например: 700x800
+     * Размер окна с формой добавления виджета в формате wxh, например: 700x800
      * если метод возвращает пустое заначение или false, то окно не отображается
      * @return string|false
      */
-    public function getWindowSize();
+    public function getAddFormWindowSize();
+
+    /**
+     * Размер окна с формой редактирования виджета в формате wxh, например: 700x800
+     * если метод возвращает пустое заначение или false, то окно не отображается
+     * @return string|false
+     */
+    public function getEditFormWindowSize();
 
     /**
      * Массив с параметрами. ключ=>значение

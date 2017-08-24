@@ -1,1 +1,1 @@
-<sectiopn class="mcms-widget <?=$widgetName?> <?=$class?>" data-id="<?=$id?>" data-pos="<?=$pos?>" data-widget="<?=$widgetName?>"><?=$html?></sectiopn>
+<section class="mcms-widget <?=$widgetName?> <?=$class?>" data-id="<?=$id?>" data-window-size='<?=$windowSize;?>' data-pos="<?=$pos?>" data-widget="<?=$widgetName?>"><?=$html?></section>

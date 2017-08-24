@@ -139,11 +139,14 @@ abstract class WidgetAbstract
      * Метод возвращает список файлов-скриптов js, которые нужно подключить при
      * отображении виджетов на странице
      * @return array
-     */
+
     public function getJs()
     {
         return array();
     }
+*/
+
+
 
     public function getWidgetName()
     {

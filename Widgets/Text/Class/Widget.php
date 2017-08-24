@@ -64,12 +64,24 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
         return '1.0';
     }
 
+
+
     /**
      * Размер окна в формате wxh, например: 700x800
      * если метод возвращает пустое заначение или false, то окно не отображается
      * @return string|false
      */
-    public function getWindowSize()
+    public function getAddFormWindowSize()
+    {
+        return '800x600';
+    }
+
+    /**
+     * Размер окна с формой редактирования виджета в формате wxh, например: 700x800
+     * если метод возвращает пустое заначение или false, то окно не отображается
+     * @return string|false
+     */
+    public function getEditFormWindowSize()
     {
         return '800x600';
     }

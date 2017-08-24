@@ -1,12 +1,10 @@
-<?php namespace Monstercms\Widgets\Code;
+<?php namespace Monstercms\Widgets\Line;
 
 use Monstercms\Core;
 use Monstercms\Modules\Widgets as ModuleWidgets;
 
 class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
 {
-
-
     /**
      * Метод возвращает массив с формой редактирования
      * @return array
@@ -14,8 +12,6 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getFormEdit()
     {
 
-
-        return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
     }
 
     /**
@@ -24,7 +20,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getFormAdd()
     {
-        return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
+
     }
 
     /**
@@ -51,7 +47,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getName()
     {
-        return "Код";
+        return "Линия";
     }
 
 
@@ -71,7 +67,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getAddFormWindowSize()
     {
-        return '800x600';
+        return false;
     }
 
     /**
@@ -81,7 +77,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getEditFormWindowSize()
     {
-        return '800x600';
+        return false;
     }
 
     /**
@@ -95,31 +91,8 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getParameters()
     {
         return array(
-            'code' => '',
-            'language' => '',
-            'id' => '',
-            'css_class' => '',
-        );
-    }
-
-
-    /**
-     * Массив с файлами JS
-     * @return array
-     */
-    public function getJavaScript(){
-        return array(
-            '/' . WIDGET_DIR . '/' . $this->widgetName . '/highlight.pack.js'
-        );
-    }
-
-    /**
-     * Массив с файлами CSS
-     * @return array
-     */
-    public function getCSS(){
-        return array(
-            '/' . WIDGET_DIR . '/' . $this->widgetName . '/zenburn.css'
+            'heading' => '',
+            'level'  => 1
         );
     }
 
@@ -129,6 +102,24 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      * @return int
      */
     public function getOrder(){
-        return 100;
+        return 0;
     }
+
+
+    /**
+     * Массив с файлами JS
+     * @return array
+     */
+    public function getJavaScript(){
+        return array();
+    }
+
+    /**
+     * Массив с файлами CSS
+     * @return array
+     */
+    public function getCSS(){
+        return array();
+    }
+
 }

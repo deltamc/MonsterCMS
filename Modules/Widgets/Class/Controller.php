@@ -42,7 +42,7 @@ class Controller extends Core\ControllerAbstract
                 'ico'         => $widget->getIco(),
                 'name'        => $widget->getName(),
                 'widget'      => $key,
-                'window_size' => $widget->getWindowSize(),
+                'window_size' => $widget->getEditFormWindowSize(),
                 'order'       => (int) $widget->getOrder(),
             );
         }
@@ -64,12 +64,25 @@ class Controller extends Core\ControllerAbstract
         $widgets = $this->model->widgetsList($pageId);
 
         $vars = array(
-           'widgets' =>  $widgets,
             'pageId' => $pageId,
         );
 
 
-        foreach ($widgets as $widget) {
+
+
+        foreach ($widgets as &$widget) {
+
+            $varsWrap = array(
+                'html'       => $widget['cache'],
+                'id'         => $widget['id'],
+                'widgetName' => $widget['widget'],
+                'pos'        => $widget['pos'],
+                'class'      => $widget['css_class'],
+                'windowSize' => $widget['window_size']
+            );
+            //@TODO убрать из цикла
+            $widget['cache'] = $this->view->get('Wrap.php', $varsWrap);
+
             if(!empty($widget['javascript'])) {
                 if (is_array($widget['javascript'])) {
                     foreach ($widget['javascript'] as $js) {
@@ -91,7 +104,17 @@ class Controller extends Core\ControllerAbstract
             }
         }
 
-        return $this->view->get('widgetsList.php', $vars);
+        unset($widget);
+
+        $vars = array(
+            'widgets' =>  $widgets,
+        );
+
+        $widgetHtml = $this->view->get('WidgetsList.php', $vars);
+
+
+
+        return $widgetHtml;
 
     }
 
