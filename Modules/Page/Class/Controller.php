@@ -11,12 +11,6 @@ use Monstercms\Core\Module;
 
 class Controller extends Core\ControllerAbstract
 {
-    public function actionEmail_send()
-    {
-        /*TODO убрать в виджет */
-        include_once($this->modulePath . 'Actions' . DS . 'EmailSend.php');
-    }
-
 
     /**
      * Метод вызывается при событии site.addFormTabBaseAfter.
@@ -105,6 +99,8 @@ class Controller extends Core\ControllerAbstract
         $name = Request::getPost('menu_item_name');
 
         $page = $this->model->add($name, $url);
+
+
 
         Module::get('PageSemantic')->saveSeoForm($this->moduleName, $page['id']);
 

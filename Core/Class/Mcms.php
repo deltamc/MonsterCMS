@@ -14,7 +14,7 @@ class Mcms
     private static $db = null;
     public static $db_table_url;
 
-
+    private static $thisThemeInfo;
 
     public static function DB()
     {
@@ -116,6 +116,8 @@ class Mcms
 
         $themeInfo = Theme::getTheme($theme);
 
+        self::$thisThemeInfo = $themeInfo;
+
         View::setBasicTemplate(THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS . $themeInfo['file']);
 
         View::replace('THEME_PATH',  THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS);
@@ -125,5 +127,10 @@ class Mcms
             Lib\Css::add($themeInfo['style']);
         }
 
+    }
+
+    static public function getThisThemeInfo()
+    {
+        return self::$thisThemeInfo;
     }
 }

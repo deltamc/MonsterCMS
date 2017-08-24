@@ -39,12 +39,12 @@ return array
 
 */
 
-    "image_path"                    => UPLOAD_ROOT . DS. 'Page',
+    //"image_path"                    => UPLOAD_ROOT . DS. 'Page',
     "db_table"                      => DB_PREFIX."module_page",
     "db_table_images"               => DB_PREFIX."module_page_images",
     "db_article_widgets"            => DB_PREFIX."module_page_widgets",
 
-
+/*
     "module_path"                   => "modules" . DS .  "page",
     "images_width"                  =>  570,
     "images_height"                 =>  600,
@@ -93,4 +93,5 @@ return array
             )
         )
     )
+*/
 );

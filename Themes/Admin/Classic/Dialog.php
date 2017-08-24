@@ -4,6 +4,16 @@
     <base href="<?=$BASE;?>" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/window.css" rel="stylesheet">
+
+    <?=$JS;?>
+
+    <script src="<?=$SITE_URL?>/JavaScript/bootstrap.min.js"></script>
+    <script>
+        $(function (){
+            $('.tip').tooltip({html:false});
+        })
+    </script>
 
     <?=$HEAD;?>
 
@@ -16,13 +26,6 @@
 <?php endif?>
 <?=$BODY?>
 
-<?=$JS;?>
 
-<script src="<?=$SITE_URL?>/JavaScript/bootstrap.min.js"></script>
-<script>
-    $(function (){
-        $('.tip').tooltip({html:false});
-    })
-</script>
 </body>
 </html>

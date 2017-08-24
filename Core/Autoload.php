@@ -29,5 +29,15 @@ $autoLoad->addNamespace(
     LIB_DIR . DS . '%class%' . DS . '%class%.class.php'
 );
 
+/**
+ * Классы пространства имен  Monstercms\Widgets\Название_виджета
+ * загружаются с паки Widgets/Название виджета/класс.class.php *
+ *
+ */
+$autoLoad->addNamespace(
+    'Monstercms\Widgets\*',
+    WIDGET_DIR . DS . '$1' . DS . 'Class' . DS . '%class%.php'
+);
+
 
 $autoLoad->register();

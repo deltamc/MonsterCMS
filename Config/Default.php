@@ -104,6 +104,11 @@ define('LIB_DIR', 'Lib');
  */
 define('MODULE_DIR', 'Modules');
 
+/**
+ * Директория с виджитами
+ */
+define('WIDGET_DIR', 'Widgets');
+
 
 
 /**
@@ -126,7 +131,7 @@ define('URL_SEMANTIC_END', '.html');
 /**
  * Директория для загрузки файлов
  */
-define('UPLOAD_ROOT', 'Upload');
+define('UPLOAD_DIR', 'Upload');
 
 //define('MODULE_LOAD_SCRIPT',   'events' . DS . 'load.php');
 

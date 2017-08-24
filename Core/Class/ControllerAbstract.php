@@ -105,6 +105,17 @@ abstract class ControllerAbstract
         return null;
     }
 
+    protected function isParam($key, $empty = true) {
+        if (isset($this->params[$key])){
+            if (!$empty) {
+                return true;
+            } else {
+                return !empty($this->params[$key]);
+            }
+        }
+        return false;
+    }
+
     /**
      * Метод возвращает ид объекта
      * @return int
@@ -136,9 +147,18 @@ abstract class ControllerAbstract
         //$id         = (!isset($arg[0]) || intval($arg[0]) == 0) ? 0: intval($arg[0]);
         //$url_option = (!isset($arg[1]) || !is_array($arg[1])) ? array() : $arg[1];
 
+        if (!empty($arg) && is_array($arg)) {
+            $this->setParams($arg);
+        }
+
         $method = preg_replace('/action$/i', '', $method);
 
+        $method = ucfirst($method);
+
         $file = $this->modulePath . 'Actions' . DS . $method.'.php';
+
+
+
 
         if (!file_exists($file)) {
             throw new HttpErrorException(404);

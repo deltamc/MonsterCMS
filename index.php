@@ -53,7 +53,7 @@ try {
             ' (code:'   . $e->getCode() . ') <br />' .
             ' File:'    . $e->getFile() . ' <br />' .
             ' Line:'    . $e->getLine() . ' <br />' .
-            ' Trace:'   . $e->getTraceAsString();
+            ' Trace:'   . str_replace("\n", "<br>\n", $e->getTraceAsString());
     }
 }
 

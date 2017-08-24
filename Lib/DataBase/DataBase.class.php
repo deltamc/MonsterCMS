@@ -82,7 +82,9 @@ class DataBase extends \PDO
         foreach($list as $key => $value) {
             $cols .= "`{$key}`, ";
 
-            if(!$this->isRegWord($value)) {
+            if(is_null($value)) {
+                $values .= 'NULL,';
+            } else if(!$this->isRegWord($value)) {
                 $values .= $this->quote($value). ', ';
             } else {
                 $values .= $value . ', ';

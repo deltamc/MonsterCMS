@@ -132,7 +132,7 @@ class Autoload
      */
     protected function requireFile($file)
     {
-        //print $file .'<br />';
+
         if (file_exists($file)) {
 
             require_once $file;
