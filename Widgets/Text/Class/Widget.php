@@ -13,8 +13,6 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getFormEdit()
     {
-
-
         return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
     }
 
@@ -97,15 +95,13 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getParameters()
     {
         return array(
-            'text' => '',
-            'id' => '',
-            'css_class' => '',
+            'text'      => '',
         );
     }
 
     public function deleteAfter(array $data, array $params) {
         $text = $params['text'];
-        $pageId = $data['object_id'];
+        $pageId = $data['page_id'];
         $result = array();
 
         $uploadDir = str_replace('/', '\/', UPLOAD_DIR);

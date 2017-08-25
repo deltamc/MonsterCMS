@@ -22,7 +22,7 @@ if (!isset($params['widget']) || empty($params['widget']) || !isset($params['pag
 
 $widgetName = $params['widget'];
 
-if (!$this->model->isWidget($widgetName)){
+if (!$this->model->isWidget($widgetName)) {
     throw new \Exception('Widget ' . $widgetName . ' no found');
 }
 
@@ -31,7 +31,6 @@ $pageId = (int) $params['pageId'];
 Core\Mcms::setDialogTheme();
 
 $widget = $this->model->get($widgetName, $pageId);
-
 
 $form = new Lib\Form();
 
@@ -45,7 +44,6 @@ if (is_array($full)) {
     $form->full($full);
 }
 
-
 $html = '';
 
 if(!$form->is_submit()) {
@@ -53,9 +51,9 @@ if(!$form->is_submit()) {
 } elseif(!$form->is_valid()) {
     $html .= $form->error();
 } else {
-
     $this->setParams(array('widget'=>$widget, 'widgetName' => $widgetName, 'pageId' => $pageId));
     $this->addFormSaveAction();
 }
+
 Lib\JavaScript::add($form->js());
 $this->view->add('BODY', $html);

@@ -7,13 +7,20 @@ use \Monstercms\Lib;
 
 class Controller extends Core\ControllerAbstract
 {
-
-
+    /**
+     * Получить настойки
+     * @return array|mixed
+     */
     public function getConfig()
     {
         return $this->config;
     }
 
+    /**
+     * Записать значение в настойках
+     * @param $key
+     * @param $value
+     */
     public function setConfig($key, $value)
     {
         $this->config[$key] = $value;
@@ -58,17 +65,16 @@ class Controller extends Core\ControllerAbstract
 
     }
 
+    /**
+     * Метод отображает на странице виджеты
+     * @param $pageId
+     * @return string
+     * @throws \Exception
+     */
     public function view($pageId)
     {
         $pageId = (int) $pageId;
         $widgets = $this->model->widgetsList($pageId);
-
-        $vars = array(
-            'pageId' => $pageId,
-        );
-
-
-
 
         foreach ($widgets as &$widget) {
 
@@ -80,6 +86,7 @@ class Controller extends Core\ControllerAbstract
                 'class'      => $widget['css_class'],
                 'windowSize' => $widget['window_size']
             );
+
             //@TODO убрать из цикла
             $widget['cache'] = $this->view->get('Wrap.php', $varsWrap);
 
@@ -108,6 +115,7 @@ class Controller extends Core\ControllerAbstract
 
         $vars = array(
             'widgets' =>  $widgets,
+            'pageId'  => $pageId,
         );
 
         $widgetHtml = $this->view->get('WidgetsList.php', $vars);
@@ -118,12 +126,20 @@ class Controller extends Core\ControllerAbstract
 
     }
 
+    /**
+     * Метод удаляет все виджеты на странице
+     * @param $pageId
+     */
     public function deleteAllWidgetsByPageId($pageId)
     {
         $this->model->deleteAllWidgetsByPageId($pageId);
     }
 
 
+    /**
+     * Метод возвращает элемент формы "CSS класс виджета"
+     * @return mixed
+     */
     public function getCssClassFormElement()
     {
         return include MODULE_DIR . DS . $this->moduleName . DS . 'Forms' .DS . 'CssClass.php';

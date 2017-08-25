@@ -14,6 +14,7 @@ use \Monstercms\Lib;
 if (!Core\Users::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
+
 $params = $this->getParams();
 
 if (!isset($params['widgetId'])) {
@@ -22,13 +23,10 @@ if (!isset($params['widgetId'])) {
 
 $widgetId = $params['widgetId'];
 
-
 Core\Mcms::setDialogTheme();
 
 $widgetInfo = $this->model->getInfoById($widgetId);
 $widget = $this->model->get($widgetInfo['widget']);
-$html='';
-
 
 $form = new Lib\Form();
 
@@ -41,6 +39,7 @@ $full = $widget->getParameters();
 if (is_array($full)) {
     $form->full($full);
 }
+
 $form->full($widgetInfo['options']);
 
 $html = '';

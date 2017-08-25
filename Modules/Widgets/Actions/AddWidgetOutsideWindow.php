@@ -14,6 +14,7 @@ use \Monstercms\Lib;
 if (!Core\Users::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
+
 $params = $this->getParams();
 
 if (!isset($params['widget']) || empty($params['widget']) || !isset($params['pageId'])) {
@@ -26,22 +27,20 @@ if (!$this->model->isWidget($widgetName)){
     throw new \Exception('Widget ' . $widgetName . ' no found');
 }
 
-$pageId     = (int) $params['pageId'];
-
-$widget = $this->model->get($widgetName, $pageId);
-
-
+$pageId    = (int) $params['pageId'];
+$widget    = $this->model->get($widgetName, $pageId);
 $newWidget = $this->model->add($widget, $_POST, $pageId);
-
-$jsFiles = $widget->getJavaScript();
-$cssFiles = $widget->getCSS();
+$jsFiles   = $widget->getJavaScript();
+$cssFiles  = $widget->getCSS();
 
 if (!is_array($jsFiles) && !empty($jsFiles)) {
     $jsFiles = array($jsFiles);
 }
+
 if (!is_array($cssFiles)  && !empty($cssFiles)) {
     $cssFiles = array($cssFiles);
 }
+
 $vars = array(
     'html' => $newWidget['cache'],
     'id'    => $newWidget['id'],

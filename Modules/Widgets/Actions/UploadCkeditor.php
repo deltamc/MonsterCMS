@@ -35,9 +35,6 @@ if (isset($_REQUEST['CKEditorFuncNum'])){
     $callBack =  (int) $_REQUEST['CKEditorFuncNum'];
 }
 
-
-
-
 if(isset($_FILES['upload'])) {
     if(!is_dir(UPLOAD_DIR . DS . $this->moduleName)) {
         mkdir(UPLOAD_DIR . DS . $this->moduleName, 664);

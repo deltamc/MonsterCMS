@@ -37,6 +37,10 @@ class Model extends Core\ModelAbstract
 
     }
 
+    /**
+     * получить массив экземпляров контроллеров виджетов
+     * @return array
+     */
     public function getAll()
     {
         return self::$controllers;
@@ -64,7 +68,7 @@ class Model extends Core\ModelAbstract
     }
 
     /**
-     * Метод проверяет существует ли модуль
+     * Метод проверяет существует ли виджет
      * @param $widget
      * @return bool
      */
@@ -95,10 +99,12 @@ class Model extends Core\ModelAbstract
         $dir  = opendir(ROOT . DS . $this->config['widgetDir']);
 
         $list = array();
-        while ($widgetName = readdir($dir))
-        {
-            if ($widgetName == '.' || $widgetName == '..' ||
-                !is_dir(ROOT . DS . $this->config['widgetDir'] . DS . $widgetName)) continue;
+        while ($widgetName = readdir($dir)) {
+            if ($widgetName == '.'
+                || $widgetName == '..'
+                || !is_dir(ROOT . DS . $this->config['widgetDir'] . DS . $widgetName)) {
+                continue;
+            }
 
             if (preg_match('/^-/', $widgetName)) continue;
 
@@ -121,15 +127,21 @@ class Model extends Core\ModelAbstract
         }
     }
 
-    function add(WidgetInterface $widget, array $data, $objectId = null)
+    /**
+     * Добавление виджета на страницу
+     * @param WidgetInterface $widget
+     * @param array $data
+     * @param null $pageId
+     * @return array
+     * @throws \Exception
+     */
+    function add(WidgetInterface $widget, array $data, $pageId = null)
     {
         $params = $widget->getParameters();
 
         $insert = array();
 
         $widgetId = null;
-
-
 
         foreach ($params as $key => &$value) {
             if (isset($data[$key])) {
@@ -140,7 +152,11 @@ class Model extends Core\ModelAbstract
 
         $widgetName = $widget->getWidgetName();
         $cache      = $widget->getView($params);
-        $pos        = $this->getNextMaxPos($objectId);
+
+        $pos = 0;
+        if ($pageId !== null) {
+            $pos        = $this->getNextMaxPos($pageId);
+        }
 
         $cssClass   = '';
         if (isset($data['css_class'])) {
@@ -151,10 +167,9 @@ class Model extends Core\ModelAbstract
             'widget'    => $widgetName,
             'cache'     => $cache,
             'pos'       => $pos,
-            'object_id' => $objectId,
+            'page_id'   => $pageId,
             'css_class' => $cssClass
         );
-
 
         $widget->addBefore($list, $params);
         $this->db->insert($list, $this->config['dbTableWidgets']);
@@ -169,8 +184,6 @@ class Model extends Core\ModelAbstract
                 );
         }
 
-
-
         $fields = array(
             'widget_id',
             'key',
@@ -180,25 +193,33 @@ class Model extends Core\ModelAbstract
 
         $widget->addAfter($list, $params);
 
-        return array(
+        $out = array(
             'id'        => $widgetId,
             'widget'    => $widgetName,
             'cache'     => $cache,
             'pos'       => $pos,
-            'object_id' => $objectId,
+            'page_id'   => $pageId,
             'css_class' => $cssClass,
         );
 
+        //Вызываем событие
+        Core\Events::cell(
+            'Widgets.addWidget',
+            'void',
+            $out
+        );
+
+        return $out;
 
     }
 
-    function getNextMaxPos($objectId = null){
-        if (is_null($objectId)) return 0;
+    function getNextMaxPos($pageId = null){
+        if (is_null($pageId)) return 0;
 
-        $objectId = (int) $objectId;
+        $pageId = (int) $pageId;
 
         $table = $this->config['dbTableWidgets'];
-        $sql = "SELECT max(`pos`) FROM {$table}  WHERE object_id=" . $objectId;
+        $sql = "SELECT max(`pos`) FROM {$table}  WHERE page_id=" . $pageId;
 
         $result = $this->db->query($sql);
         $pos    = $result->fetch();
@@ -206,17 +227,16 @@ class Model extends Core\ModelAbstract
         return $pos[0] +1;
     }
 
-    public function widgetsList($objectId)
+    public function widgetsList($pageId)
     {
-        $objectId = (int) $objectId;
+        $pageId = (int) $pageId;
 
         $table = $this->config['dbTableWidgets'];
-        $sql = "SELECT * FROM {$table}  WHERE object_id={$objectId} ORDER BY `pos`";
+        $sql = "SELECT * FROM {$table}  WHERE page_id={$pageId} ORDER BY `pos`";
 
         $result = $this->db->query($sql);
 
         $list = $result->fetchAll(\PDO::FETCH_ASSOC);
-
 
         foreach ($list as &$item) {
             $widgetObj = $this->get($item['widget']);
@@ -233,7 +253,6 @@ class Model extends Core\ModelAbstract
 
     public function getInfoById($widgetId)
     {
-
         $widgetId = (int) $widgetId;
         $table = $this->config['dbTableWidgets'];
         $sql = "SELECT * FROM {$table} WHERE id={$widgetId}";
@@ -285,11 +304,10 @@ class Model extends Core\ModelAbstract
 
         }
 
-
         $list = array(
             'widget'    => $widgetName,
             'pos'       => $info['pos'],
-            'object_id' => $info['object_id'],
+            'page_id'   => $info['page_id'],
             'cache'     => $cache,
             'css_class' => $cssClass
         );
@@ -315,12 +333,23 @@ class Model extends Core\ModelAbstract
         );
         $this->db->insertOrUpdate($fields, $insert, $this->config['dbTableOptions']);
 
-        return array(
+        $out = array(
             'id'        => $widgetId,
             'widget'    => $widgetName,
             'cache'     => $cache,
-            'css_class' => $cssClass
+            'pos'       => $info['pos'],
+            'page_id'   => $info['page_id'],
+            'css_class' => $cssClass,
         );
+
+        //Вызываем событие
+        Core\Events::cell(
+            'Widgets.editWidget',
+            'void',
+            $out
+        );
+
+        return $out;
     }
 
     /**
@@ -359,27 +388,42 @@ class Model extends Core\ModelAbstract
     {
         $info = $this->getInfoById($id);
         $widget = $this->get($info['widget']);
+
+        //Вызываем событие
+        Core\Events::cell(
+            'Widgets.deleteBeforeWidget',
+            'void',
+            $info
+        );
+
         $widget->deleteBefore($info, $info['options']);
 
         $this->db->delete($this->config['dbTableWidgets'], intval($id));
         $this->db->delete($this->config['dbTableOptions'], 'widget_id =' .intval($id));
 
         $widget->deleteAfter($info, $info['options']);
+
+        //Вызываем событие
+        Core\Events::cell(
+            'Widgets.deleteAfterWidget',
+            'void',
+            $info
+        );
     }
 
+    /**
+     * Метод удаляем все виджеты на странице
+     * @param $pageId
+     */
     public function deleteAllWidgetsByPageId($pageId)
     {
         $pageId = (int) $pageId;
 
-        $sql    = 'SELECT * FROM '.$this->config['dbTableWidgets'].' WHERE object_id='.$pageId;
-
+        $sql = 'SELECT * FROM '.$this->config['dbTableWidgets'].' WHERE page_id=' . $pageId;
 
         $result = $this->db->query($sql);
 
-
-        while($row = $result->fetch())
-        {
-
+        while ($row = $result->fetch()) {
             $this->delete($row['id']);
         }
 

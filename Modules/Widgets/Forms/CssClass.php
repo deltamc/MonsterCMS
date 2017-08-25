@@ -10,7 +10,7 @@ return array
     (
         'pattern' => array(
             '^[\w\d-_ ]*$',
-            'Недопустимые символы'
+            Lang::get('Widgets.unacceptableSymbols')
         ),
     ),
 );

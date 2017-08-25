@@ -2,8 +2,6 @@
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
-// //Widgets/Delete/id/55
-
 /**
  * @var $this Controller
  * @var $widget \Monstercms\Core\WidgetInterface.php
@@ -16,8 +14,6 @@ use \Monstercms\Lib;
 if (!Core\Users::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
-
-
 
 if (!$this->isParam('id')) {
     throw new Core\HttpErrorException(404);
