@@ -1,19 +1,17 @@
-<?php namespace Monstercms\Widgets\Text;
+<?php namespace Monstercms\Widgets\Line;
 
 use Monstercms\Core;
 use Monstercms\Modules\Widgets as ModuleWidgets;
 
 class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\WidgetInterface
 {
-
-
     /**
      * Метод возвращает массив с формой редактирования
      * @return array
      */
     public function getFormEdit()
     {
-        return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
+
     }
 
     /**
@@ -22,7 +20,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getFormAdd()
     {
-        return include(WIDGET_DIR . DS . $this->widgetName . DS . 'Form.php');
+
     }
 
     /**
@@ -49,7 +47,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getName()
     {
-        return "Параграф";
+        return "Линия";
     }
 
 
@@ -62,8 +60,6 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
         return '1.0';
     }
 
-
-
     /**
      * Размер окна в формате wxh, например: 700x800
      * если метод возвращает пустое заначение или false, то окно не отображается
@@ -71,7 +67,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getAddFormWindowSize()
     {
-        return '800x600';
+        return false;
     }
 
     /**
@@ -81,7 +77,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getEditFormWindowSize()
     {
-        return '800x600';
+        return false;
     }
 
     /**
@@ -95,36 +91,35 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getParameters()
     {
         return array(
-            'text|string'      => '',
+            'heading' => '',
+            'level'  => 1
         );
     }
 
-    public function deleteAfter(array $data, array $params) {
-        $text = $params['text'];
-        $pageId = $data['page_id'];
-        $result = array();
-
-        $uploadDir = str_replace('/', '\/', UPLOAD_DIR);
-
-        $pattern = '/'.$uploadDir.'\/Widgets\/'.$pageId.'\/([a-f0-9]*\.\w{3,5})/';
-
-        preg_match_all($pattern,$text, $result);
-        $result = $result[1];
-
-
-        if (empty($result)) return;
-
-        foreach ($result as $item) {
-            print UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item . PHP_SLF;
-            @unlink(UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item);
-        }
-    }
 
     /**
      * Вес сортировки, чем больше вес тем ниже будет отображаться иконка виджета в панели
      * @return int
      */
     public function getOrder(){
-        return 1;
+        return 0;
     }
+
+
+    /**
+     * Массив с файлами JS
+     * @return array
+     */
+    public function getJavaScript(){
+        return array();
+    }
+
+    /**
+     * Массив с файлами CSS
+     * @return array
+     */
+    public function getCSS(){
+        return array();
+    }
+
 }

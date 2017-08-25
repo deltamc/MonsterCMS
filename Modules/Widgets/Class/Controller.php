@@ -36,7 +36,6 @@ class Controller extends Core\ControllerAbstract
     {
         $this->model->init();
 
-
         $vars = '';
 
 
@@ -54,7 +53,7 @@ class Controller extends Core\ControllerAbstract
             );
         }
 
-        usort($vars, function($a,$b){
+        usort($vars, function($a, $b){
             return ($a['order']-$b['order']);
         });
 

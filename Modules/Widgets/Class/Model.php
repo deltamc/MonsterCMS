@@ -18,8 +18,7 @@ class Model extends Core\ModelAbstract
      * Метод возвращает экземпляр контроллера (виджета)
      * @param $widget - виджет
      * @param $pageId - ид страницы
-     * @throws \Exception
-     * @return Core\WidgetInterface
+     * @return Core\WidgetInterface|false
      */
     public function get($widget, $pageId = null)
     {
@@ -33,7 +32,8 @@ class Model extends Core\ModelAbstract
             return self::$controllers[$widget];
         }
 
-        throw new \Exception('Widget not include');
+        //throw new \Exception('Widget not include');
+        return false;
 
     }
 
@@ -51,13 +51,13 @@ class Model extends Core\ModelAbstract
      * Метод добавляет экземпляр контроллера (виджета)
      * @param $widget
      * @throws \Exception
-     * @return  Core\WidgetInterface
+     * @return  Core\WidgetInterface|false
      */
     public function set($widget, $pageId = null)
     {
 
         if (!self::isWidget($widget)) {
-            throw new \Exception('Module not include');
+            return false;
         }
 
         $controllerName = '\\Monstercms\\Widgets\\' . $widget . '\\Widget';
@@ -80,11 +80,17 @@ class Model extends Core\ModelAbstract
             return false;
         }
 
-        $class = new \ReflectionClass($controllerName);
 
-        if(!$class->implementsInterface('Monstercms\Modules\Widgets\WidgetInterface')) {
+        try {
+            $class = new \ReflectionClass($controllerName);
+
+            if(!$class->implementsInterface('Monstercms\Modules\Widgets\WidgetInterface')) {
+                return false;
+            }
+        } catch (\ReflectionException $e) {
             return false;
         }
+
 
         return true;
     }
@@ -128,6 +134,43 @@ class Model extends Core\ModelAbstract
     }
 
     /**
+     * Получить параметры выидета.
+     * Метод учитывает тип параметра. html|int|float
+     * @param WidgetInterface $widget
+     * @return array
+     */
+    function getWidgetParameters(WidgetInterface $widget)
+    {
+        $params = $widget->getParameters($widget);
+        $out = array();
+        foreach ($params as $key => $value) {
+            $type = '';
+            if (strpos($key, '|') !== false) {
+
+                list($key, $type) = explode('|', $key);
+            }
+            print $type;
+
+            switch ($type) {
+                case "html":
+                    $out[$key] = $value;
+                    break;
+                case "int":
+                    $out[$key] = (int) $value;
+                    break;
+                case "float":
+                    $out[$key] = (float) $value;
+                    break;
+                default:
+                    $out[$key] = htmlspecialchars($value);
+                    break;
+            }
+        }
+
+        return $out;
+    }
+
+    /**
      * Добавление виджета на страницу
      * @param WidgetInterface $widget
      * @param array $data
@@ -137,7 +180,7 @@ class Model extends Core\ModelAbstract
      */
     function add(WidgetInterface $widget, array $data, $pageId = null)
     {
-        $params = $widget->getParameters();
+        $params = $this->getWidgetParameters($widget);
 
         $insert = array();
 
@@ -240,9 +283,16 @@ class Model extends Core\ModelAbstract
 
         foreach ($list as &$item) {
             $widgetObj = $this->get($item['widget']);
-            $item['javascript'] = $widgetObj->getJavaScript();
-            $item['css']        = $widgetObj->getCSS();
-            $item['window_size'] = $widgetObj->getEditFormWindowSize();
+            $item['javascript'] = array();
+            $item['css']        = array();
+            $item['window_size'] = '';
+
+            if ($widgetObj) {
+                $item['javascript'] = $widgetObj->getJavaScript();
+                $item['css']        = $widgetObj->getCSS();
+                $item['window_size'] = $widgetObj->getEditFormWindowSize();
+            }
+
         }
         unset($item);
 
@@ -276,7 +326,7 @@ class Model extends Core\ModelAbstract
 
     public function edit(WidgetInterface $widget, $data, $widgetId)
     {
-        $params = $widget->getParameters();
+        $params = $this->getWidgetParameters($widget);
         $widgetId = (int) $widgetId;
 
         $table = $this->config['dbTableWidgets'];
