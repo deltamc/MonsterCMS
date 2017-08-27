@@ -139,18 +139,25 @@ class Model extends Core\ModelAbstract
      * @param WidgetInterface $widget
      * @return array
      */
-    function getWidgetParameters(WidgetInterface $widget)
+    function alignmentWithType(WidgetInterface $widget, $data = array())
     {
+
+
         $params = $widget->getParameters($widget);
         $out = array();
         foreach ($params as $key => $value) {
             $type = '';
+
+
+
             if (strpos($key, '|') !== false) {
 
                 list($key, $type) = explode('|', $key);
             }
-            print $type;
 
+            if (isset($data[$key])) {
+                $value = $data[$key];
+            }
             switch ($type) {
                 case "html":
                     $out[$key] = $value;
@@ -180,18 +187,11 @@ class Model extends Core\ModelAbstract
      */
     function add(WidgetInterface $widget, array $data, $pageId = null)
     {
-        $params = $this->getWidgetParameters($widget);
-
         $insert = array();
 
         $widgetId = null;
 
-        foreach ($params as $key => &$value) {
-            if (isset($data[$key])) {
-                $value = $data[$key];
-            }
-        }
-        unset($value);
+        $params = $this->alignmentWithType($widget, $data);
 
         $widgetName = $widget->getWidgetName();
         $cache      = $widget->getView($params);
@@ -326,7 +326,7 @@ class Model extends Core\ModelAbstract
 
     public function edit(WidgetInterface $widget, $data, $widgetId)
     {
-        $params = $this->getWidgetParameters($widget);
+
         $widgetId = (int) $widgetId;
 
         $table = $this->config['dbTableWidgets'];
@@ -337,12 +337,7 @@ class Model extends Core\ModelAbstract
 
         $insert = array();
 
-        foreach ($params as $key => &$value) {
-            if (isset($data[$key])) {
-                $value = $data[$key];
-            }
-        }
-        unset($value);
+        $params = $this->alignmentWithType($widget, $data);
 
         $widgetName = $widget->getWidgetName();
         $cache = $widget->getView($params);

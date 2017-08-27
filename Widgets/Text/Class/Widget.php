@@ -95,7 +95,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
     public function getParameters()
     {
         return array(
-            'text|string'      => '',
+            'text|html'      => '',
         );
     }
 
