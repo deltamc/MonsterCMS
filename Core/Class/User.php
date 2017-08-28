@@ -2,7 +2,7 @@
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
-class Users
+class User
 {
     /**
      * @var \Monstercms\Lib\DataBase;
@@ -73,7 +73,7 @@ class Users
         * function.
     */
 
-    function validate_pw($password, $hash){
+    function validatePw($password, $hash){
         /* Regenerating the with an available hash as the options parameter should
          * produce the same hash if the same password is passed.
          */
@@ -150,7 +150,7 @@ class Users
 
     /**
      * Метод устанавливает данные пользователя.
-     * @param $login - логин
+     *
      * @param $hash
      * @return bool
      */
@@ -215,7 +215,25 @@ class Users
 
     protected static function authorization($login, $password)
     {
+        $password = self::generateHash($password);
 
+        $login = escapeString($login);
+
+        $sql = "SELECT `id`, `name`, `login` FROM `user` WHERE `login` = ? AND `password` = ?";
+
+        $this->user = getAssocResultOne($sql);
+
+        if (!empty($this->user)) {
+            session_start();
+            $_SESSION[$this->sessionKey]['id']         = $this->user['id'];
+            $_SESSION[$this->sessionKey]['name']       = $this->user['name'];
+            $_SESSION[$this->sessionKey]['login']      = $this->user['login'];
+            $_SESSION[$this->sessionKey]['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+
+            return true;
+        }
+
+        return false;
     }
 
 
