@@ -36,7 +36,7 @@ if(empty($tile)) {
     $pageHead->setTitle($title);
 }
 $edit = false;
-//$edit = (Core\Users::isAdmin()) ? true : false;
+//$edit = (Core\User::isAdmin()) ? true : false;
 
 
 
