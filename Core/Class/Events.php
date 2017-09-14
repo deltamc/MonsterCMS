@@ -55,10 +55,10 @@ class Events {
             self::$events[$module][$event],
             function ($a, $b) {
                 if ($a["priority"] == $b["priority"]) {
-                    return 0;
-                }
-                if ($a["priority"] > $b["priority"]) {
                     return -1;
+                }
+                if ($a["priority"] < $b["priority"]) {
+                    return 0;
                 }
                 return 1;
             }

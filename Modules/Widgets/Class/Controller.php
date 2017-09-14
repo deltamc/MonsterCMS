@@ -57,7 +57,7 @@ class Controller extends Core\ControllerAbstract
             return ($a['order']-$b['order']);
         });
 
-        Lib\JavaScript::add('/' . MODULE_DIR.'/'.$this->moduleName.'/JavaScript/widgets.js');
+
         Lib\JavaScript::add('/JavaScript/scroll.js');
 
         return $this->view->get("Tools.php", array('widgets'=>$vars, 'pageId' => $pageId));
@@ -70,10 +70,14 @@ class Controller extends Core\ControllerAbstract
      * @return string
      * @throws \Exception
      */
-    public function view($pageId)
+    public function view($pageId, $edit = false)
     {
         $pageId = (int) $pageId;
         $widgets = $this->model->widgetsList($pageId);
+
+        if ($edit) {
+            Lib\JavaScript::add('/' . MODULE_DIR.'/'.$this->moduleName.'/JavaScript/widgets.js');
+        }
 
         foreach ($widgets as &$widget) {
 
@@ -83,7 +87,8 @@ class Controller extends Core\ControllerAbstract
                 'widgetName' => $widget['widget'],
                 'pos'        => $widget['pos'],
                 'class'      => $widget['css_class'],
-                'windowSize' => $widget['window_size']
+                'windowSize' => $widget['window_size'],
+                'edit'       => $edit
             );
 
             //@TODO убрать из цикла

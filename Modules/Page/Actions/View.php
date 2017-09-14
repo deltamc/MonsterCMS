@@ -38,10 +38,6 @@ if(empty($tile)) {
 $edit = false;
 //$edit = (Core\User::isAdmin()) ? true : false;
 
-
-
-
-
 $body = Core\Events::cell(
     $this->moduleName . '.top',
     'string',
@@ -56,11 +52,18 @@ $this->tag->BODY .= $mEdit->html;
 $this->tag->BODY .= $this->view->get('bottom.php');
 */
 
+$edit = Core\User::isAdmin();
+
 $widgets = Core\Module::get('Widgets');
 
 $this->view->inc('BODY', 'Top.php');
-$this->view->add('BODY', $widgets->toolBar($id));
-$this->view->add('BODY', $widgets->view($id));
+
+if ($edit) {
+    $this->view->add('BODY', $widgets->toolBar($id));
+}
+
+
+$this->view->add('BODY', $widgets->view($id, $edit));
 $this->view->inc('BODY', 'Bottom.php');
 
 $body = Core\Events::cell(

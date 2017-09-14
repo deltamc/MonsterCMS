@@ -34,7 +34,7 @@ body{
 
 
 
-.form2 input[type='text'], form textarea, .form2 input[type='date']
+.form2 input[type='text'], .form2 input[type='password'],  form textarea, .form2 input[type='date']
 {
     border:1px solid #b1bcc5;
     -webkit-border-radius: 5px;
@@ -71,7 +71,7 @@ body{
     height:100px;
 }
 
-.form2 input[type='text'], .form2 option, .form2 select, .form2 input[type='date']
+.form2 input[type='text'], .form2 input[type='password'], .form2 option, .form2 select, .form2 input[type='date']
 {
     font: 16px calibrieot,Calibri;
     width:500px;

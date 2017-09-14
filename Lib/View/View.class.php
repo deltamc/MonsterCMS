@@ -125,10 +125,10 @@ class View
         foreach($this->includePath as $path) {
 
             $path = trim($path, DIRECTORY_SEPARATOR);
+            $inc = $path . DIRECTORY_SEPARATOR . $file;
+            if (is_file($inc )) {
+              return $inc;
 
-            if (is_file($path . DIRECTORY_SEPARATOR . $file )) {
-                $inc = $path . DIRECTORY_SEPARATOR . $file;
-                break;
             }
         }
 
@@ -159,9 +159,9 @@ class View
     {
 
         if (!is_file($file)) {
-            $pathParts = pathinfo($file);
-            $file = htmlspecialchars($pathParts['filename']);
-            throw new \Exception("Include file {$file} not found");
+            //$pathParts = pathinfo($file);
+            $file = htmlspecialchars($file);
+            throw new \Exception("Include file '{$file}' not found");
         }
 
         if(is_array($vars) && count($vars) > 0) extract($vars);
