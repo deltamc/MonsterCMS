@@ -73,7 +73,7 @@ body{
 #admin-panel .fixed
 {
     position: fixed;
-    padding-left:40px;
+    padding:0 40px;
     z-index:500;
     height:40px;
     width:100%;
@@ -81,6 +81,7 @@ body{
     background: #E5E5E5;
     border-radius: 5px;
     box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-sizing: border-box;
 }
 
 
@@ -239,7 +240,7 @@ iframe.sendform
     border:1px dotted transparent;
 
 }
-.mcms-widget:hover
+.mcms-widget.edit:hover
 {
     border:1px dotted #0089ec;
 

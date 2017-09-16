@@ -1,0 +1,27 @@
+body{
+    background: url(../images/wild_oliva.png);
+}
+.entry{
+    background: #E5E5E5;
+    border: 1px solid #fff;
+    border-radius: 5px 5px 5px 5px;
+
+
+    position: absolute;
+    box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
+    width: 600px;
+    height: 300px;
+    top:50%;
+    left:50%;
+    margin-left:-300px;
+    margin-top:-150px;
+
+    color:#000;
+    padding:15px;
+    font-weight:bold !important;
+}
+
+span.error{
+    display: block;
+    padding-left: 0 !important;
+}

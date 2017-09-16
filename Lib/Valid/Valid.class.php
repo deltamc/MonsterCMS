@@ -119,7 +119,7 @@ class Valid
      * $param[1] - array args
      * @return bool|mixed
      */
-    public static function cell($val, $param)
+    public static function call($val, $param)
     {
         if(empty($val)) return true;
 

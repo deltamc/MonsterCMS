@@ -34,7 +34,7 @@ body{
 
 
 
-.form2 input[type='text'], form textarea, .form2 input[type='date']
+.form2 input[type='text'], .form2 input[type='password'],  form textarea, .form2 input[type='date']
 {
     border:1px solid #b1bcc5;
     -webkit-border-radius: 5px;
@@ -71,7 +71,7 @@ body{
     height:100px;
 }
 
-.form2 input[type='text'], .form2 option, .form2 select, .form2 input[type='date']
+.form2 input[type='text'], .form2 input[type='password'], .form2 option, .form2 select, .form2 input[type='date']
 {
     font: 16px calibrieot,Calibri;
     width:500px;
@@ -930,4 +930,54 @@ ul.ztree.zTreeDragUL
 }
 
 
+/*таблица*/
+table{
+    width:100%;
+    background: #f7f7f7;
 
+    border: 1px solid #d1ced3;
+    margin-top:10px;
+    margin-bottom: 0;
+    box-shadow: inset 0 1px 0 #fff, 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    border-collapse: collapse;
+
+}
+
+table thead {
+    width: 100%;
+
+
+    height: 34px;
+
+    background: -webkit-gradient(linear, 0 50%, 0 100%, from(#f2f0f2), to(#edeaf0));
+    background: -webkit-linear-gradient(top, #f2f0f2, #edeaf0);
+    background: -moz-linear-gradient(top, #f2f0f2, #edeaf0);
+    background: -o-linear-gradient(top, #f2f0f2, #edeaf0);
+    background: -ms-linear-gradient(top, #f2f0f2, #edeaf0);
+    background: linear-gradient(to bottom, #f2f0f2, #edeaf0);
+    border: 1px solid #d4d1d7;
+
+    box-shadow: inset 0 1px 0 #fff;
+
+    color: #656268 !important;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.75);
+}
+
+td, th{
+    padding:5px;
+}
+
+tr:nth-child(2n){
+    background-color: #ededed;
+}
+
+tbody tr:hover{
+    background-color: #e2e2e2;
+}
+
+.btn-default.min{
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    padding: 0;
+}

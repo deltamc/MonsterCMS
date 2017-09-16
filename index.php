@@ -59,7 +59,11 @@ try {
 
 
 //Выводим меню администратора
-Module::get('MenuAdmin')->view();
+View::add('ADMIN_TOOLS','');
+if (Core\User::isAdmin()) {
+    Module::get('MenuAdmin')->view();
+}
+
 
 
 

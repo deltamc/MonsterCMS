@@ -8,7 +8,7 @@ use \Monstercms\Core\Module;
 use \Monstercms\Lib;
 use \Monstercms\Lib\Request;
 
-if (!Core\Users::isAdmin()) {
+if (!Core\User::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 

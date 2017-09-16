@@ -11,7 +11,7 @@ use \Monstercms\Core;
 use \Monstercms\Lib;
 
 //проверяем, есть ли права доступа
-if (!Core\Users::isAdmin()) {
+if (!Core\User::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 $params = $this->getParams();
@@ -34,9 +34,6 @@ $callBack = 0;
 if (isset($_REQUEST['CKEditorFuncNum'])){
     $callBack =  (int) $_REQUEST['CKEditorFuncNum'];
 }
-
-
-
 
 if(isset($_FILES['upload'])) {
     if(!is_dir(UPLOAD_DIR . DS . $this->moduleName)) {

@@ -4,5 +4,6 @@ return array(
     'errorNotImage' =>'Файл не является изображением',
     'errorMaxSize' =>'Превышен максимальный размер',
     'errorUpload' =>'При загрузки изображения возникала ошибка',
+    'unacceptableSymbols' =>'Недопустимые символы',
 
 );

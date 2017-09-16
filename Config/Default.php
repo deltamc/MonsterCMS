@@ -76,7 +76,7 @@ define('THEMES_DIALOG_PATH', THEMES_DIR_ADMIN . DS . THEMES_ADMIN .DS . 'Dialog.
 /*
  * Базовый путь диалогового окна
  */
-define('BASE_DIALOG', SITE_URL . '/' . THEMES_DIR_ADMIN .  '/' . THEMES_ADMIN . '/');
+define('BASE_ADMIN', SITE_URL . '/' . THEMES_DIR_ADMIN .  '/' . THEMES_ADMIN . '/');
 
 /**
  * Временная зона
@@ -92,7 +92,7 @@ define('DEFAULT_MODULE', 'Page');
 /**
  * Экшин по умолчанию
  */
-define('DEFAULT_ACTION', 'Main');
+define('DEFAULT_ACTION', 'Index');
 
 /**
  * Директория с библиотеками

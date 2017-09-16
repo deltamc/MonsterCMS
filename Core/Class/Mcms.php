@@ -103,7 +103,7 @@ class Mcms
     static function setDialogTheme()
     {
         View::setBasicTemplate(THEMES_DIALOG_PATH);
-        View::replace('BASE', BASE_DIALOG);
+        View::replace('BASE', BASE_ADMIN);
     }
 
     static function setTheme($theme = null)

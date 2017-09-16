@@ -514,6 +514,9 @@ class Form
 
         foreach($valid as $valid_type => $param)
         {
+            if ($param === null) {
+                continue;
+            }
 
             /*если тип без параметров */
             //'required'

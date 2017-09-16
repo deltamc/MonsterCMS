@@ -22,8 +22,11 @@ $vars = array(
     'widget' => $newWidget['widget'],
     'class' => $newWidget['css_class']
 );
+
 Core\Mcms::setDialogTheme();
+
 $this->view->add('BODY', '<div id="widget-html" style="display: none">' . $cache .'</div>');
+
 $js = $this->view->get('EditWidgetJs.php', $vars);
 
 Lib\Javascript::add($js);
