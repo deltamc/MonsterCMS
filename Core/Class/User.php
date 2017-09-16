@@ -321,4 +321,8 @@ class User
         self::$role = null;
         self::$userData = null;
     }
+
+    public static function getId(){
+        return self::$id;
+    }
 }

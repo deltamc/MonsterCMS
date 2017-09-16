@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <base href="<?=$BASE;?>" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/window.css" rel="stylesheet">
+    <link href="css/entry.css" rel="stylesheet">
 
     <?=$JS;?>
-    <script src="<?=$SITE_URL?>/JavaScript/jquery.min.js"></script>
-    <script src="<?=$SITE_URL?>/JavaScript/bootstrap.min.js"></script>
 
+    <script src="<?=$SITE_URL?>/JavaScript/bootstrap.min.js"></script>
     <script>
         $(function (){
             $('.tip').tooltip({html:false});
@@ -22,11 +22,14 @@
 
 </head>
 <body>
-<?php if(!empty($DIALOG_HEAD)):?>
-    <h1><?=$DIALOG_HEAD?></h1>
+<div class="entry">
+<?php if(!empty($TITLE)):?>
+    <h1><?=$TITLE?></h1>
 <?php endif?>
-<?=$BODY?>
-
+    <div class="body">
+        <?=$BODY?>
+    </div>
+</div>
 
 </body>
 </html>
