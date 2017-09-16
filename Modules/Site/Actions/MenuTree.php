@@ -14,7 +14,7 @@ if ($this->getObjectId() === 0){
     throw new Core\HttpErrorException(404);
 }
 
-if (!Core\Users::isAdmin()) {
+if (!Core\User::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 

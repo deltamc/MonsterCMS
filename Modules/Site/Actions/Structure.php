@@ -12,7 +12,7 @@ use \Monstercms\Lib;
 use \Monstercms\Lib\View;
 use \Monstercms\Lib\JavaScript;
 
-if (!Core\Users::isAdmin()) {
+if (!Core\User::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 

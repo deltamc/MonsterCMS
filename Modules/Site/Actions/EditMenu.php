@@ -11,7 +11,7 @@ use \Monstercms\Lib;
 use \Monstercms\Core\Mcms;
 
 //Проверяем права пользователя
-if (!Core\Users::isAdmin()) {
+if (!Core\User::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 

@@ -3,14 +3,10 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 
 class Controller extends Core\ControllerAbstract
 {
-    public function actionView()
-    {
-
-    }
-
     /**
      * Метод отображает меню администратора
      * @return mixed
@@ -27,6 +23,9 @@ class Controller extends Core\ControllerAbstract
             'text'        => 'button',
             'align'       => 'left',
             'target'      => '_top',
+            'access'      => array(
+                User::ADMIN
+            ),
             'window_size' => null
         );
         //Вызываем событие menuAdmin.addItems
@@ -36,12 +35,19 @@ class Controller extends Core\ControllerAbstract
 
 
         if(empty($buttons)) $buttons = array();
+
         foreach ($buttons as $item)
         {
 
-            if(!is_array($item)) continue;
+            if(!is_array($item)) {
+                continue;
+            }
 
             $item = array_merge ($default, $item);
+
+            if(!User::isAccess($item['access'])){
+                continue;
+            }
 
             //if($item['target'] == 'dialog') $item['action'] .= '&type=dialog';
 

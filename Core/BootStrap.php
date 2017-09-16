@@ -25,6 +25,7 @@ View::add('BODY',  '');
 
 Core\Mcms::setTheme();
 
+Core\User::int();
 
 JavaScript::add(SITE_URL . '/JavaScript/jquery.min.js');
 JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');

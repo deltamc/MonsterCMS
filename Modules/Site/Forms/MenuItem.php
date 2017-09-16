@@ -62,7 +62,7 @@ $form = array
                     'required',
 
                     'pattern' => '[a-z0-9-_]+',
-                    'cell' => array(
+                    'call' => array(
                         array
                         (
                             //'\Monstercms\Core\Mcms::urlValid',

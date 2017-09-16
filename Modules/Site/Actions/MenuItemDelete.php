@@ -19,7 +19,7 @@ if ((int) $this->getParam('menu_id') === 0){
 }
 
 //Права доступа
-if (!Core\Users::isAdmin()) {
+if (!Core\User::isAdmin()) {
     throw new Core\HttpErrorException(403);
 }
 
