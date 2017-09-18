@@ -17,8 +17,8 @@ if(!isset($action)) $action = 'add';
 
 $urlObj = new Url();
 
-$checked = '';
-if($action == 'add') $checked = 'checked';
+$goTo = ('add' === $action ) ? 1: 0;
+
 
 $form = array
 (
@@ -178,13 +178,22 @@ $form = array
         'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
     ),
 
+    array
+    (
+        'name' => "menu_item_goto",
+        'type' => 'checkbox',
+        'check_value' => '1',
+        'no_check_value' => '0',
+        'label' => Lang::get('Site.goTo'),
+        'value' =>$goTo
 
+
+    ),
 
     array
         (
             'type' => 'html',
             'html' => '<input type="submit" value="'.Lang::get('Site.submit').'" />
-            <input type="checkbox" value="1" name="menu_item_goto" '.$checked.' /> '.Lang::get('Site.goTo').'
                          '
         )
 

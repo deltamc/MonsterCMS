@@ -66,6 +66,8 @@ class Controller extends Core\ControllerAbstract
 
         $items = $this->getMenuTree($menuId, 0, $tplTtem);
 
+
+
         $vars = array(
             'css'   => $cssClass,
             'items' => $items
@@ -155,6 +157,24 @@ class Controller extends Core\ControllerAbstract
         }
 
         return $index->object_id;
+    }
+
+
+    function menuItemAddModuleList(Core\EventParam $ep)
+    {
+        return array(
+            'module'                => $this->moduleName,
+            'itemType'              => 'link',
+            "menuItemName"        => Core\Lang::get('Site.link'),
+            /* which fields form hide (form add item menu)*/
+            "hiddenFormItems"     => array(
+                "menu_item_url_semantic",
+                "menu_item_index",
+                "menu_item_goto"
+            ),
+            "menuItemIcon"        => "fa fa-link",
+
+        );
     }
 
 

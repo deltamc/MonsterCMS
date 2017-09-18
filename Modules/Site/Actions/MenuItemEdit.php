@@ -36,11 +36,11 @@ $menuItemInfo    = $this->model('MenuItems')->menuItemInfo($menuItemId);
 //Имя модуля
 $moduleName       = $menuItemInfo->module;
 //ID родительского пункта меню
-$parentId         = $menuItemInfo->parent_id;
+$parentId         = (int) $menuItemInfo->parent_id;
 //ID сематического URL
-$urlId            = $menuItemInfo->url_id;
+$urlId            = (int) $menuItemInfo->url_id;
 //Ид объекта
-$objectId         = $menuItemInfo->object_id;
+$objectId         = (int) $menuItemInfo->object_id;
 //тип пункта меню
 $itemType         = $menuItemInfo->item_type;
 
@@ -71,11 +71,16 @@ $formItems = Mcms::hiddenItemsForm($formItems, $hide);
 $urlObj = new Url();
 $form   = new Lib\Form('');
 
+$urlSemantic = '';
+if (0 !== $urlId) {
+    $urlSemantic = $urlObj->getUrl($urlId);
+}
+
 //Заполняем форму
 $form_items1_full = array
 (
     'menu_item_name'         => $menuItemInfo->name,
-    'menu_item_url_semantic' => $urlObj->getUrl($urlId),
+    'menu_item_url_semantic' => $urlSemantic,
     'menu_item_url'          => $menuItemInfo->url,
     'menu_item_menu'         => $menuItemInfo->menu_id,
     'menu_item_css'          => $menuItemInfo->css_class,
@@ -83,6 +88,8 @@ $form_items1_full = array
     'menu_item_hide'         => $menuItemInfo->hide
 
 );
+
+
 //Получаем данные формы с других модулей
 $formItems = Core\Events::eventsForm(
     $formItems,
@@ -113,10 +120,8 @@ if (!empty($full)) {
     foreach ($full as $name => $value) {
         $form_items1_full[$name] = $value;
     }
-
-    $form->full($form_items1_full);
 }
-
+$form->full($form_items1_full);
 
 //Если форма не была заполнена, выводим ее
 if (!$form->is_submit()) {
@@ -146,7 +151,8 @@ if (!$form->is_submit()) {
         'module'          => $moduleName,
         'css_class'       => Request::getPost('menu_item_css'),
         'target'          => Request::getPost('menu_item_target'),
-        'hide'            => intval(Request::getPost('menu_item_hide'))
+        'hide'            => intval(Request::getPost('menu_item_hide')),
+        'url'             => Request::getPost('menu_item_url'),
 
     );
 

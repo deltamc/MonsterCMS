@@ -289,9 +289,9 @@ class MenuItems extends Lib\Crud
 
 
             /*if link*/
-            if($item['url_id'] == 0 && !empty($item['link_url']))
+            if($item['url_id'] == 0 && !empty($item['url']))
             {
-                $out[$id]['url'] = $item['link_url'];
+                $out[$id]['url'] = $item['url'];
             }
             /*if index*/
             else if($item['index'] == 1)
