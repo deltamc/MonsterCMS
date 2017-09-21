@@ -34,6 +34,10 @@ class FrontController
 
         $params = array();
 
+        if('/sitemap.xml' === $request){
+            $request = '/Site/SiteMapXml';
+        }
+
         if (preg_match('/' . URL_SEMANTIC_END . '$/i', $request)) {
             $params = $this->getParamsSemanticUrl($request);
         }

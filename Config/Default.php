@@ -26,8 +26,13 @@ define('DB_USER', 'root');
  */
 define('DB_PASSWORD', '');
 
+/**
+ * Включить протокол HTTPS
+ */
+define('HTTPS',   false);
+
 /*URL сайта*/
-define("SITE_URL",   "//" . HOST);
+define("SITE_URL",   ((HTTPS) ? 'https' : 'http') . "://" . HOST);
 
 
 /**
@@ -150,4 +155,6 @@ define('DEBUGGING',   true);
  * @TODO брать из настоек в бд
  */
 define('SITE_NAME',   'Монстер CMS');
+
+
 
