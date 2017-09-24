@@ -9,7 +9,7 @@ use \Monstercms\Core;
 use \Monstercms\Core\MCMS;
 use \Monstercms\Lib;
 use \Monstercms\Lib\Request;
-use \Monstercms\Core\Module;
+use \Monstercms\Core\User;
 use \Monstercms\Core\Url;
 
 //Если не передан Ид объекта (пункта меню)
@@ -18,7 +18,7 @@ if ($this->getObjectId() === 0){
 }
 
 //Если у пользователя не хватает прав
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 

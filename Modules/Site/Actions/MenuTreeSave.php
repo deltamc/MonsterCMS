@@ -3,14 +3,16 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
 if (empty($_POST['tree']) || !is_array($_POST['tree'])){
     throw new Core\HttpErrorException(404);
 }
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
+
 $values = array();
 
 foreach($_POST['tree'] as $node)

@@ -60,7 +60,7 @@ try {
 
 //Выводим меню администратора
 View::add('ADMIN_TOOLS','');
-if (Core\User::isAdmin()) {
+if (Core\User::isAuthorization()) {
     Module::get('MenuAdmin')->view();
 }
 

@@ -1,5 +1,6 @@
 <?php namespace Monstercms\Modules\Widgets;
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
 defined('MCMS_ACCESS') or die('No direct script access.');

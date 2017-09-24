@@ -8,7 +8,7 @@ use Monstercms\Core\Lang;
 
 Mcms::setDialogTheme();
 
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN)) {
     throw new Core\HttpErrorException(403);
 }
 

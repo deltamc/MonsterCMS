@@ -6,7 +6,7 @@ defined('MCMS_ACCESS') or die('No direct script access.');
  * @var $this Core\ControllerAbstract
  */
 use \Monstercms\Core;
-use \Monstercms\Core\MCMS;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
 //Проверяем есть ли необходимые данные
@@ -19,7 +19,7 @@ if ((int) $this->getParam('menu_id') === 0){
 }
 
 //Права доступа
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::DEMO, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 

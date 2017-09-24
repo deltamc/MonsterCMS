@@ -8,7 +8,7 @@ use Monstercms\Core\Lang;
 use Monstercms\Lib\Request;
 use Monstercms\Lib\Form;
 
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN)) {
     throw new Core\HttpErrorException(403);
 }
 

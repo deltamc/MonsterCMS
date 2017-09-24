@@ -72,6 +72,14 @@ class Events {
             $ep = new EventParam($key);
             $ep->setParamArray($parameters);
 
+            $moduleObj = Module::get($eventItem['module']);
+
+            if (!method_exists($moduleObj, $eventItem['method'])) {
+                $method = htmlspecialchars($eventItem['method']);
+                $module = htmlspecialchars($eventItem['module']);
+                throw new \Exception("Method '{$method}' not found. Module '{$module}'");
+            }
+
             $out_temp = call_user_func_array
             (
                 array(Module::get($eventItem['module']), $eventItem['method']),

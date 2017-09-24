@@ -39,7 +39,12 @@ class Controller extends Core\ControllerAbstract
             //Открывать в диалоговом окне
             'target'      => 'dialog',
             //Размер окна
-            'window_size' => '800x600'
+            'window_size' => '800x600',
+            'access'      => array(
+                Core\User::ADMIN,
+                Core\User::CONTENT_MANAGER,
+                Core\User::DEMO,
+            )
         );
     }
 

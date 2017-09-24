@@ -11,13 +11,12 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
 use \Monstercms\Lib;
+use \Monstercms\Core\User;
 
 //проверяем, есть ли права доступа
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
-
-
 
 if (!$this->isParam('id1')
     || !$this->isParam('pos1')
