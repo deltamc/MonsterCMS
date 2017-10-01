@@ -33,20 +33,17 @@ if (is_file($configDir . $configFile)) {
 require_once(ENGINE_DIR . DS . 'BootStrap.php');
 
 try {
-
-
     $front = new Core\FrontController();
     $front->route();
-
 } catch (Core\HttpErrorException $e) {
+
     $e->header();
-    Core\Events::cell('ErrorPage.'.$e->getCode());
+    Core\Events::cell('Core.HttpError', 'void', array('code' => $e->getCode()));
 
 } catch (PDOException $e) {
     if (DEBUGGING) {
         print_r($e->getMessage());
     }
-
 } catch (Exception $e) {
     if (DEBUGGING) {
         print 'Error: ' . $e->getMessage() .
