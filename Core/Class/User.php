@@ -30,6 +30,7 @@ class User
 
 
 
+
     public static function int()
     {
         if(self::$db === null){
@@ -262,13 +263,26 @@ class User
         return false;
     }
 
-    public static function isAccess($roles)
+
+    /**
+     * Метод проверяет принадлежит ли пользователь к роли.
+     * Возможно передать список ролей в массиве как первый аргумент метода
+     * @param ...$roles
+     * @return bool
+     */
+    public static function isAccess()
     {
-        if(!is_array($roles)) {
-            $roles = array($roles);
+        if (func_num_args() === 0) {
+            return false;
+        } elseif (func_num_args() === 1 && is_array(func_get_arg(0))) {
+            $roles = func_get_arg(0);
+        } else {
+            $roles = func_get_args();
         }
 
+
         $isAuthorization = self::isAuthorization();
+
 
         foreach ($roles as $role) {
             if ($role === self::GUEST && !$isAuthorization) {
@@ -282,6 +296,8 @@ class User
 
         return false;
     }
+
+
 
     public static function isAuthorization(){
 

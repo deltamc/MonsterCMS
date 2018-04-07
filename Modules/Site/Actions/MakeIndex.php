@@ -4,13 +4,14 @@
  */
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
 if ($this->getObjectId() === 0) {
     throw new Core\HttpErrorException(404);
 }
 
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 

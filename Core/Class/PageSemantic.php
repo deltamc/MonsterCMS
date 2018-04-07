@@ -4,15 +4,18 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 
 class PageSemantic
 {
-    private $title       = '';
-    private $description = '';
-    private $keywords    = '';
-    private $canonical   = '';
-    private $noIndex     = false;
-    private $theme       = '';
+    private $title        = '';
+    private $description  = '';
+    private $keywords     = '';
+    private $canonical    = '';
+    private $noIndex      = false;
+    private $theme        = '';
+    private $lastModified = '';
 
     private static $instance = null;
-
+    /**
+     * @var \Monstercms\Lib\DataBase
+     */
     private $db;
     private $dbTable;
 
@@ -141,6 +144,20 @@ class PageSemantic
     }
 
     /**
+     * Заголовок Last-Modified указывает на время последнего обновления информации на странице
+     * @param  $lastModified int - unix timestamp
+     */
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
+
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    /**
      * Установить значения из базы данных
      *
      * $pageHead = Core\PageHead::init();
@@ -164,6 +181,7 @@ class PageSemantic
             $this->canonical   = $data['seo_canonical'];
             $this->noIndex     = (bool) $data['seo_noindex'];
             $this->theme       = $data['theme'];
+            $this->lastModified   = $data['last-modified'];
 
             return true;
         }
@@ -183,7 +201,7 @@ class PageSemantic
 
         $sql = "SELECT * FROM `{$this->dbTable}` WHERE `object_id`=? AND `module`=? LIMIT 1";
 
-        $stmt=$this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->execute(array($objectId, $module));
 
         return $stmt->fetch();
@@ -202,6 +220,7 @@ class PageSemantic
             'seo_canonical'   => $this->canonical,
             'seo_noindex'     => (int) $this->noIndex,
             'theme'           => (empty($this->theme)) ? 'NULL' : $this->theme,
+            'last-modified'   => (empty($this->lastModified)) ? 'NULL' : $this->lastModified,
         );
 
         $data = $this->getData($objectId, $module);
@@ -212,6 +231,13 @@ class PageSemantic
             $this->db->insert($values, $this->dbTable);
 
         }
+    }
+
+    public function delete($module, $objectId)
+    {
+        $data = $this->getData($objectId, $module);
+
+        $this->db->delete($this->dbTable, $data['id']);
     }
 
 

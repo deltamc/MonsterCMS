@@ -1,8 +1,14 @@
 <?php namespace Monstercms\Modules\Widgets;
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
 defined('MCMS_ACCESS') or die('No direct script access.');
+
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
+    throw new Core\HttpErrorException(403);
+}
+
 
 $params = $this->getParams();
 if(!isset($params['widget']) || !isset($params['widgetId'])) {

@@ -6,25 +6,26 @@ defined('MCMS_ACCESS') or die('No direct script access.');
  * @var $this Core\ControllerAbstract
  */
 use \Monstercms\Core;
-use \Monstercms\Core\MCMS;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
 //Проверяем есть ли необходимые данные
 if ((int) $this->getObjectId() === 0){
     throw new Core\HttpErrorException(404);
 }
-
+/*
 if ((int) $this->getParam('menu_id') === 0){
     throw new Core\HttpErrorException(404);
 }
+*/
 
 //Права доступа
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::DEMO, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 
 $menuItemId  = (int) $this->getObjectId();
-$menuId      = (int) $this->getParam('menu_id');
+//$menuId      = (int) $this->getParam('menu_id');
 
 $out = array(
     'id'      => $menuItemId,
@@ -33,7 +34,7 @@ $out = array(
 );
 
 //Если у пункта меню есть подпункты, выводим ошибку
-if ($this->model('MenuItems')->isChilds($menuId, $menuItemId )) {
+if ($this->model('MenuItems')->isChilds($menuItemId )) {
     $out['message'] = Core\Lang::get('Site.errorDeleteMenu');
 
 //Если пункт меню является индексом, выводим ошибку

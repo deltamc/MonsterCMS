@@ -150,4 +150,20 @@ class Controller extends Core\ControllerAbstract
     }
 
 
+    /**
+     * Добавление виджета на страницу
+     * @param string $widgetName
+     * @param array $data
+     * @param null $pageId
+     * @return array
+     * @throws \Exception
+     */
+    public function add($widgetName, array $data, $pageId)
+    {
+        $controllerName = '\\Monstercms\\Widgets\\'. $widgetName . '\\Widget';
+        $widget = new $controllerName($widgetName, $pageId);
+        $this->model->add($widget, $data, $pageId);
+    }
+
+
 }

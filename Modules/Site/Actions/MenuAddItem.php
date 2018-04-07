@@ -3,10 +3,10 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
-//var_dump(Core\User::isAdmin());
-if (!Core\User::isAdmin()) {
-    print "fsd";
+
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 

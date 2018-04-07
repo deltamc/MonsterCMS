@@ -7,8 +7,9 @@ defined('MCMS_ACCESS') or die('No direct script access.');
  */
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
-use \Monstercms\Modules\page;
+
 
 $id = $this->getObjectId();
 
@@ -36,15 +37,17 @@ if(empty($tile)) {
     $pageHead->setTitle($title);
 }
 $edit = false;
-//$edit = (Core\User::isAdmin()) ? true : false;
+
 
 $body = Core\Events::cell(
     $this->moduleName . '.top',
     'string',
-    array($page_info)
+    (array) $page_info
 );
 
 $this->view->add('BODY', $body);
+
+
 
 /*
 $this->tag->BODY .= $this->view->get('top.php');
@@ -52,7 +55,7 @@ $this->tag->BODY .= $mEdit->html;
 $this->tag->BODY .= $this->view->get('bottom.php');
 */
 
-$edit = Core\User::isAdmin();
+$edit = User::isAccess(User::ADMIN, User::CONTENT_MANAGER);
 
 $widgets = Core\Module::get('Widgets');
 
@@ -62,14 +65,13 @@ if ($edit) {
     $this->view->add('BODY', $widgets->toolBar($id));
 }
 
-
 $this->view->add('BODY', $widgets->view($id, $edit));
 $this->view->inc('BODY', 'Bottom.php');
 
 $body = Core\Events::cell(
     $this->moduleName . '.bottom',
     'string',
-    array($page_info)
+    (array) $page_info
 );
 
 $this->view->add('BODY', $body);

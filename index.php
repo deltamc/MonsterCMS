@@ -33,20 +33,17 @@ if (is_file($configDir . $configFile)) {
 require_once(ENGINE_DIR . DS . 'BootStrap.php');
 
 try {
-
-
     $front = new Core\FrontController();
     $front->route();
-
 } catch (Core\HttpErrorException $e) {
+
     $e->header();
-    Core\Events::cell('ErrorPage.'.$e->getCode());
+    Core\Events::cell('Core.HttpError', 'void', array('code' => $e->getCode()));
 
 } catch (PDOException $e) {
     if (DEBUGGING) {
         print_r($e->getMessage());
     }
-
 } catch (Exception $e) {
     if (DEBUGGING) {
         print 'Error: ' . $e->getMessage() .
@@ -60,7 +57,7 @@ try {
 
 //Выводим меню администратора
 View::add('ADMIN_TOOLS','');
-if (Core\User::isAdmin()) {
+if (Core\User::isAuthorization()) {
     Module::get('MenuAdmin')->view();
 }
 
@@ -74,10 +71,16 @@ View::add('JS',          Lib\JavaScript::get());
 
 $pageHead = Core\PageSemantic::init();
 
+if ($pageHead->getLastModified()) {
+    Lib\Header::lastModified($pageHead->getLastModified());
+}
+
+
 View::add('NOINDEX',     $pageHead->isNoindex());
 View::add('TITLE',       $pageHead->getTitle());
 View::add('DISCRIPTION', $pageHead->getDescription());
 View::add('CANONICAL',   $pageHead->getCanonical());
 View::add('KEYWORDS',    $pageHead->getKeywords());
+
 
 View::render();

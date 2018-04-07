@@ -3,9 +3,10 @@
 defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 
@@ -21,7 +22,7 @@ $out = array(
     'message' => ''
 );
 
-if (!$this->model('MenuItems')->isChilds($id)) {
+if (!$this->model('MenuItems')->isItemsMenu($id)) {
     $this->model('Menu')->menuDelete($id);
     $out['delete'] = true;
 } else {

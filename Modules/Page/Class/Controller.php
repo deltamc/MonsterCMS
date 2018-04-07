@@ -98,13 +98,48 @@ class Controller extends Core\ControllerAbstract
 
         $name = Request::getPost('menu_item_name');
 
-        $page = $this->model->add($name, $url);
+        $page = $this->model->add($name, $url, 'Site');
 
 
 
-        Module::get('PageSemantic')->saveSeoForm($this->moduleName, $page['id']);
+        Module::get('PageSemantic')->saveSeoForm($this->moduleName, $page['id'], time());
 
         return array('object_id' => $page['id'], 'url_id' => $page['url_id'] );
+    }
+
+
+    public function eventMenuItemAddFormSaveEnd(Core\EventParam $ep) {
+        $moduleName = $ep->getParam('moduleName');
+        $menuItemId = $ep->getParam('itemMenuId');
+        $itemType   = $ep->getParam('itemType');
+        $url        = $ep->getParam('url');
+        $objectId   = (int) $ep->getParam('objectId');
+
+        if($moduleName != $this->moduleName) return null;
+
+        $name = Request::getPost('menu_item_name');
+
+        $this->model->update($name, $objectId, 'Site', $menuItemId);
+    }
+
+
+    /**
+     * Метод вызывается при событии menuItemDeleteBefore.
+     * Данное событие вызывается перед удалением данных из бд
+     * @param $ep
+     * @return null
+     */
+    public function menuItemDelete(Core\EventParam $ep)
+    {
+        $moduleName = $ep->getParam('moduleName');
+        $itemType   = $ep->getParam('itemType');
+        $objectId   = (int) $ep->getParam('objectId');
+
+        if($moduleName != $this->moduleName) return null;
+
+        $this->model->delete($objectId);
+
+        return null;
     }
 
     /**
@@ -119,44 +154,20 @@ class Controller extends Core\ControllerAbstract
     public function eventMenuItemEditFormSaveEnd(Core\EventParam $ep)
     {
         $moduleName = $ep->getParam('moduleName');
+        $menuItemId = $ep->getParam('itemMenuId');
         $itemType   = $ep->getParam('itemType');
         $url        = $ep->getParam('url');
         $objectId   = (int) $ep->getParam('objectId');
 
         if($moduleName != $this->moduleName) return null;
 
-        Module::get('PageSemantic')->saveSeoForm($this->moduleName, $objectId);
+        Module::get('PageSemantic')->saveSeoForm($this->moduleName, $objectId, time());
 
         $this->model->urlUpdate($objectId, $url);
 
         $name = Request::getPost('menu_item_name');
 
-        $this->model->update($name, $objectId);
-
-        return null;
-    }
-
-    /**
-     * Метод вызывается при событии site.menuItemEditEnd.
-     * Данное событие вызывается после сохранении данных из
-     * формы редактировании пункта меню в менеджере страниц.
-     *
-     * @param $moduleName - имя модуля
-     * @param $itemType - тип страницы
-     * @param $objectId - ид страницы
-     *
-     * @return null
-     */
-    public function menuItemDelete(Core\EventParam $ep)
-    {
-        $moduleName = $ep->getParam('moduleName');
-        $itemType   = $ep->getParam('itemType');
-        $objectId   = (int) $ep->getParam('objectId');
-
-        if($moduleName != $this->moduleName) return null;
-
-        $id = intval($objectId);
-        $this->model->delete($id);
+        $this->model->update($name, $objectId, 'Site', $menuItemId);
 
         return null;
     }
@@ -185,5 +196,66 @@ class Controller extends Core\ControllerAbstract
             "menuItemIcon"        => "",
         );
     }
+
+    public function lastModifiedUpdate(Core\EventParam $ep)
+    {
+        $pageHead = Core\PageSemantic::init();
+        $pageHead->setLastModified(time());
+        $pageHead->save($this->moduleName, $ep->getParam('page_id'));
+    }
+
+    /**
+     * метод добавляет страницу
+     * @param $name   - название страницы
+     * @param $url    - семантический адрес страници
+     * @param $module - принадлежность страницы к модулю
+     * @param $objectId - ид связанного объекта, например каталога статьи
+     * @return array
+     */
+    public function add($name, $url, $module = null, $objectId = null)
+    {
+        $page = $this->model->add($name, $url, $module, $objectId);
+        return array(
+            'id'        => $page['id'],
+            'url_id'    => $page['url_id'],
+            'module'    => $module,
+            'object_id' => $objectId
+        );
+    }
+
+
+    /**
+     * метод обновляет страницу
+     * @param $name - название страницы
+     * @param $url - семантический адрес страницы
+     * @param $module - принадлежность страницы к модулю
+     * @param $objectId - ид связанного объекта, например каталога статьи
+     * @return array
+     */
+    public function edit($id, $url, $name, $module = null, $objectId = null)
+    {
+        $this->model->urlUpdate($id, $url);
+        $this->model->update($name, $id, $module, $objectId);
+    }
+
+    /**
+     * Метод возвращает название таблицы, в которой хранятся информация об страницах
+     * @return string
+     */
+    public function getTableDb(){
+        return $this->config['db_table'];
+    }
+
+
+    /**
+     * Метод удаляет страницу
+     * @param $id - ид страницы
+     */
+    public function delete($id) {
+
+        $this->model->delete($id);
+    }
+
+
 
 }

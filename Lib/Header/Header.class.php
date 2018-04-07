@@ -29,5 +29,27 @@ class Header
         exit();
     }
 
+    public static function lastModified($time)
+    {
+        $lastModified = gmdate('D, d M Y H:i:s \G\M\T', $time);
+
+        $ifModifiedSince = false;
+
+        if (isset($_ENV['HTTP_IF_MODIFIED_SINCE'])) {
+            $ifModifiedSince = strtotime(substr($_ENV['HTTP_IF_MODIFIED_SINCE'], 5));
+        }
+
+        if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+            $ifModifiedSince = strtotime(substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 5));
+        }
+
+        if ($ifModifiedSince && $ifModifiedSince >= $time) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+            header('Last-Modified: '. $lastModified);
+            exit();
+        }
+        header('Last-Modified: '. $lastModified);
+    }
+
 
 }

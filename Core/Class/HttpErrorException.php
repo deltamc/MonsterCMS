@@ -2,36 +2,42 @@
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
+/**
+ * Class HttpErrorException
+ * @package Monstercms\Core
+ */
 class HttpErrorException extends \Exception
 {
-    private $_codes = array(
+    private $codes = array(
         403 => '403 Forbidden',
         404 => '404 Not Found'
     );
 
-    private $_code = 0;
+    protected $code = 0;
 
     function __construct($code)
     {
-        if(!isset($this->_codes[$code])) return ;
+        if (!isset($this->codes[$code])) return ;
 
-        $this->_code = $code;
+        $this->code = $code;
 
-        $msg = '';
-        $msg = $this->_codes[$code];
+        $msg = $this->codes[$code];
 
         parent::__construct($msg, $code);
     }
 
-
+    /**
+     * Заголовок ответа
+     */
     public function header()
     {
-        
-        if(isset($this->_codes[$this->code])) {
-            header('HTTP/1.1 ' . $this->_codes[$this->code], true, $this->_code);
+        if (isset($this->codes[$this->code])) {
+            header('HTTP/1.1 ' . $this->codes[$this->code], true, $this->code);
 
         }
     }
+
+
 
 
 }

@@ -39,7 +39,12 @@ class Controller extends Core\ControllerAbstract
             //Открывать в диалоговом окне
             'target'      => 'dialog',
             //Размер окна
-            'window_size' => '800x600'
+            'window_size' => '800x600',
+            'access'      => array(
+                Core\User::ADMIN,
+                Core\User::CONTENT_MANAGER,
+                Core\User::DEMO,
+            )
         );
     }
 
@@ -65,6 +70,8 @@ class Controller extends Core\ControllerAbstract
     {
 
         $items = $this->getMenuTree($menuId, 0, $tplTtem);
+
+
 
         $vars = array(
             'css'   => $cssClass,
@@ -94,10 +101,11 @@ class Controller extends Core\ControllerAbstract
      * @param int $parent - ид родителя
      * @param $tpl - шаблон пукта меню
      * @param int $depth - глубина
+     * @param bool $hide - обрабатывать скрытые пункты меню
      * @return string
      * @throws \Exception
      */
-    private function getMenuTree($menuId, $parent = 0, $tpl,  $depth = 0)
+    public function getMenuTree($menuId, $parent = 0, $tpl,  $depth = 0, $hide = false)
     {
         $out = '';
         $depth++;
@@ -105,16 +113,14 @@ class Controller extends Core\ControllerAbstract
 
         foreach ($items as $id => $item) {
 
-            if ($item['hide'] == 1) {
+            if (!$hide && $item['hide'] == 1) {
                 continue;
             }
 
             $subMenu = '';
-            if ($item['child_count'] > 0){
+            if ($item['child_count'] > 0) {
                 $subMenu = $this->getMenuTree($menuId, $id, $tpl,  $depth);
             }
-
-
 
             $item['sub_menu'] = $subMenu;
             $item['depth']    = $depth;
@@ -141,6 +147,58 @@ class Controller extends Core\ControllerAbstract
         return $out;
     }
 
+
+    public function treeCatalogSelect($value, $disabledModule = null, $disabledItemType=null)
+    {
+        $out['items'] = array();
+        $out['disabled'] = array();
+        $menus = $this->model('Menu')->menuList();
+
+
+        foreach ($menus  as $menu) {
+            $out['items']['m'.$menu['id']] = $menu['name'];
+            $out['disabled']['m'.$menu['id']] = 'disabled';
+            $itemsMenu = $this->getTreeOptions($menu['id'], $disabledModule, $disabledItemType, $value, 0, 0);
+            $out['items'] = $out['items'] + $itemsMenu['items'];
+            $out['disabled'] = $out['disabled'] + $itemsMenu['disabled'];
+
+        }
+
+        return $out;
+    }
+
+
+    public function getTreeOptions(
+        $menuId,
+        $disabledModule = null,
+        $disabledItemType = null,
+        $value=null,
+        $parent = 0,
+        $depth = 0)
+    {
+        $out['items'] = array();
+        $out['disabled'] = array();
+        $depth++;
+        $items = $this->model('MenuItems')->getMenuItems($menuId, $parent);
+
+        foreach ($items as $id => $item) {
+
+            $prf = str_repeat("|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $depth);
+            $out['items'][$id] = $prf. ' ' .$item['name'];
+            if ($item['module'] !== $disabledModule && $item['item_type'] !== $disabledItemType) {
+                $out['disabled'][$id] = 'disabled';
+            }
+
+            if ($item['child_count'] > 0) {
+                $child = $this->getTreeOptions($menuId, $disabledModule, $disabledItemType, $value, $id, $depth);
+                $out['items'] =  $out['items'] + $child['items'];
+                $out['disabled'] =  $out['disabled'] + $child['disabled'];
+            }
+        }
+        return $out;
+    }
+
+
     /**
      * Метод возвращает ID главной страницы (страница которая отрывается по умолчанию)
      * @return mixed
@@ -158,8 +216,38 @@ class Controller extends Core\ControllerAbstract
     }
 
 
+    public function menuItemAddModuleList(Core\EventParam $ep)
+    {
+        return array(
+            'module'                => $this->moduleName,
+            'itemType'              => 'link',
+            "menuItemName"        => Core\Lang::get('Site.link'),
+            /* which fields form hide (form add item menu)*/
+            "hiddenFormItems"     => array(
+                "menu_item_url_semantic",
+                "menu_item_index",
+                "menu_item_goto"
+            ),
+            "menuItemIcon"        => "fa fa-link",
 
+        );
+    }
 
-
-
+    /**
+     * Метод возвращает идентификатор объекта, который указан в свойствах url
+     * Поиск по ди пункта меню.
+     * @param $itemId
+     */
+    public function getObjectIdByItemId($itemId) {
+        return $this->model('MenuItems')->getObjectIdByItemId($itemId);
+    }
+    /**
+     * Метод возвращает ид пункта меню, поиск оп ид объекта и
+     * @param $module
+     * @param $objectId
+     * @return mixed
+     */
+    public function getItemIdByObjectId($module, $objectId) {
+        return $this->model('MenuItems')->getItemIdByObjectId($module, $objectId);
+    }
 }

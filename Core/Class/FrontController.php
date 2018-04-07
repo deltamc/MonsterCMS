@@ -5,7 +5,13 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 use Monstercms\Core\HttpErrorException;
 use Monstercms\Core\Url;
 
-
+/**
+ * Class FrontController
+ * @package Monstercms\Core
+ *
+ * Front Controller является диспетчером запросов и, в зависимости от URL
+ * запускает нужный контроллер с нужными параметрами.
+ */
 class FrontController
 {
     protected $module;
@@ -33,6 +39,10 @@ class FrontController
         $request = preg_replace('/\?(.*)$/','',$request);
 
         $params = array();
+
+        if('/sitemap.xml' === $request){
+            $request = '/Site/SiteMapXml';
+        }
 
         if (preg_match('/' . URL_SEMANTIC_END . '$/i', $request)) {
             $params = $this->getParamsSemanticUrl($request);
@@ -101,17 +111,10 @@ class FrontController
         if (!empty($splits[0])) {
             $module =  $splits[0];
         }
-        /*
-        else if($_REQUEST['module']) {
-            $this->module = preg_replace($reg, '', $_REQUEST['module']);
-        }
-        */
 
         if (!empty($splits[1])) {
             $action = $splits[1];
-        }/* else if(!empty($_REQUEST['action'])) {
-            $this->action = preg_replace($reg, '', $_REQUEST['action']);
-        }*/
+        }
 
         //Есть ли параметры и их значения?
         if (!empty($splits[2])) {
@@ -132,7 +135,7 @@ class FrontController
                 if ($value !== false) {
                     $value = $value['value'];
                 }
-                if ($key === 'id') {
+                if (strtolower($key) === 'id') {
                     $objectId  = (int) $value;
                 }
                 $params[$key] = $value;

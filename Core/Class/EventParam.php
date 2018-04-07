@@ -2,7 +2,12 @@
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
-
+/**
+ * Class EventParam
+ * @package Monstercms\Core
+ *
+ * Экземпляр данного класса передается виде параметра в обработчик события
+ */
 class EventParam
 {
     private $eventName;

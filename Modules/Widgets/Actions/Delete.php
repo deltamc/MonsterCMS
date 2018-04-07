@@ -8,10 +8,11 @@ defined('MCMS_ACCESS') or die('No direct script access.');
  */
 
 use \Monstercms\Core;
+use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
-//проверяем, есть ли права доступа
-if (!Core\User::isAdmin()) {
+//проверяем, права доступа
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 

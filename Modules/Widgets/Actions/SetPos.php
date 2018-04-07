@@ -11,13 +11,12 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
 use \Monstercms\Lib;
+use \Monstercms\Core\User;
 
 //проверяем, есть ли права доступа
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
-
-
 
 if (!$this->isParam('id1')
     || !$this->isParam('pos1')
@@ -34,5 +33,14 @@ $pos1 = (int) $params['pos1'];
 $pos2 = (int) $params['pos2'];
 
 $this->model->exchangePosWidget($id1, $pos1, $id2, $pos2);
+
+print json_encode(
+    array(
+        'id1'  => $id1,
+        'id2'  => $id2,
+        'pos1' => $pos2,
+        'pos2' => $pos1,
+    )
+);
 
 exit();

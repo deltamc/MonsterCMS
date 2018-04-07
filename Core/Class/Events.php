@@ -2,6 +2,10 @@
 
 defined('MCMS_ACCESS') or die('No direct script access.');
 
+/**
+ * Class Events
+ * @package Monstercms\Core
+ */
 class Events {
 
     private static $events = array();
@@ -40,10 +44,10 @@ class Events {
      * экземпляр класса EventParam передается виде параметра в метод-обработчик события
      *
      * @return array|null|string
+     * @throws \Exception
      */
     public static function cell($key, $returnType = 'void', $parameters = array())
     {
-
         $module = null;
         $event  = null;
 
@@ -72,6 +76,14 @@ class Events {
             $ep = new EventParam($key);
             $ep->setParamArray($parameters);
 
+            $moduleObj = Module::get($eventItem['module']);
+
+            if (!method_exists($moduleObj, $eventItem['method'])) {
+                $method = htmlspecialchars($eventItem['method']);
+                $module = htmlspecialchars($eventItem['module']);
+                throw new \Exception("Method '{$method}' not found. Module '{$module}'");
+            }
+
             $out_temp = call_user_func_array
             (
                 array(Module::get($eventItem['module']), $eventItem['method']),
@@ -96,14 +108,6 @@ class Events {
 
         return $out;
     }
-    /*
-    private static function sort($a, $b)
-    {
-        if ($a["priority"] == $b["priority"]) return 0;
-
-        return ($a["priority"] > $b["priority"]) ? -1 : 1;
-    }
-    */
 
     /** Метод проверяет есть ли событие с ключем $key
      * @param $key

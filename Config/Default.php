@@ -26,8 +26,13 @@ define('DB_USER', 'root');
  */
 define('DB_PASSWORD', '');
 
+/**
+ * Включить протокол HTTPS
+ */
+define('HTTPS',   false);
+
 /*URL сайта*/
-define("SITE_URL",   "//" . HOST);
+define("SITE_URL",   ((HTTPS) ? 'https' : 'http') . "://" . HOST);
 
 
 /**
@@ -46,9 +51,14 @@ define('DB_TABLE_URL', DB_PREFIX . 'urls');
  */
 define('DB_TABLE_PAGE_SEMANTIC',   DB_PREFIX . 'page_semantic');
 
-
+/**
+ * Таблица с пользователями
+ */
 define('DB_TABLE_USERS',   DB_PREFIX . 'users');
 
+/**
+ * Таблица с дополнительными данными пользователей (в данной версии не используется)
+ */
 define('DB_TABLE_USERS_DATA',   DB_PREFIX . 'users_data');
 
 /**
@@ -150,4 +160,6 @@ define('DEBUGGING',   true);
  * @TODO брать из настоек в бд
  */
 define('SITE_NAME',   'Монстер CMS');
+
+
 

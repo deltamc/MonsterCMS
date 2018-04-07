@@ -4,21 +4,62 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 
 use Monstercms\Lib as Lib;
 
+/**
+ * Абстрактный класс ControllerAbstract, данный класс наследуют классы-контроллеры модулей
+ */
 abstract class ControllerAbstract
 {
+    /**
+     * @var Lib\DataBase
+     * Экземпляр класса Lib\DataBase для работы с бд
+     */
     protected $db;
+    /**
+     * @var Lib\View
+     * Экземпляр Lib\View - класс для работы с видами
+     */
     protected $view;
-    protected $user;
-    protected $user_is;
-    protected $tag;
+    //protected $user;
+    //protected $user_is;
+    //protected $tag;
+
+    /**
+     * @var array конфигурация модуля. Данные берутся из файла Modules/Модуль/Config.php
+     *
+     */
     public $config = array();
+    /**
+     * @var string - мия модуля
+     */
     protected $moduleName;
+    /**
+     * @var string - путь к папке с модулем
+     */
     protected $modulePath;
-    protected $controllers;
+
+    //protected $controllers = array();
+
+    /**
+     * @var ModelAbstract - экземпляр класса модели. Если у модуля есть класс Model,
+     * то автоматические присваивается экземпляр данного класса .
+     */
     protected $model;
+    /**
+     * @var array - массив с экземпляров классов моделей
+     */
     protected $models = array();
+
+    /**
+     * @var int - ид сущности
+     *
+     */
     protected $objectId;
 
+    /**
+     * @var array параметры, которые берутся из адресной
+     * (передается из класса FrontController)
+     * строки /Модуль/Экшен/key1/value1/...keyN/valueN/
+     */
     protected $params = array();
 
     function __construct($moduleName)
@@ -80,7 +121,6 @@ abstract class ControllerAbstract
      */
     public function setParams(array $params)
     {
-
         $this->params = $params;
     }
 
@@ -95,6 +135,7 @@ abstract class ControllerAbstract
 
     /**
      * Метод возвращает параметры URL по ключу
+     * @param string - ключ параметра
      * @return array $params
      */
     protected function getParam($key)
@@ -105,6 +146,12 @@ abstract class ControllerAbstract
         return null;
     }
 
+    /**
+     * Метод проверяет на существования параметра
+     * @param $key - ключ параметра
+     * @param bool|true $empty - может ли параметр быть пустым
+     * @return bool
+     */
     protected function isParam($key, $empty = true) {
         if (isset($this->params[$key])){
             if (!$empty) {
@@ -127,11 +174,12 @@ abstract class ControllerAbstract
 
     /**
      * Метод устанавливает ид объекта
+     * @param $objectId - ид объекта
      * @return int
      */
     public function setObjectId($objectId)
     {
-        $this->objectId = $objectId;
+        $this->objectId = (int) $objectId;
     }
 
     /**
@@ -144,9 +192,6 @@ abstract class ControllerAbstract
      */
     public function  __call($method, $arg)
     {
-        //$id         = (!isset($arg[0]) || intval($arg[0]) == 0) ? 0: intval($arg[0]);
-        //$url_option = (!isset($arg[1]) || !is_array($arg[1])) ? array() : $arg[1];
-
         if (!empty($arg) && is_array($arg)) {
             $this->setParams($arg);
         }
@@ -157,13 +202,9 @@ abstract class ControllerAbstract
 
         $file = $this->modulePath . 'Actions' . DS . $method.'.php';
 
-
-
-
         if (!file_exists($file)) {
             throw new HttpErrorException(404);
         }
-
 
         return include($file);
     }

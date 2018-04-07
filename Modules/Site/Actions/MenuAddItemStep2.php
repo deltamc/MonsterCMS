@@ -4,11 +4,12 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 
 use \Monstercms\Core;
 use \Monstercms\Core\MCMS;
+use \Monstercms\Core\User;
 use \Monstercms\Core\Module;
 use \Monstercms\Lib;
 use \Monstercms\Lib\Request;
 
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 
@@ -134,12 +135,12 @@ else if($form->is_valid())
      */
     Core\Events::cell(
         'Site.menuItemAddEnd',
-        'void',
-        array(
+        'void',        array(
             'moduleName' => $moduleName,
             'itemType'   => $itemType,
             'url'        => $url,
-            'objectId'   => $objectId
+            'objectId'   => $objectId,
+            'itemMenuId' => $id
         )
     );
 

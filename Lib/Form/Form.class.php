@@ -282,7 +282,7 @@ class Form
 
             default:
 
-                if(!isset($format['html']) || !$format['html'])     $value = htmlspecialchars($value);
+                if(!isset($format['html']) || !$format['html'])     $value = strip_tags($value);
                 if(isset($format['trim']) && $format['trim'])       $value = trim($value);
                 if(isset($format['upper']) && $format['upper'])     $value = strtoupper($value);
                 if(isset($format['lower']) && $format['lower'])     $value = strtolower($value);

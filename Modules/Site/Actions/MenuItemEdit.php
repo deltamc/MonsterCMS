@@ -9,7 +9,7 @@ use \Monstercms\Core;
 use \Monstercms\Core\MCMS;
 use \Monstercms\Lib;
 use \Monstercms\Lib\Request;
-use \Monstercms\Core\Module;
+use \Monstercms\Core\User;
 use \Monstercms\Core\Url;
 
 //Если не передан Ид объекта (пункта меню)
@@ -18,7 +18,7 @@ if ($this->getObjectId() === 0){
 }
 
 //Если у пользователя не хватает прав
-if (!Core\User::isAdmin()) {
+if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
 }
 
@@ -36,11 +36,11 @@ $menuItemInfo    = $this->model('MenuItems')->menuItemInfo($menuItemId);
 //Имя модуля
 $moduleName       = $menuItemInfo->module;
 //ID родительского пункта меню
-$parentId         = $menuItemInfo->parent_id;
+$parentId         = (int) $menuItemInfo->parent_id;
 //ID сематического URL
-$urlId            = $menuItemInfo->url_id;
+$urlId            = (int) $menuItemInfo->url_id;
 //Ид объекта
-$objectId         = $menuItemInfo->object_id;
+$objectId         = (int) $menuItemInfo->object_id;
 //тип пункта меню
 $itemType         = $menuItemInfo->item_type;
 
@@ -67,15 +67,23 @@ $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
 $formItems = Mcms::hiddenItemsForm($formItems, array('menu_item_index'));
 $formItems = Mcms::hiddenItemsForm($formItems, $hide);
 
+if ($this->getParam('GoTo') === 'Page') {
+    $formItems = Mcms::hiddenItemsForm($formItems, array('menu_item_goto'));
+}
 
 $urlObj = new Url();
 $form   = new Lib\Form('');
+
+$urlSemantic = '';
+if (0 !== $urlId) {
+    $urlSemantic = $urlObj->getUrl($urlId);
+}
 
 //Заполняем форму
 $form_items1_full = array
 (
     'menu_item_name'         => $menuItemInfo->name,
-    'menu_item_url_semantic' => $urlObj->getUrl($urlId),
+    'menu_item_url_semantic' => $urlSemantic,
     'menu_item_url'          => $menuItemInfo->url,
     'menu_item_menu'         => $menuItemInfo->menu_id,
     'menu_item_css'          => $menuItemInfo->css_class,
@@ -83,6 +91,8 @@ $form_items1_full = array
     'menu_item_hide'         => $menuItemInfo->hide
 
 );
+
+
 //Получаем данные формы с других модулей
 $formItems = Core\Events::eventsForm(
     $formItems,
@@ -101,6 +111,7 @@ $full = Core\Events::cell(
     'Site.menuItemEditFullForm',
     'array_merge',
     array(
+        'itemMenuId'=> $menuItemId,
         'moduleName' => $moduleName,
         'itemType'   => $itemType,
         'objectId'   => $objectId
@@ -113,10 +124,8 @@ if (!empty($full)) {
     foreach ($full as $name => $value) {
         $form_items1_full[$name] = $value;
     }
-
-    $form->full($form_items1_full);
 }
-
+$form->full($form_items1_full);
 
 //Если форма не была заполнена, выводим ее
 if (!$form->is_submit()) {
@@ -132,6 +141,7 @@ if (!$form->is_submit()) {
         'Site.menuItemEditSave',
         'void',
         array(
+            'itemMenuId'=> $menuItemId,
             'moduleName' => $moduleName,
             'itemType'   => $itemType,
             'url'        => $url,
@@ -146,7 +156,8 @@ if (!$form->is_submit()) {
         'module'          => $moduleName,
         'css_class'       => Request::getPost('menu_item_css'),
         'target'          => Request::getPost('menu_item_target'),
-        'hide'            => intval(Request::getPost('menu_item_hide'))
+        'hide'            => intval(Request::getPost('menu_item_hide')),
+        'url'             => Request::getPost('menu_item_url'),
 
     );
 
@@ -170,6 +181,7 @@ if (!$form->is_submit()) {
     //Вызываем событие
     Core\Events::cell('Site.menuItemEditEnd', 'void',
         array(
+            'itemMenuId'=> $menuItemId,
             'moduleName' => $moduleName,
             'itemType'   => $itemType,
             'url'        => $url,
@@ -178,7 +190,7 @@ if (!$form->is_submit()) {
     );
 
     //Редирект
-    if ((int) Request::getPost('menu_item_goto') === 1 && !empty($url)) {
+    if (((int) Request::getPost('menu_item_goto') === 1 || $this->getParam('GoTo') === 'Page') && !empty($url) ) {
 
 
         if ((int) Request::getPost('menu_item_index') !== 1) {

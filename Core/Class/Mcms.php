@@ -5,17 +5,26 @@ defined('MCMS_ACCESS') or die('No direct script access.');
 use Monstercms\Lib;
 use \Monstercms\Lib\View;
 
-
+/**
+ * Class Mcms
+ * @package Monstercms\Core
+ *
+ * Класс с служебными методами
+ */
 class Mcms
 {
     /**
      * @var Lib\DataBase
      */
     private static $db = null;
-    public static $db_table_url;
+    //public static $db_table_url;
 
-    private static $thisThemeInfo;
+    //private static $thisThemeInfo;
 
+    /**
+     * Метод возвращает экземпляр класса DataBase. Для работы с бд
+     * @return Lib\DataBase
+     */
     public static function DB()
     {
         if (self::$db === null) {
@@ -62,12 +71,10 @@ class Mcms
      *
      * @param $module
      * @return null|string - module name in menu
-     */
+
     static function getMenuItemName($module, $item_type)
     {
-
-
-        if(!property_exists ( Module::get($module) , 'config' )) return null;
+        if(!property_exists(Module::get($module) , 'config')) return null;
 
         $config =  Module::get($module)->config;
 
@@ -77,7 +84,12 @@ class Mcms
 
         return $config['menu_items'][$item_type]['menu_item_name'];
     }
+    */
 
+    /**
+     * метод устанавливает временную зону
+     * @param $timezone
+     */
     static public function setTimeZone($timezone)
     {
         @ini_set('date.timezone', $timezone);
@@ -88,6 +100,10 @@ class Mcms
         }
     }
 
+    /**
+     * Метод включает|выключает отображение ошибок
+     * @param $debugging bool
+     */
     static public function showError($debugging)
     {
         if ($debugging) {
@@ -100,23 +116,28 @@ class Mcms
         }
     }
 
+    /**
+     * Метод устанавливает шаблон модального окна
+     */
     static function setDialogTheme()
     {
         View::setBasicTemplate(THEMES_DIALOG_PATH);
         View::replace('BASE', BASE_ADMIN);
     }
 
+    /**
+     * Метод устанавливает тему
+     * @param null $theme
+     */
     static function setTheme($theme = null)
     {
         if($theme === null) {
             $theme = THEME;
         }
 
-
-
         $themeInfo = Theme::getTheme($theme);
 
-        self::$thisThemeInfo = $themeInfo;
+        //self::$thisThemeInfo = $themeInfo;
 
         View::setBasicTemplate(THEMES_DIR_MAIN . DS . $themeInfo['dir'] . DS . $themeInfo['file']);
 
@@ -128,9 +149,10 @@ class Mcms
         }
 
     }
-
+    /*
     static public function getThisThemeInfo()
     {
         return self::$thisThemeInfo;
     }
+    */
 }
