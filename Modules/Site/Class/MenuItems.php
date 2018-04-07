@@ -170,6 +170,52 @@ class MenuItems extends Lib\Crud
         return $result->fetchObject();
     }
 
+    /**
+     * Метод возвращает идентификатор объекта, который указан в свойствах url
+     * Поиск по ди пункта меню.
+     * @param $itemId
+     */
+    public function getObjectIdByItemId($itemId) {
+        $itemId = (int) $itemId;
+        $table   = $this->config['db_table_menu_items'];
+        $table_url = DB_TABLE_URL;
+
+        $sql = 'SELECT `'.$table_url.'`.`object_id`
+                FROM `'.$table.'`
+                        LEFT OUTER JOIN `'.$table_url.'`
+                            ON `'.$table.'`.url_id = `'.$table_url.'`.id
+                WHERE `'.$table.'`.id =' . $itemId;
+
+
+
+        $result = $this->db->query($sql);
+        $row = $result->fetch(\PDO::FETCH_ASSOC);
+        return $row['object_id'];
+    }
+
+    /**
+     * Метод возвращает ид пункта меню, поиск оп ид объекта и
+     * @param $module
+     * @param $objectId
+     * @return mixed
+     */
+    public function getItemIdByObjectId($module, $objectId) {
+        $itemId = (int) $objectId;
+        $table   = $this->config['db_table_menu_items'];
+        $table_url = DB_TABLE_URL;
+        $module = $this->db->quote($module);
+
+        $sql = 'SELECT `'.$table.'`.id as itemId
+                FROM `'.$table.'`
+                        LEFT OUTER JOIN `'.$table_url.'`
+                            ON `'.$table.'`.url_id = `'.$table_url.'`.id
+                WHERE `'.$table_url.'`.module = '.$module.' AND  object_id = ' . $objectId;
+
+        $result = $this->db->query($sql);
+        $row = $result->fetch(\PDO::FETCH_ASSOC);
+        return $row['itemId'];
+    }
+
     public function menuItemAdd($data)
     {
         $table = $this->config['db_table_menu_items'];
@@ -212,21 +258,37 @@ class MenuItems extends Lib\Crud
         $this->db->insertOrUpdate($fields, $values, $this->config['db_table_menu_items']);
     }
 
-    public function isChilds($menu_id, $parent=0)
+    public function isChilds($parent)
     {
-        $menu_id = intval($menu_id);
         $parent  = intval($parent);
 
         $table   = $this->config['db_table_menu_items'];
 
-        $sql = 'SELECT * FROM ' . $table . ' WHERE menu_id=' . $menu_id;
-        if($parent != 0) $sql .= ' AND parent_id=' . $parent;
+        $sql = 'SELECT * FROM ' . $table . ' WHERE parent_id=' . $parent;
 
         $result = $this->db->query($sql);
 
         $row = $result->fetch();
         if(!empty($row)) return true;
 
+
+        return false;
+
+
+    }
+
+    public function isItemsMenu($menu_id)
+    {
+        $menu_id = intval($menu_id);
+
+        $table   = $this->config['db_table_menu_items'];
+
+        $sql = 'SELECT * FROM ' . $table . ' WHERE menu_id=' . $menu_id;
+
+        $result = $this->db->query($sql);
+
+        $row = $result->fetch();
+        if(!empty($row)) return true;
 
         return false;
 
@@ -266,8 +328,16 @@ class MenuItems extends Lib\Crud
         $menu_id = intval($menu_id);
 
         $tree = new Lib\Tree($this->db, $table, 'menu_id=' . $menu_id);
-        $tree->sql = 'SELECT `'.$table.'`.*, `'.$table_url.'`.url as sematic_url, `'.$table_url.'`.url as link_url
-                FROM `'.$table.'` LEFT OUTER JOIN `'.$table_url.'` ON `'.$table.'`.url_id = `'.$table_url.'`.id ';
+
+        $tree->sql = 'SELECT
+                        `'.$table.'`.*,
+                        `'.$table_url.'`.url as sematic_url,
+                        `'.$table_url.'`.url as link_url,
+                        `'.$table_url.'`.object_id,
+                        `'.$table_url.'`.`action`
+                      FROM `'.$table.'`
+                        LEFT OUTER JOIN `'.$table_url.'`
+                            ON `'.$table.'`.url_id = `'.$table_url.'`.id ';
         return $tree;
 
     }
@@ -286,6 +356,11 @@ class MenuItems extends Lib\Crud
             $out[$id]['target']= $item['target'];
             $out[$id]['hide']  = $item['hide'];
             $out[$id]['child_count']  = $item['child_count'];
+            $out[$id]['item_type']  = $item['item_type'];
+            $out[$id]['module']  = $item['module'];
+            $out[$id]['object_id']  = $item['object_id'];
+            $out[$id]['action']  = $item['action'];
+
 
 
             /*if link*/

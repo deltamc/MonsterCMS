@@ -42,10 +42,12 @@ $edit = false;
 $body = Core\Events::cell(
     $this->moduleName . '.top',
     'string',
-    array($page_info)
+    (array) $page_info
 );
 
 $this->view->add('BODY', $body);
+
+
 
 /*
 $this->tag->BODY .= $this->view->get('top.php');
@@ -63,14 +65,13 @@ if ($edit) {
     $this->view->add('BODY', $widgets->toolBar($id));
 }
 
-
 $this->view->add('BODY', $widgets->view($id, $edit));
 $this->view->inc('BODY', 'Bottom.php');
 
 $body = Core\Events::cell(
     $this->moduleName . '.bottom',
     'string',
-    array($page_info)
+    (array) $page_info
 );
 
 $this->view->add('BODY', $body);

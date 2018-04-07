@@ -34,4 +34,13 @@ $pos2 = (int) $params['pos2'];
 
 $this->model->exchangePosWidget($id1, $pos1, $id2, $pos2);
 
+print json_encode(
+    array(
+        'id1'  => $id1,
+        'id2'  => $id2,
+        'pos1' => $pos2,
+        'pos2' => $pos1,
+    )
+);
+
 exit();

@@ -28,5 +28,9 @@ Core\Mcms::setTheme();
 Core\User::int();
 
 JavaScript::add(SITE_URL . '/JavaScript/jquery.min.js');
-JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');
-Css::add(SITE_URL . '/' . THEMES_DIR_ADMIN . '/' . THEMES_ADMIN . '/css/main.css');
+
+if (Core\User::isAuthorization()) {
+    JavaScript::add(SITE_URL . '/JavaScript/mcms.windows.jquery.js');
+    JavaScript::add(SITE_URL . '/JavaScript/admin.js');
+    Css::add(SITE_URL . '/' . THEMES_DIR_ADMIN . '/' . THEMES_ADMIN . '/css/main.css');
+}

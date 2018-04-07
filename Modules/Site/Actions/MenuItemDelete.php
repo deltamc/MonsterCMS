@@ -13,10 +13,11 @@ use \Monstercms\Lib;
 if ((int) $this->getObjectId() === 0){
     throw new Core\HttpErrorException(404);
 }
-
+/*
 if ((int) $this->getParam('menu_id') === 0){
     throw new Core\HttpErrorException(404);
 }
+*/
 
 //Права доступа
 if (!User::isAccess(User::ADMIN, User::DEMO, User::CONTENT_MANAGER)) {
@@ -24,7 +25,7 @@ if (!User::isAccess(User::ADMIN, User::DEMO, User::CONTENT_MANAGER)) {
 }
 
 $menuItemId  = (int) $this->getObjectId();
-$menuId      = (int) $this->getParam('menu_id');
+//$menuId      = (int) $this->getParam('menu_id');
 
 $out = array(
     'id'      => $menuItemId,
@@ -33,7 +34,7 @@ $out = array(
 );
 
 //Если у пункта меню есть подпункты, выводим ошибку
-if ($this->model('MenuItems')->isChilds($menuId, $menuItemId )) {
+if ($this->model('MenuItems')->isChilds($menuItemId )) {
     $out['message'] = Core\Lang::get('Site.errorDeleteMenu');
 
 //Если пункт меню является индексом, выводим ошибку

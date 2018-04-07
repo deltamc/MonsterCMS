@@ -10,6 +10,7 @@ class select extends form_item
             'first'          => false,
             'first_value'    => "",
             'first_text'     => "",
+
         );
     }
 

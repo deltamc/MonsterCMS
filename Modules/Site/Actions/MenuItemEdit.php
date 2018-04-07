@@ -67,6 +67,9 @@ $formItems = include($this->modulePath . 'Forms' . DS . 'MenuItem.php');
 $formItems = Mcms::hiddenItemsForm($formItems, array('menu_item_index'));
 $formItems = Mcms::hiddenItemsForm($formItems, $hide);
 
+if ($this->getParam('GoTo') === 'Page') {
+    $formItems = Mcms::hiddenItemsForm($formItems, array('menu_item_goto'));
+}
 
 $urlObj = new Url();
 $form   = new Lib\Form('');
@@ -108,6 +111,7 @@ $full = Core\Events::cell(
     'Site.menuItemEditFullForm',
     'array_merge',
     array(
+        'itemMenuId'=> $menuItemId,
         'moduleName' => $moduleName,
         'itemType'   => $itemType,
         'objectId'   => $objectId
@@ -137,6 +141,7 @@ if (!$form->is_submit()) {
         'Site.menuItemEditSave',
         'void',
         array(
+            'itemMenuId'=> $menuItemId,
             'moduleName' => $moduleName,
             'itemType'   => $itemType,
             'url'        => $url,
@@ -176,6 +181,7 @@ if (!$form->is_submit()) {
     //Вызываем событие
     Core\Events::cell('Site.menuItemEditEnd', 'void',
         array(
+            'itemMenuId'=> $menuItemId,
             'moduleName' => $moduleName,
             'itemType'   => $itemType,
             'url'        => $url,
@@ -184,7 +190,7 @@ if (!$form->is_submit()) {
     );
 
     //Редирект
-    if ((int) Request::getPost('menu_item_goto') === 1 && !empty($url)) {
+    if (((int) Request::getPost('menu_item_goto') === 1 || $this->getParam('GoTo') === 'Page') && !empty($url) ) {
 
 
         if ((int) Request::getPost('menu_item_index') !== 1) {

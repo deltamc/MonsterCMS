@@ -180,14 +180,12 @@ $form = array
 
     array
     (
-        'name' => "menu_item_goto",
-        'type' => 'checkbox',
-        'check_value' => '1',
+        'name'           => "menu_item_goto",
+        'type'           => 'checkbox',
+        'check_value'    => '1',
         'no_check_value' => '0',
-        'label' => Lang::get('Site.goTo'),
-        'value' =>$goTo
-
-
+        'label'          => Lang::get('Site.goTo'),
+        'value'          => $goTo
     ),
 
     array

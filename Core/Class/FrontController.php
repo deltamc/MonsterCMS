@@ -135,7 +135,7 @@ class FrontController
                 if ($value !== false) {
                     $value = $value['value'];
                 }
-                if ($key === 'id') {
+                if (strtolower($key) === 'id') {
                     $objectId  = (int) $value;
                 }
                 $params[$key] = $value;

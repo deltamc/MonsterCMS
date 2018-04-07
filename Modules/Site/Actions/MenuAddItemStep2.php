@@ -135,12 +135,12 @@ else if($form->is_valid())
      */
     Core\Events::cell(
         'Site.menuItemAddEnd',
-        'void',
-        array(
+        'void',        array(
             'moduleName' => $moduleName,
             'itemType'   => $itemType,
             'url'        => $url,
-            'objectId'   => $objectId
+            'objectId'   => $objectId,
+            'itemMenuId' => $id
         )
     );
 

@@ -1,4 +1,7 @@
 <?php
+
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 use \Monstercms\Core;
 use \Monstercms\Core\Lang;
 
@@ -36,6 +39,7 @@ $form = array
                 'type'  => 'text',
                 'label' => Lang::get('PageSemantic.seoCanonical'),
             ),
+
             array
             (
                 'name' => "menu_item_seo_noindex",

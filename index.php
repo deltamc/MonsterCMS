@@ -71,10 +71,16 @@ View::add('JS',          Lib\JavaScript::get());
 
 $pageHead = Core\PageSemantic::init();
 
+if ($pageHead->getLastModified()) {
+    Lib\Header::lastModified($pageHead->getLastModified());
+}
+
+
 View::add('NOINDEX',     $pageHead->isNoindex());
 View::add('TITLE',       $pageHead->getTitle());
 View::add('DISCRIPTION', $pageHead->getDescription());
 View::add('CANONICAL',   $pageHead->getCanonical());
 View::add('KEYWORDS',    $pageHead->getKeywords());
+
 
 View::render();

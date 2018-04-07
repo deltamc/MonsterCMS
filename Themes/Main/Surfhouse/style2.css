@@ -1,6 +1,6 @@
-/*
+
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i,800,900i|Roboto:400,400i,700,700i&subset=cyrillic');
-*/
+
 *{
     margin:0;
     padding:0;
@@ -260,7 +260,7 @@
     margin-top:-20px;
     background-color: #f8f8f8;
 }
-#main .article h2{
+#main .article h1, #main .article h2{
     font-family: Roboto;
     color:
     #707070;
@@ -270,7 +270,9 @@
     text-align: left;
     padding: 31px 25px;
 }
-
+#main .article h2{
+    font-size: 18px;
+}
 
 /******** products ************/
 

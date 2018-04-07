@@ -35,7 +35,7 @@ class Controller extends Core\ControllerAbstract
       );
    }
 
-   public function saveSeoForm($module, $objectId) {
+   public function saveSeoForm($module, $objectId, $lastModified = null) {
       $pageHead = Core\PageSemantic::init();
       $pageHead->setTitle(Request::getPost('menu_item_seo_title'));
       $pageHead->setDescription(Request::getPost('menu_item_seo_description'));
@@ -43,6 +43,9 @@ class Controller extends Core\ControllerAbstract
       $pageHead->setCanonical(Request::getPost('menu_item_seo_canonical'));
       $pageHead->setNoindex(Request::getPost('menu_item_seo_noindex'));
       $pageHead->setTheme(Request::getPost('menu_item_theme'));
+      if ($lastModified) {
+          $pageHead->setLastModified($lastModified);
+      }
       $pageHead->save($module, $objectId);
    }
 }

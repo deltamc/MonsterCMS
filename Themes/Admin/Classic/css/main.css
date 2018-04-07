@@ -245,6 +245,9 @@ iframe.sendform
     border:1px dotted #0089ec;
 
 }
+.mcms-widget.edit:hover .mcms-widget-tools{
+    display:block;
+}
 
 .mcms-widget-tools
 {
@@ -255,6 +258,7 @@ iframe.sendform
     background: #E5E5E5;
     border-radius: 5px;
     box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
+    display:none;
 
 }
 
@@ -282,11 +286,10 @@ iframe.sendform
     color: #fc2b41;
 }
 
-#medit-tools
+.tools-bar
 {
     position: fixed;
-    left:20px;
-    top:250px;
+
     width:32px;
     text-align:center;
 
@@ -295,24 +298,42 @@ iframe.sendform
     box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
     z-index: 80000;
 
-    /*
-    background: #f2f5f6;
-    background: -moz-linear-gradient(top, #f2f5f6 0%, #e3eaed 37%, #c8d7dc 100%);
-    background: -webkit-linear-gradient(top, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%);
-    background: linear-gradient(to bottom, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#c8d7dc',GradientType=0 );
-    */
+}
+.tools-bar a {
+    width:100%;
+    text-decoration: none;
+    line-height: 30px;
+    color: #656268;
 
 }
+.tools-bar.left{
+    left:20px;
+}
 
-#medit-tools img
+.tools-bar.right{
+    right:20px;
+}
+
+.tools-bar.top{
+    top:100px;
+}
+
+.tools-bar.bottom{
+    bottom:100px;
+}
+
+
+.tools-bar img,
 {
     cursor: pointer;
 }
 
-#medit-tools img:hover
+.tools-bar img:hover, .tools-bar a:hover
 {
     background: #42aefa;
+}
+.tools-bar a.fa-times{
+    color: red;
 }
 #medit_frame
 {

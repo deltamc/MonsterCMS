@@ -22,7 +22,7 @@ $out = array(
     'message' => ''
 );
 
-if (!$this->model('MenuItems')->isChilds($id)) {
+if (!$this->model('MenuItems')->isItemsMenu($id)) {
     $this->model('Menu')->menuDelete($id);
     $out['delete'] = true;
 } else {

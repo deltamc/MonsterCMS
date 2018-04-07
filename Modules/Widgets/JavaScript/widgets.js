@@ -295,6 +295,7 @@ function editWidget(html, widgetId){
  * @param $widget - jquery объект виджета
  * @param action - действие up|down
  * @returns {null}
+ * @TODO переделать, данные о позиции не обновляются (если не перезагрузить страницу) после изменения в бд
  */
 function widgetSetPos($widget, action)
 {
@@ -320,12 +321,19 @@ function widgetSetPos($widget, action)
 
     $.ajax({
         url: url,
-
-        success: function()
+        dataType: 'json',
+        success: function(data)
         {
+
+            $el1 = $('[data-id='+data.id1+']');
+            $el2 = $('[data-id='+data.id2+']');
+
             //alert(action);
-            if(action == "up")   $widget.insertBefore ($widget.prev());
-            if(action == "down") $widget.insertAfter  ($widget.next());
+            if(action == "up")   $el1.insertBefore ($el1.prev());
+            if(action == "down") $el1.insertAfter  ($el1.next());
+
+            $el1.attr('data-pos',data.pos1);
+            $el2.attr('data-pos',data.pos2);
         }
     });
 }

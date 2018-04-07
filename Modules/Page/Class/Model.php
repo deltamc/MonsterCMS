@@ -10,7 +10,7 @@ class Model extends Core\ModelAbstract
 {
 
     /**
-     * Метод возвращает информацию об станице
+     * Метод возвращает информацию об странице
      * @param $pageId
      * @return mixed|null
      */
@@ -31,6 +31,9 @@ class Model extends Core\ModelAbstract
         $info = $this->db->getObject($this->dbTable, $pageId);
 
         if (empty($info)) return;
+
+        $pageHead = Core\PageSemantic::init();
+        $pageHead->delete($this->moduleName, $id);
 
         Core\Module::get('Widgets')->deleteAllWidgetsByPageId($id);
 
@@ -72,9 +75,11 @@ class Model extends Core\ModelAbstract
      * Метод добавляет страницу
      * @param  string $name - название страницы
      * @param null $url - чпу
+     * @param $module - принадлежность страницы к модулю
+     * @param $objectId - ид связанного объекта, например, каталога статьи
      * @return array
      */
-    public function add($name, $url = null)
+    public function add($name, $url = null, $module = null, $objectId = null)
     {
 
         $data = array
@@ -82,8 +87,11 @@ class Model extends Core\ModelAbstract
             'name'        => $name,
             'date_create' => time(),
             'date_update' => time(),
-            'url_id' => 'NULL'
+            'url_id'      => 'NULL',
         );
+
+        if ($module   !== null) $data['module']    = $module;
+        if ($objectId !== null) $data['object_id'] = $objectId;
 
         $this->db->insert($data, $this->dbTable);
 
@@ -118,9 +126,11 @@ class Model extends Core\ModelAbstract
      * Метод обновляет станицу
      * @param $name
      * @param $id
+     * @param $module - принадлежность страницы к модулю
+     * @param $objectId - ид связанного объекта, например, каталога статьи
      * @throws \Exception
      */
-    public function update($name, $id)
+    public function update($name, $id, $module = null, $objectId = null)
     {
         $id = (int) $id;
 
@@ -128,7 +138,11 @@ class Model extends Core\ModelAbstract
         (
             'name'        => $name,
             'date_update' => time(),
+            'module'      => $module,
         );
+
+        if ($module   !== null) $data['module']    = $module;
+        if ($objectId !== null) $data['object_id'] = $objectId;
 
         $this->db->update($data, $this->config['db_table'], $id);
     }
