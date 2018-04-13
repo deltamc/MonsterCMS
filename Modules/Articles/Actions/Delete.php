@@ -17,7 +17,7 @@ $id = $this->getObjectId();
 
 $out = array(
     'id' => $id,
-    'delete' => 'false',
+    'delete' => false,
     'message' => ''
 );
 
@@ -28,7 +28,7 @@ if (empty($id)) {
 }
 
 $this->model->deleteArticle($id);
-$out['delete'] = 'true';
+$out['delete'] = true;
 
 
 print json_encode($out);

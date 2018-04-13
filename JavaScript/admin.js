@@ -33,7 +33,7 @@
                 if (data.message != '') alert(data.message);
                 var id = data.id;
 
-                if(options.remove instanceof $  && data.delete === 'true') {
+                if(options.remove instanceof $  && data.delete == true) {
                     options.remove.fadeOut(500, function(){
                         this.remove();});
                 }
@@ -42,7 +42,7 @@
                     options.result(data.id, data.result, data.message);
                 }
 
-                if(options.lacationUrl && data.delete === 'true'){
+                if(options.lacationUrl && data.delete == true){
                     location.href=options.lacationUrl;
                 }
 
