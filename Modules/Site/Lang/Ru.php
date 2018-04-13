@@ -10,6 +10,8 @@ return array(
     'invalidCssMenu'   => 'Используйте только символы a-z,"_","-"',
     'codeMenu'   => 'Код для вставки в шаблон',
     'delete'   => 'Удалить',
+    'deletePage'   => 'Удалить страницу',
+    'deletePageConfirm'   => 'Удалить страницу?',
     'edit'   => 'Редактировать',
     'editMenuTitle'   => 'Редактирование меню',
     'addMenuTitle'   => 'Добавлние меню',

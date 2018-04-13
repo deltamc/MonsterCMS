@@ -2,6 +2,7 @@
 
 use \Monstercms\Core;
 use \Monstercms\Lib;
+use \Monstercms\Core\User;
 
 
 class Controller extends Core\ControllerAbstract
@@ -46,6 +47,26 @@ class Controller extends Core\ControllerAbstract
                 Core\User::DEMO,
             )
         );
+    }
+
+
+    public function eventPageBottom(Core\EventParam $ep)
+    {
+        if($ep->getParam('module') !== $this->moduleName) return '';
+        if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) return '';
+        $id = (int) $ep->getParam('object_id');
+
+        return $this->view->get(
+            'ToolsBar.php',
+            array(
+                'edit'          => "/Site/MenuItemEdit/id/{$id}/GoTo/Page",
+                'editTitle'     => Core\Lang::get('Site.config'),
+                'delete'        => "/Site/MenuItemDelete/id/{$id}",
+                'deleteTitle'   => Core\Lang::get('Site.deletePage'),
+                'deleteConfirm' => Core\Lang::get('Site.deletePageConfirm'),
+            )
+        );
+
     }
 
     /**

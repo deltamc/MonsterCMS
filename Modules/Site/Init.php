@@ -9,3 +9,4 @@ Core\Events::subs('Site.menuEditEnd',    $moduleName, 'goToStructureUrl');
 Core\Events::subs('Site.menuDeleteEnd',  $moduleName, 'goToStructureUrl');
 
 Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList', 3);
+Core\Events::subs('Page.bottom', $moduleName, 'eventPageBottom');
