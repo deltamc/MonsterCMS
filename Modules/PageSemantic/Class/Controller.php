@@ -37,6 +37,8 @@ class Controller extends Core\ControllerAbstract
    }
 
    public function saveSeoForm($module, $objectId, $lastModified = null) {
+
+
       $pageHead = Core\PageSemantic::init();
       $pageHead->setTitle(Request::getPost('menu_item_seo_title'));
       $pageHead->setDescription(Request::getPost('menu_item_seo_description'));

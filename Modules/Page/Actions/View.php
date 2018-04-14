@@ -32,7 +32,8 @@ $title = $pageHead->getTitle();
 
 Core\Mcms::setTheme($pageHead->getTheme());
 
-if(empty($tile)) {
+if(empty($title)) {
+
     $title = $page_info->name . ' - ' . SITE_NAME;
     $pageHead->setTitle($title);
 }

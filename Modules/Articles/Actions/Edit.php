@@ -61,6 +61,10 @@ if(!$form->is_submit())
 
     );
 
+    //сохраняем SEO данные
+    Module::get('PageSemantic')->saveSeoForm('Page', $articleInfo->page_id, time());
+
+
     if ((int) Lib\Request::getPost('article_goto') === 1 || $this->getParam('GoTo') === 'Art') {
 
         Lib\Header::location('/' . $url . URL_SEMANTIC_END, 'top');
