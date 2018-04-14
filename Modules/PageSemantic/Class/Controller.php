@@ -19,6 +19,7 @@ class Controller extends Core\ControllerAbstract
       return include($this->modulePath . DS . "Forms" . DS . "Theme.php");
    }
 
+
    public function fullSeoForm($module, $objectId) {
 
       $pageHead = Core\PageSemantic::init();

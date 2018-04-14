@@ -14,3 +14,4 @@ Core\Events::subs('Site.menuItemEditFullForm', $moduleName, 'eventMenuItemEditFu
 Core\Events::subs('Site.menuItemEditEnd',      $moduleName, 'eventMenuItemEditFormSaveEnd');
 Core\Events::subs('Page.bottom', $moduleName, 'eventPageBottom');
 Core\Events::subs('Site.menuItemDeleteBefore', $moduleName, 'eventMenuItemDeleteBefore');
+Core\Events::subs('Site.generateSiteMapXml',   $moduleName, 'eventGenerateSiteMapXml');

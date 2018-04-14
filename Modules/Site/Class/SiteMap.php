@@ -109,14 +109,27 @@ class SiteMap  extends \Monstercms\Core\ModelAbstract{
         $tUrl       = DB_TABLE_URL;
         $tItemsMenu = $this->config['db_table_menu_items'];
 
-        $sql = "SELECT url.url as `page_url`
+        $sql = "SELECT url.url as `page_url`, `index`
                 FROM `{$tItemsMenu}` as item
                      INNER JOIN  `{$tUrl}` AS url
-                     ON item.url_id = url.id WHERE `index`=1";
+                     ON item.url_id = url.id WHERE item_type <> 'link'";
 
         $urlTemp = SITE_URL . '/%page_url%' . URL_SEMANTIC_END;
 
-        $this->generateFromDatabase($sql, $urlTemp);
+        //$this->generateFromDatabase($sql, $urlTemp);
+
+        $result = $this->db->query($sql);
+
+        while($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+
+            $url = SITE_URL ;
+
+            if (1 !== (int) $row['index']) {
+                $url .= '/' . $row['page_url'] . URL_SEMANTIC_END;
+            }
+
+            $this->xmlUrl($url);
+        }
     }
 
     function __toString()

@@ -162,10 +162,10 @@ class Controller extends Core\ControllerAbstract
         return $this->view->get(
             'ToolsBar.php',
             array(
-                'edit'   => "/Articles/Edit/Id/{$id}/GoTo/Art",
-                'editTitle'   => Core\Lang::get('Articles.articleEdit'),
-                'delete' => "/Articles/Delete/Id/{$id}",
-                'deleteTitle' => Core\Lang::get('Articles.articleDelete'),
+                'edit'          => "/Articles/Edit/Id/{$id}/GoTo/Art",
+                'editTitle'     => Core\Lang::get('Articles.articleEdit'),
+                'delete'        => "/Articles/Delete/Id/{$id}",
+                'deleteTitle'   => Core\Lang::get('Articles.articleDelete'),
                 'deleteConfirm' => Core\Lang::get('Articles.articleDeleteConfirm'),
             )
         );
@@ -178,6 +178,12 @@ class Controller extends Core\ControllerAbstract
         $id = (int) $ep->getParam('objectId');
 
         $this->model->deleteCatalog($id);
+    }
+
+    public function eventGenerateSiteMapXml(Core\EventParam $ep)
+    {
+        $articles = $this->model->pageListAll();
+        print_r($articles);
     }
 
 

@@ -208,6 +208,33 @@ class Model extends Core\ModelAbstract
 
     }
 
+    public function pageListAll() {
+        $table    = $this->config['db_articles'];
+        $tableUrl = DB_TABLE_URL;
+        $tableSemantic = DB_TABLE_PAGE_SEMANTIC;
+        $tablePage = Core\Module::get('Page')->getTableDb();
+
+
+        $orderBy = $this->config['order_by'];
+
+        $sql = "SELECT  `p`.`id` AS page_id,
+                        `u`.url,
+                        `a`.id AS article_id,
+                        `u`.id AS url_id,
+                        `a`.name,
+                        `a`.preview
+                FROM
+                        {$table} `a`
+                        INNER JOIN {$tablePage} as `p` ON a.page_id = p.id
+                        INNER JOIN {$tableUrl} as `u` ON u.id = p.url_id
+                        INNER JOIN {$tableSemantic} as `ps` ON u.id = p.url_id
+          ";
+
+        $result = $this->db->query($sql);
+
+        return $result->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function deleteArticle($id){
         $id = (int) $id;
         $tArticle  = $this->config['db_articles'];
