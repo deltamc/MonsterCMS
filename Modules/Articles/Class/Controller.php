@@ -183,7 +183,12 @@ class Controller extends Core\ControllerAbstract
     public function eventGenerateSiteMapXml(Core\EventParam $ep)
     {
         $articles = $this->model->pageListAll();
-        print_r($articles);
+        $out = '';
+        foreach ($articles as $article) {
+            $out[] = SITE_URL . '/' .$article['url'] . URL_SEMANTIC_END;
+        }
+
+        return $out;
     }
 
 

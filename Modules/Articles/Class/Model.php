@@ -209,10 +209,11 @@ class Model extends Core\ModelAbstract
     }
 
     public function pageListAll() {
-        $table    = $this->config['db_articles'];
-        $tableUrl = DB_TABLE_URL;
+
+        $table         = $this->config['db_articles'];
+        $tableUrl      = DB_TABLE_URL;
         $tableSemantic = DB_TABLE_PAGE_SEMANTIC;
-        $tablePage = Core\Module::get('Page')->getTableDb();
+        $tablePage     = Core\Module::get('Page')->getTableDb();
 
 
         $orderBy = $this->config['order_by'];
@@ -222,12 +223,13 @@ class Model extends Core\ModelAbstract
                         `a`.id AS article_id,
                         `u`.id AS url_id,
                         `a`.name,
-                        `a`.preview
+                        `a`.preview,
+                        `ps`.*
                 FROM
                         {$table} `a`
                         INNER JOIN {$tablePage} as `p` ON a.page_id = p.id
                         INNER JOIN {$tableUrl} as `u` ON u.id = p.url_id
-                        INNER JOIN {$tableSemantic} as `ps` ON u.id = p.url_id
+                        LEFT JOIN {$tableSemantic} as `ps` ON ps.module = 'Page' AND ps.object_id = p.id
           ";
 
         $result = $this->db->query($sql);
