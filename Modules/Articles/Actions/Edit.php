@@ -12,6 +12,8 @@ if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
 }
 
 Core\Mcms::setDialogTheme();
+//Заголовок формы
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Articles.headingEdit'));
 
 $id = $this->getObjectId();
 $articleInfo = $this->model->articleInfo($id);

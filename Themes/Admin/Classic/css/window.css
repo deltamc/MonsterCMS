@@ -58,6 +58,7 @@ body{
 {
     width:100%;
     margin-top:10px;
+    font-weight: normal;
 }
 
 .form2 input[type="checkbox"]
@@ -83,10 +84,10 @@ body{
 .form2 input:focus, select:focus, textarea:focus{
     border: 1px solid #4695c4;
     outline: none;
-    
-}
 
-.form2 div input.button
+}
+/*
+.form2 input.button
 {
     display:block;
     text-align:center;
@@ -104,17 +105,15 @@ body{
     margin-right:auto;
 
 }
-
+*/
 .form2 > div
 {
     text-align: left;
-    margin-top:10px;
+
 }
 
 .form2 div.submit
 {
-
-
     padding:5px;
     padding-top:10px;
     margin-top:5px;
@@ -137,7 +136,25 @@ body{
 {
     text-align: center;
 }
+.form2 input[type=submit] , .form2  input.button{
+    display: inline-block;
 
+   font-weight: 700;
+
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.75);
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background: linear-gradient(to bottom, #efeeef, #e0dde0);
+    border-radius: 5px;
+    margin: 5px;
+    color:rgb(101, 98, 104);
+    padding: 5px 30px;
+}
+
+.form2 input[type=submit]:hover , .form2  input.button:hover{
+    color:#4695c4;
+}
 .form2 .markItUp
 {
     /*height:570px;*/
@@ -1019,7 +1036,7 @@ ul.ztree.zTreeDragUL
 
 
 /*таблица*/
-table{
+.table{
     width:100%;
     background: #f7f7f7;
 
@@ -1031,7 +1048,7 @@ table{
 
 }
 
-table thead {
+.table > thead {
     width: 100%;
 
 
@@ -1052,15 +1069,17 @@ table thead {
    
 }
 
-td, th{
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
     padding:5px;
+    vertical-align: baseline;
+    border-top: none;
 }
 
-tr:nth-child(2n){
+.table > tr:nth-child(2n){
     background-color: #ededed;
 }
 
-tbody tr:hover{
+.table > tbody > tr:hover{
     background-color: #e2e2e2;
 }
 
@@ -1070,3 +1089,18 @@ tbody tr:hover{
     text-align: center;
     padding: 0;
 }
+.table>thead>tr>th{
+    border-bottom: 1px solid #ddd;
+}
+/*
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+padding: 0;
+line-height: inherit;
+ vertical-align: baseline;
+ border-top: none;
+}*/

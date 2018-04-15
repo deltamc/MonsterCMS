@@ -9,7 +9,7 @@
         <?=Lang::get('Users.add')?>
     </a>
 </div>
-<table class="user">
+<table class="user table">
     <thead>
         <tr >
             <th width="10%">ID</th>

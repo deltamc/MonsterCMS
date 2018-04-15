@@ -177,7 +177,7 @@ $form = array
         'type'=>'event',
         'event' => $this->moduleName . '.' . $action . 'FormTabBaseAfter'
     ),
-
+/*
     array
     (
         'name'           => "menu_item_goto",
@@ -194,6 +194,32 @@ $form = array
             'html' => '<input type="submit" value="'.Lang::get('Site.submit').'" />
                          '
         )
+*/
+
+    array
+    (
+        'type' => 'inline',
+        'items' => array(
+            array
+            (
+                'type' => 'submit',
+                'value' => Lang::get('Site.submit')
+
+            ),
+            array
+            (
+                'name'           => "article_goto",
+                'type'           => 'checkbox',
+                'check_value'    => '1',
+                'no_check_value' => '0',
+                'label'          => Lang::get('Site.goTo'),
+                'value'          => $goTo,
+                'attr'           => array('class'=>'goto')
+            ),
+
+        )
+    ),
+
 
     );
 

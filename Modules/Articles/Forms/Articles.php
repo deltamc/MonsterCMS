@@ -77,7 +77,7 @@ $form = array(
                   'name'   => "preview",
                   'type'   => 'ckeditor',
                   'label'  => 'Анонс статьи:',
-                  'height' => '350',
+                  'height' => '250',
                   'resize_enabled' => false,
               ),
           )
@@ -87,6 +87,7 @@ $form = array(
 );
 $form = array_merge($form, Module::get('PageSemantic')->getSeoForm());
 $form = array_merge($form, Module::get('PageSemantic')->getThemeForm());
+/*
 $form[] = array
 (
     'name'           => "article_goto",
@@ -94,7 +95,8 @@ $form[] = array
     'check_value'    => '1',
     'no_check_value' => '0',
     'label'          => Lang::get('Site.goTo'),
-    'value'          => $goTo
+    'value'          => $goTo,
+    'attr'           => array('class'=>'goto')
 );
 
 $form[] = array
@@ -102,6 +104,31 @@ $form[] = array
     'type' => 'html',
     'html' => '<input type="submit" value="'.Lang::get('Site.submit').'" />
                          '
+);
+*/
+$form[] = array
+(
+    'type' => 'inline',
+    'items' => array(
+        array
+        (
+            'type' => 'submit',
+            'value' => Lang::get('Site.submit')
+
+        ),
+        array
+        (
+            'name'           => "article_goto",
+            'type'           => 'checkbox',
+            'check_value'    => '1',
+            'no_check_value' => '0',
+            'label'          => Lang::get('Site.goTo'),
+            'value'          => $goTo,
+            'attr'           => array('class'=>'goto')
+        ),
+
+    )
+
 );
 
 return $form;

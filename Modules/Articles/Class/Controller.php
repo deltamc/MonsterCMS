@@ -167,6 +167,8 @@ class Controller extends Core\ControllerAbstract
                 'delete'        => "/Articles/Delete/Id/{$id}",
                 'deleteTitle'   => Core\Lang::get('Articles.articleDelete'),
                 'deleteConfirm' => Core\Lang::get('Articles.articleDeleteConfirm'),
+                'add' => '/Articles/Add/',
+                'addTitle' =>  Core\Lang::get('Articles.articleAdd'),
             )
         );
 

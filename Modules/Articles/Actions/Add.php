@@ -14,6 +14,9 @@ if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
 //устанавливаем  тему
 Core\Mcms::setDialogTheme();
 
+//Заголовок формы
+$this->view->add('DIALOG_HEAD', Core\Lang::get('Articles.headingAdd'));
+
 //Получаем данные формы
 $formItems = include($this->modulePath . 'Forms' . DS . 'Articles.php');
 

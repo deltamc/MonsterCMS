@@ -13,5 +13,7 @@ return array(
     'catalogDelete'         => 'Удалить',
     'catalogDeleteConfirm'  => 'Удалить страницу?',
     'articleDeleteConfirm'  => 'Удалить статью?',
+    'headingAdd'            => 'Новая статья',
+    'headingEdit'           => 'Параметры статьи',
 
 );
