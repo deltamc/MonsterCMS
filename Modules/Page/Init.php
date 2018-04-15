@@ -15,8 +15,8 @@ Core\Events::subs('Site.menuItemEditFullForm', $moduleName, 'eventMenuItemEditFu
 
 Core\Events::subs('Site.menuItemDeleteBefore', $moduleName, 'menuItemDelete');
 
-Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList', 2);
-Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList2', 1);
+Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList', 0);
+//Core\Events::subs('Site.menuItemAddModuleList', $moduleName, 'menuItemAddModuleList2', 1);
 
 
 Core\Events::subs('Widgets.addWidget', $moduleName, 'lastModifiedUpdate');

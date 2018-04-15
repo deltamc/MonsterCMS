@@ -180,23 +180,23 @@ class Controller extends Core\ControllerAbstract
             "menuItemName"        => Core\Lang::get('Page.menuItemName'),
             /* which fields form hide (form add item menu)*/
             "hiddenFormItems"     => array("menu_item_url"),
-            "menuItemIcon"        => "",
+            "menuItemIcon"        => "fa fa-file-o",
 
         );
     }
-
+/*
     function menuItemAddModuleList2(Core\EventParam $ep)
     {
         return array(
             'module'                => $this->moduleName,
             'itemType'              => 'page_text2',
             "menuItemName"        => Core\Lang::get('Page.menuItemName'),
-            /* which fields form hide (form add item menu)*/
+
             "hiddenFormItems"     => array("menu_item_url"),
             "menuItemIcon"        => "",
         );
     }
-
+*/
     public function lastModifiedUpdate(Core\EventParam $ep)
     {
         $pageHead = Core\PageSemantic::init();
