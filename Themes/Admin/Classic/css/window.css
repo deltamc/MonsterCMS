@@ -972,7 +972,11 @@ ul.ztree.zTreeDragUL
     background: linear-gradient(to bottom, #efeeef, #e0dde0);
     border-radius: 5px;
     margin: 5px;
+    color:rgb(101, 98, 104);
 
+}
+.modules_list .module:hover{
+    color:#4695c4;
 }
 .modules_list .module .name {
     height:50px;
