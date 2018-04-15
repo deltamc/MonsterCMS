@@ -28,6 +28,7 @@ $pageHead->setData($this->moduleName, $id);
 
 
 $title = $pageHead->getTitle();
+$canonical = $pageHead->getCanonical();
 
 
 if(empty($title)) {
@@ -36,7 +37,7 @@ if(empty($title)) {
 }
 
 
-
+Lib\Path::thisUrlWithoutGet();
 Core\Mcms::setTheme($pageHead->getTheme());
 
 

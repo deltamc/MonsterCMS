@@ -1,6 +1,7 @@
 <?php namespace Monstercms\Core;
 
 defined('MCMS_ACCESS') or die('No direct script access.');
+use Monstercms\Lib;
 
 class PageSemantic
 {
@@ -114,6 +115,13 @@ class PageSemantic
      */
     public function getCanonical()
     {
+
+        /*
+        if(!empty($this->canonical)) {
+            return $this->canonical;
+        }
+        return Lib\Path::thisUrlWithoutGet();
+        */
         return $this->canonical;
     }
 

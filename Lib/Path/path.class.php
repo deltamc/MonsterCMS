@@ -25,6 +25,21 @@ class Path
         return $result;
     }
 
+    /**
+     * Урл текущей страницы без Get параметров
+     * @return string
+     */
+    public static function thisUrlWithoutGet()
+    {
+        $thisUrl = self::this_url();
+        $f = strpos($thisUrl, '?');
+
+        if (false !== $f) {
+            $thisUrl = substr($thisUrl, 0, $f);
+        }
+        return $thisUrl;
+    }
+
     public static function add_param($requrest)
     {
         $this_url = self::this_url();

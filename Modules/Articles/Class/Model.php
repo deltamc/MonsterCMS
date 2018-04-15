@@ -80,6 +80,7 @@ class Model extends Core\ModelAbstract
 
     public function info($id)
     {
+
         $table = $this->config['db_catalog'];
         return $this->db->getObject($table, $id);
     }
