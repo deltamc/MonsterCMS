@@ -961,17 +961,28 @@ ul.ztree.zTreeDragUL
 }
 .modules_list .module
 {
-    display: block;
-    border:1px solid  #337ab7;
+    display: inline-block;
+
+    font-size: 0;
     width:150px;
     text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.75);
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background: linear-gradient(to bottom, #efeeef, #e0dde0);
+    border-radius: 5px;
+    margin: 5px;
 
+}
+.modules_list .module .name {
+    height:50px;
+    font-size: 14px;
 }
 .modules_list .module .ico
 {
     display: block;
     vertical-align: middle;
-    height:150px;
+    height:100px;
     text-align: center;
     width: 100%;
 }
