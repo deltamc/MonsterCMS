@@ -19,6 +19,8 @@ $pageList    = $this->model->pageList($id);
 
 $catalogInfo = $this->model->info($id);
 
+Lib\Css::add( Lib\Path::dsUrl($this->modulePath) . 'Css/admin.css');
+
 $edit   = false;
 $delete = false;
 $add    = false;
