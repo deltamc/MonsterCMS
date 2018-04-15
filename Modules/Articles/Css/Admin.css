@@ -1,0 +1,18 @@
+.mcms-article-add-but{
+    font-family: 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    border: 1px solid #4695c4;
+    color: #4695c4;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin:10px;
+
+}
+.mcms-article-add-but:hover{
+    background-color: #4695c4;
+    color:#fff;
+}
