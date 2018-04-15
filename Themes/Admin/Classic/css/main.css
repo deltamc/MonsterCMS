@@ -76,9 +76,6 @@ body{
 body.mcms-openwin  *:not(.tools-bar){
     filter: blur(5px);
 
-
-
-
 }
 
 body.mcms-openwin{
@@ -310,6 +307,7 @@ iframe.sendform
     padding:5px 0;
 
 }
+
 .tools-bar img{
 
     margin:0;
@@ -319,6 +317,7 @@ iframe.sendform
     text-decoration: none;
     line-height: 30px;
     color: #656268;
+    font-size: 16px;
 
 }
 .tools-bar.left{
@@ -346,7 +345,7 @@ iframe.sendform
 .tools-bar img:hover, .tools-bar a:hover
 {
     background-color: #42aefa;
-    color:#fff;
+
 }
 
 .tools-bar img:hover{

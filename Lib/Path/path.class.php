@@ -63,6 +63,29 @@ class Path
             $out = preg_replace('/('.$key.'=[^&]+)/', $key.'='.$value, $out);
         }
         return $out;
+
     }
+
+    /**
+     * Метод заменяет / на \
+     * @param $path
+     * @return string
+     */
+    public static function dsUnix($path) {
+        return str_repeat('/', '\\', $path);
+
+    }
+
+    /**
+     * Метод заменяет \ на /
+     * @param $path
+     * @return string
+     */
+    public static function dsUrl($path) {
+        return str_repeat('\\', '/', $path);
+
+    }
+
+
 
 }
