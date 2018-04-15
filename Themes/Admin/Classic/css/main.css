@@ -283,7 +283,13 @@ iframe.sendform
     border-radius: 5px;
     box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);
     z-index: 80000;
+    font-size: 0;
+    padding:5px 0;
 
+}
+.tools-bar img{
+
+    margin:0;
 }
 .tools-bar a {
     width:100%;
@@ -316,7 +322,12 @@ iframe.sendform
 
 .tools-bar img:hover, .tools-bar a:hover
 {
-    background: #42aefa;
+    background-color: #42aefa;
+    color:#fff;
+}
+
+.tools-bar img:hover{
+
 }
 .tools-bar a.fa-times{
     color: red;
