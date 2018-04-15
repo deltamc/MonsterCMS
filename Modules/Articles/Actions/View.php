@@ -19,7 +19,7 @@ $pageList    = $this->model->pageList($id);
 
 $catalogInfo = $this->model->info($id);
 
-Lib\Css::add( Lib\Path::dsUrl($this->modulePath) . 'Css/admin.css');
+Lib\Css::add('/' . Lib\Path::dsUrl($this->modulePath) . 'Css/Admin.css');
 
 $edit   = false;
 $delete = false;
@@ -75,6 +75,8 @@ if (User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
             'delete' => "/Site/MenuItemDelete/id/{$catalogInfo->menu_item_id}",
             'deleteTitle' => Core\Lang::get('Articles.catalogDelete'),
             'deleteConfirm' => Core\Lang::get('Articles.catalogDeleteConfirm'),
+            'add' => '/Articles/Add/MenuItem/{$id}',
+            'addTitle' =>  Core\Lang::get('Articles.articleAdd'),
         )
     );
 }

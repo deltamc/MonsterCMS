@@ -72,7 +72,7 @@ class Path
      * @return string
      */
     public static function dsUnix($path) {
-        return str_repeat('/', '\\', $path);
+        return str_replace('/', '\\', $path);
 
     }
 
@@ -82,7 +82,7 @@ class Path
      * @return string
      */
     public static function dsUrl($path) {
-        return str_repeat('\\', '/', $path);
+        return str_replace('\\', '/', $path);
 
     }
 

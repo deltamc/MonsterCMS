@@ -9,7 +9,7 @@ if ($add || $edit || $delete) {
 }
 ?>
 <?php if ($add):?>
-    <a href="/Articles/Add/MenuItem/<?=$itemMenuId?>" data-size="800x600" class="win"><?=Lang::get('Articles.articleAdd')?></a>
+    <a href="/Articles/Add/MenuItem/<?=$itemMenuId?>" data-size="800x600" class="mcms-article-add-but win"><i class="fa fa-plus" aria-hidden="true"></i> <?=Lang::get('Articles.articleAdd')?></a>
 <?php endif?>
 
 
