@@ -77,7 +77,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getEditFormWindowSize()
     {
-        return '550x250';
+        return '550x270';
     }
 
     /**
