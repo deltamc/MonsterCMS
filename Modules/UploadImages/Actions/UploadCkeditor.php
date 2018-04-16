@@ -28,7 +28,12 @@ $module = preg_replace('/[^\w-_0-9]/', '', $module);
 
 $image = '';
 $error = '';
-$uploadDir = UPLOAD_DIR . DS . $module . DS . $id;
+$uploadDir = UPLOAD_DIR . DS . $module;
+
+if ($id !== 0) {
+    $uploadDir .= DS . $id;
+}
+
 $imageFull ='';
 
 $errors = array(
@@ -55,7 +60,8 @@ if(isset($_FILES['upload'])) {
     $upload = new Lib\Upload('upload', ROOT . DS . $uploadDir, md5(time() . rand(0, 1000)) , $this->config['maxSizeUpload']);
 
     if ($upload->error === 0) {
-        $imageFull = '/' . UPLOAD_DIR . '/' . $module . '/' . $id . '/' . $upload->file;
+        $imageFull = '/' . Lib\Path::dsUrl($uploadDir) . '/' . $upload->file;
+
         $image =$upload->file;
     }
     $error = $errors[$upload->error];

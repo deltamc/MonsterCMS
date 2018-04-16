@@ -16,7 +16,7 @@ return array(
                   (
                       'required'
                   ),
-                  'upload_script'=>'/UploadImages/UploadCkeditor/Module/Widgets/Id/' . $this->pageId.'?',
+                  'upload_script'=>'/UploadImages/UploadCkeditor/Module/Widgets/',
                   'height'=>'350',
                   'resize_enabled' => false,
 

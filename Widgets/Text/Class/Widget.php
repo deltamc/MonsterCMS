@@ -71,7 +71,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getAddFormWindowSize()
     {
-        return '800x600';
+        return '800x620';
     }
 
     /**
@@ -81,7 +81,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
      */
     public function getEditFormWindowSize()
     {
-        return '800x600';
+        return '800x620';
     }
 
     /**
@@ -106,7 +106,7 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
 
         $uploadDir = str_replace('/', '\/', UPLOAD_DIR);
 
-        $pattern = '/'.$uploadDir.'\/Widgets\/'.$pageId.'\/([a-f0-9]*\.\w{3,5})/';
+        $pattern = '/'.$uploadDir.'\/Widgets\/([a-f0-9]*\.\w{3,5})/';
 
         preg_match_all($pattern,$text, $result);
         $result = $result[1];
@@ -115,8 +115,9 @@ class Widget extends ModuleWidgets\WidgetAbstract implements ModuleWidgets\Widge
         if (empty($result)) return;
 
         foreach ($result as $item) {
-            print UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item . PHP_SLF;
-            @unlink(UPLOAD_DIR . DS . 'Widgets' .  DS . $pageId . DS . $item);
+
+            @unlink(UPLOAD_DIR . DS . 'Widgets' .  DS . $item);
+            //@unlink(UPLOAD_DIR . DS . 'Widgets' .  DS . '0' . DS . $item);
         }
     }
 
