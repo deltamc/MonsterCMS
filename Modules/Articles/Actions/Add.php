@@ -7,6 +7,9 @@ use \Monstercms\Core;
 use \Monstercms\Core\User;
 use \Monstercms\Lib;
 
+$action = 'add';
+$menuItemId = ($this->getParam("MenuItem") !== null) ? $this->getParam("MenuItem") : null;
+
 //проверяем права
 if (!User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     throw new Core\HttpErrorException(403);
@@ -20,15 +23,23 @@ $this->view->add('DIALOG_HEAD', Core\Lang::get('Articles.headingAdd'));
 //Получаем данные формы
 $formItems = include($this->modulePath . 'Forms' . DS . 'Articles.php');
 
+//Получаем данные формы с других модулей
+$formItems = Core\Events::eventsForm(
+    $formItems,
+    array(
+        'menuItemId' => $menuItemId
+    )
+);
+
 $form = new Lib\Form('');
 $form->add_items($formItems);
 
 //Если форма не была заполнена, выводим ее
 if(!$form->is_submit())
 {
-    if($this->getParam("MenuItem") !== null) {
+    if($menuItemId !== null) {
 
-        $form->full(array('menuItem'=> $this->getParam("MenuItem")));
+        $form->full(array('menuItem'=> $menuItemId));
     }
 
     $this->view->add('BODY', $form->render());
@@ -39,6 +50,12 @@ else if($form->is_valid())
     $url = Lib\Request::getPost('url_semantic');
 
     $catalogId = Core\Module::get('Site')->getObjectIdByItemId(Lib\Request::getPost('menuItem'));
+
+
+    Core\Events::cell(
+        $this->moduleName . '.articleAddSave',
+        'void'
+    );
 
     //добавляем страницу
     $page = Module::get('Page')->add($name, $url, $this->moduleName);
@@ -80,6 +97,17 @@ else if($form->is_valid())
             $page['id']
         );
     }
+
+
+    Core\Events::cell(
+        $this->moduleName . '.articleAddSaveEnd',
+        'void',
+        array(
+            'articleId' => $idArt,
+            'pageId'    => $page['id'],
+
+        )
+    );
 
     //редирект
     if ((int) Lib\Request::getPost('article_goto') === 1) {

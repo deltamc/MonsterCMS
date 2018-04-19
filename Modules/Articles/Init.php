@@ -15,3 +15,4 @@ Core\Events::subs('Site.menuItemEditEnd',      $moduleName, 'eventMenuItemEditFo
 Core\Events::subs('Page.bottom', $moduleName, 'eventPageBottom');
 Core\Events::subs('Site.menuItemDeleteBefore', $moduleName, 'eventMenuItemDeleteBefore');
 Core\Events::subs('Site.generateSiteMapXml',   $moduleName, 'eventGenerateSiteMapXml');
+Core\Events::subs('Articles.ArticlesTextFormTopAfter',   $moduleName, 'eventArticlesTextFormTopAfter');

@@ -44,6 +44,13 @@ class Controller extends Core\ControllerAbstract
 
         $formSeo       =  Module::get('PageSemantic')->getSeoForm();
         $formArticle   =  include($this->modulePath . DS . 'Forms' . DS . 'ArticlesText.php');
+
+        //Получаем данные формы с других модулей
+
+        $formArticle = Core\Events::eventsForm(
+            $formArticle
+        );
+
         $formTheme     =  Module::get('PageSemantic')->getThemeForm();
 
         return array_merge($formArticle, $formSeo, $formTheme);
@@ -191,6 +198,17 @@ class Controller extends Core\ControllerAbstract
         }
 
         return $out;
+    }
+
+
+    /*тест события*/
+    public function eventArticlesTextFormTopAfter(Core\EventParam $ep){
+        return array(
+            array(
+                'type'=>'html',
+                'html'=> 'hello world',
+            ),
+        );
     }
 
 
