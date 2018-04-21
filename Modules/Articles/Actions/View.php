@@ -64,7 +64,36 @@ $vars = array(
     'add'         => $add
 );
 
+$varsCell = Core\Events::cell
+(
+    'Articles.articleItemTplVars',
+    'array_merge',
+    $vars
+);
+
+if (!empty($varsCell)) {
+    $vars = array_merge($varsCell, $vars);
+}
+
+$body = Core\Events::cell(
+    $this->moduleName . '.top',
+    'string',
+    $vars
+);
+
+$this->view->add('BODY', $body);
+
 $this->view->inc('BODY', 'Catalog.php', $vars);
+
+$body = Core\Events::cell(
+    $this->moduleName . '.bottom',
+    'string',
+    $vars
+);
+
+$this->view->add('BODY', $body);
+
+
 if (User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
     $this->view->inc(
         'BODY',
@@ -75,7 +104,7 @@ if (User::isAccess(User::ADMIN, User::CONTENT_MANAGER)) {
             'delete' => "/Site/MenuItemDelete/id/{$catalogInfo->menu_item_id}",
             'deleteTitle' => Core\Lang::get('Articles.catalogDelete'),
             'deleteConfirm' => Core\Lang::get('Articles.catalogDeleteConfirm'),
-            'add' => '/Articles/Add/MenuItem/{$id}',
+            'add' => '/Articles/Add/MenuItem/' . $catalogInfo->menu_item_id,
             'addTitle' =>  Core\Lang::get('Articles.articleAdd'),
         )
     );

@@ -27,7 +27,8 @@ $formItems = include($this->modulePath . 'Forms' . DS . 'Articles.php');
 $formItems = Core\Events::eventsForm(
     $formItems,
     array(
-        'menuItemId' => $menuItemId
+        'menuItemId' => $menuItemId,
+
     )
 );
 

@@ -18,6 +18,7 @@ $this->view->add('DIALOG_HEAD', Core\Lang::get('Articles.headingEdit'));
 $id = $this->getObjectId();
 $articleInfo = $this->model->articleInfo($id);
 $urlId = $articleInfo->url_id;
+
 $action = 'edit';
 //Получаем данные формы
 $formItems = include($this->modulePath . 'Forms' . DS . 'Articles.php');
@@ -28,24 +29,73 @@ if($this->getParam('GoTo') === 'Art') {
 }
 //
 $form = new Lib\Form('');
-$form->add_items($formItems);
 
+//Получаем данные формы с других модулей
+$formItems = Core\Events::eventsForm(
+    $formItems,
+    array(
+        'articleId' => $id,
+        'pageId'    => $articleInfo->page_id,
+        'menuItem'  => $articleInfo->menu_item_id,
+        'name'      => $articleInfo->name,
+        'url'       => $articleInfo->url,
+        'preview'   => $articleInfo->preview,
+    )
+);
+
+$form->add_items($formItems);
 
 
 if(!$form->is_submit())
 {
     $full = array(
-        'menuItem' => $articleInfo->menu_item_id,
-        'name'     => $articleInfo->name,
+        'menuItem'     => $articleInfo->menu_item_id,
+        'name'         => $articleInfo->name,
         'url_semantic' => $articleInfo->url,
-        'preview' => $articleInfo->preview,
+        'preview'      => $articleInfo->preview,
     );
+
+    //Заполняем элементы форм получив массив из других модулей
+    $fullEvent = Core\Events::cell(
+        'Articles.articleEditFullForm',
+        'array_merge',
+        array(
+            'articleId' => $id,
+            'pageId'    => $articleInfo->page_id,
+            'menuItem'  => $articleInfo->menu_item_id,
+            'name'      => $articleInfo->name,
+            'url'       => $articleInfo->url,
+            'preview'   => $articleInfo->preview,
+        )
+    );
+
+
+    if (!empty($fullEvent)) {
+
+        foreach ($fullEvent as $name => $value) {
+            $full[$name] = $value;
+        }
+    }
 
     $form->full($full);
     $form->full(Module::get('PageSemantic')->fullSeoForm('Page', $articleInfo->page_id));
     $this->view->add('BODY', $form->render());
 
 } elseif ($form->is_valid()) {
+
+    Core\Events::cell
+    (
+        'Articles.articleEditSave',
+        'void',
+        array(
+            'articleId' => $id,
+            'pageId'    => $articleInfo->page_id,
+            'menuItem'  => $articleInfo->menu_item_id,
+            'name'      => $articleInfo->name,
+            'url'       => $articleInfo->url,
+            'preview'   => $articleInfo->preview,
+        )
+    );
 
     $url = Lib\Request::getPost('url_semantic');
     $this->model->editArticle(
@@ -65,6 +115,17 @@ if(!$form->is_submit())
 
     //сохраняем SEO данные
     Module::get('PageSemantic')->saveSeoForm('Page', $articleInfo->page_id, time());
+
+
+    Core\Events::cell
+    (
+        'Articles.articleEditSave',
+        'void',
+        array(
+            'articleId' => $id,
+            'pageId'    => $articleInfo->page_id
+        )
+    );
 
 
     if ((int) Lib\Request::getPost('article_goto') === 1 || $this->getParam('GoTo') === 'Art') {
