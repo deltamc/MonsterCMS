@@ -8,7 +8,7 @@ ini_set('session.cookie_httponly ', 1);
 
 
 define('MCMS_VERSION',   '1.3.0');
-define('HOST',        $_SERVER["HTTP_HOST"]);
+define('HOST',        $_SERVER["SERVER_NAME"]);
 define('DS',          DIRECTORY_SEPARATOR);
 define('MCMS_ACCESS', true);
 define('ROOT',        rtrim(dirname(__FILE__), '\\/'));
