@@ -1,9 +1,9 @@
-<?php
-
+<?php namespace  Monstercms\Lib;
+defined('MCMS_ACCESS') or die('No direct script access.');
 #
 # Markdown Parser Class
 #
-namespace  Monstercms\Lib;
+
 class Markdown {
 
 	### Version ###

@@ -1,3 +1,4 @@
+<?php defined('MCMS_ACCESS') or die('No direct script access.');?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>

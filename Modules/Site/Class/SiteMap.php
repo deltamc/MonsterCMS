@@ -1,5 +1,7 @@
 <?php namespace Monstercms\Modules\Site;
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 class SiteMap  extends \Monstercms\Core\ModelAbstract{
 
     private $xml = '';

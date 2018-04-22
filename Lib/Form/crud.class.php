@@ -1,5 +1,6 @@
 <?
-/* last edit 03.09.2015*/
+
+defined('MCMS_ACCESS') or die('No direct script access.');
 
 class crud
 {

@@ -1,5 +1,7 @@
 <?php namespace Monstercms\Modules\PageSemantic;
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 use \Monstercms\Core;
 use \Monstercms\Core\Lang;
 use \Monstercms\Lib;

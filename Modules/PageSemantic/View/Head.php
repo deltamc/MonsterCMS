@@ -1,3 +1,4 @@
+<?php defined('MCMS_ACCESS') or die('No direct script access.');?>
 <title><?=$title?></title>
 <meta name="description" content="<?=$description?>"/>
 

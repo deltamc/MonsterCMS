@@ -1,5 +1,7 @@
 <?php
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 class select_tree extends form_item
 {
     private $tree = '';

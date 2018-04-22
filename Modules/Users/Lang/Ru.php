@@ -1,4 +1,6 @@
 <?php
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 return array(
     'login'                => 'Логин',
     'password'             => 'Пароль',

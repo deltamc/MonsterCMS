@@ -1,4 +1,6 @@
-<?
+
+<?php
+defined('MCMS_ACCESS') or die('No direct script access.');
 $idr = 'code' . rand(0,10000);
 ?>
 <div <?php if(!empty($id)):?>id="<?=$id?>" <?php endif?><?php if(!empty($css_class)):?>class="<?=$css_class?>"<?php endif?>>

@@ -1,4 +1,5 @@
 <?php
+defined('MCMS_ACCESS') or die('No direct script access.');
 
 use Monstercms\Lib as Lib;
 

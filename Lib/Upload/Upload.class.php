@@ -1,4 +1,7 @@
 <?php namespace  Monstercms\Lib;
+
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 class Upload
 {
 

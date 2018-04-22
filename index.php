@@ -1,9 +1,11 @@
 <?php
-
 use Monstercms\Lib;
 use Monstercms\Core;
 use Monstercms\Core\Module;
 use Monstercms\Lib\View;
+
+ini_set('session.cookie_httponly ', 1);
+
 
 define('MCMS_VERSION',   '1.3.0');
 define('HOST',        $_SERVER["HTTP_HOST"]);

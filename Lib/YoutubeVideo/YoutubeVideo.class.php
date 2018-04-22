@@ -1,12 +1,7 @@
-<?php
+<?php namespace  Monstercms\Lib;
 
-/**
- * Created by PhpStorm.
- * User: Danila
- * Date: 23.01.2016
- * Time: 18:08
- */
-namespace  Monstercms\Lib;
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 
 class YoutubeVideo
 {

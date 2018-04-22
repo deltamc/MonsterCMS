@@ -1,4 +1,5 @@
-<?php
+<?
+defined('MCMS_ACCESS') or die('No direct script access.');
 
 class images_upload extends form_item
 {

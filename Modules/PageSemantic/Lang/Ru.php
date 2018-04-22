@@ -1,5 +1,7 @@
 <?php
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 return array(
     'seoTitle'       => 'Заголовок окна в браузере, тег Title',
     'seoTitleHelp'   => 'Если не заполнен, тег *Title* будет автоматически сформирован как «Название страницы – Название сайта»',

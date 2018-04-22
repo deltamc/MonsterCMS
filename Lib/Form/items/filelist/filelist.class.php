@@ -1,4 +1,5 @@
 <?php
+defined('MCMS_ACCESS') or die('No direct script access.');
 
 class filelist extends form_item
 {

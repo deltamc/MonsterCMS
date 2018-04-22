@@ -1,5 +1,7 @@
 <?php namespace  Monstercms\Lib;
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 use \Monstercms\Lib as Lib;
 
 class Form

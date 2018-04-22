@@ -1,5 +1,7 @@
 <?php namespace Monstercms\Modules\Users;
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 use Monstercms\Core\User;
 
 class Users extends \Monstercms\Core\ModelAbstract{

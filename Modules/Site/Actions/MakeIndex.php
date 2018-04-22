@@ -1,4 +1,5 @@
 <?php namespace Monstercms\Modules\Site;
+defined('MCMS_ACCESS') or die('No direct script access.');
 /**
  * @var $this Core\ControllerAbstract
  */

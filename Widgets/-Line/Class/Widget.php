@@ -1,5 +1,7 @@
 <?php namespace Monstercms\Widgets\Line;
 
+defined('MCMS_ACCESS') or die('No direct script access.');
+
 use Monstercms\Core;
 use Monstercms\Modules\Widgets as ModuleWidgets;
 

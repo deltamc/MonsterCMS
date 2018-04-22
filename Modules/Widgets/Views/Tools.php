@@ -1,3 +1,4 @@
+<?php defined('MCMS_ACCESS') or die('No direct script access.');?>
 <div id="medit-tools" data-page-id="<?=$pageId?>" class="tools-bar left top">
     <?php foreach ($widgets as $widget):?>
     <img src="<?=$widget['ico']?>" id="medit-widget-but-<?=$widget['widget'];?>"
